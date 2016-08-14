@@ -1,0 +1,383 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		634A886F1D5F5FF70022AC22 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A886E1D5F5FF70022AC22 /* main.m */; };
+		634A88721D5F5FF70022AC22 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A88711D5F5FF70022AC22 /* AppDelegate.m */; };
+		634A88751D5F5FF70022AC22 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A88741D5F5FF70022AC22 /* ViewController.m */; };
+		634A88781D5F5FF70022AC22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 634A88761D5F5FF70022AC22 /* Main.storyboard */; };
+		634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 634A88791D5F5FF70022AC22 /* Assets.xcassets */; };
+		634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 634A887B1D5F5FF70022AC22 /* LaunchScreen.storyboard */; };
+		634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A88881D5F60A80022AC22 /* UXKBridge.m */; };
+		6396DB681D606DB2001D9B6D /* UXKVisualDOM.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB671D606DB2001D9B6D /* UXKVisualDOM.js */; };
+		6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB6A1D606E59001D9B6D /* RedBox.html */; };
+		6396DB6F1D6089D7001D9B6D /* UXKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB6E1D6089D7001D9B6D /* UXKView.m */; };
+		6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB701D60A0BF001D9B6D /* UXKTasks.js */; };
+		63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */; };
+		63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		634A886A1D5F5FF70022AC22 /* uxkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uxkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		634A886E1D5F5FF70022AC22 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		634A88701D5F5FF70022AC22 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		634A88711D5F5FF70022AC22 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		634A88731D5F5FF70022AC22 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		634A88741D5F5FF70022AC22 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		634A88771D5F5FF70022AC22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		634A88791D5F5FF70022AC22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		634A887C1D5F5FF70022AC22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		634A887E1D5F5FF70022AC22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		634A88871D5F60A80022AC22 /* UXKBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridge.h; sourceTree = "<group>"; };
+		634A88881D5F60A80022AC22 /* UXKBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridge.m; sourceTree = "<group>"; };
+		6396DB671D606DB2001D9B6D /* UXKVisualDOM.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKVisualDOM.js; sourceTree = "<group>"; };
+		6396DB6A1D606E59001D9B6D /* RedBox.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RedBox.html; sourceTree = "<group>"; };
+		6396DB6D1D6089D7001D9B6D /* UXKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKView.h; sourceTree = "<group>"; };
+		6396DB6E1D6089D7001D9B6D /* UXKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKView.m; sourceTree = "<group>"; };
+		6396DB701D60A0BF001D9B6D /* UXKTasks.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKTasks.js; sourceTree = "<group>"; };
+		63ADA2AB1D5F6F3A00C13191 /* UXKBridgeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeController.h; sourceTree = "<group>"; };
+		63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeController.m; sourceTree = "<group>"; };
+		63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeViewUpdater.h; sourceTree = "<group>"; };
+		63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeViewUpdater.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		634A88671D5F5FF70022AC22 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		634A88611D5F5FF70022AC22 = {
+			isa = PBXGroup;
+			children = (
+				634A88841D5F603F0022AC22 /* runtime */,
+				634A886C1D5F5FF70022AC22 /* uxkit */,
+				634A886B1D5F5FF70022AC22 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		634A886B1D5F5FF70022AC22 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				634A886A1D5F5FF70022AC22 /* uxkit.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		634A886C1D5F5FF70022AC22 /* uxkit */ = {
+			isa = PBXGroup;
+			children = (
+				6396DB691D606E3E001D9B6D /* Sample */,
+				634A88701D5F5FF70022AC22 /* AppDelegate.h */,
+				634A88711D5F5FF70022AC22 /* AppDelegate.m */,
+				634A88731D5F5FF70022AC22 /* ViewController.h */,
+				634A88741D5F5FF70022AC22 /* ViewController.m */,
+				634A88761D5F5FF70022AC22 /* Main.storyboard */,
+				634A88791D5F5FF70022AC22 /* Assets.xcassets */,
+				634A887B1D5F5FF70022AC22 /* LaunchScreen.storyboard */,
+				634A887E1D5F5FF70022AC22 /* Info.plist */,
+				634A886D1D5F5FF70022AC22 /* Supporting Files */,
+			);
+			path = uxkit;
+			sourceTree = "<group>";
+		};
+		634A886D1D5F5FF70022AC22 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				634A886E1D5F5FF70022AC22 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		634A88841D5F603F0022AC22 /* runtime */ = {
+			isa = PBXGroup;
+			children = (
+				6396DB6C1D608972001D9B6D /* component */,
+				634A88851D5F60550022AC22 /* js */,
+				634A88861D5F60550022AC22 /* oc */,
+			);
+			path = runtime;
+			sourceTree = "<group>";
+		};
+		634A88851D5F60550022AC22 /* js */ = {
+			isa = PBXGroup;
+			children = (
+				6396DB701D60A0BF001D9B6D /* UXKTasks.js */,
+				6396DB671D606DB2001D9B6D /* UXKVisualDOM.js */,
+			);
+			path = js;
+			sourceTree = "<group>";
+		};
+		634A88861D5F60550022AC22 /* oc */ = {
+			isa = PBXGroup;
+			children = (
+				634A88871D5F60A80022AC22 /* UXKBridge.h */,
+				634A88881D5F60A80022AC22 /* UXKBridge.m */,
+				63ADA2AB1D5F6F3A00C13191 /* UXKBridgeController.h */,
+				63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */,
+				63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */,
+				63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */,
+			);
+			path = oc;
+			sourceTree = "<group>";
+		};
+		6396DB691D606E3E001D9B6D /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				6396DB6A1D606E59001D9B6D /* RedBox.html */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		6396DB6C1D608972001D9B6D /* component */ = {
+			isa = PBXGroup;
+			children = (
+				6396DB6D1D6089D7001D9B6D /* UXKView.h */,
+				6396DB6E1D6089D7001D9B6D /* UXKView.m */,
+			);
+			path = component;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		634A88691D5F5FF70022AC22 /* uxkit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 634A88811D5F5FF70022AC22 /* Build configuration list for PBXNativeTarget "uxkit" */;
+			buildPhases = (
+				634A88661D5F5FF70022AC22 /* Sources */,
+				634A88671D5F5FF70022AC22 /* Frameworks */,
+				634A88681D5F5FF70022AC22 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = uxkit;
+			productName = uxkit;
+			productReference = 634A886A1D5F5FF70022AC22 /* uxkit.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		634A88621D5F5FF70022AC22 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = UXK;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "YY Inc.";
+				TargetAttributes = {
+					634A88691D5F5FF70022AC22 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 634A88651D5F5FF70022AC22 /* Build configuration list for PBXProject "uxkit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 634A88611D5F5FF70022AC22;
+			productRefGroup = 634A886B1D5F5FF70022AC22 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				634A88691D5F5FF70022AC22 /* uxkit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		634A88681D5F5FF70022AC22 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */,
+				6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */,
+				634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */,
+				634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */,
+				6396DB681D606DB2001D9B6D /* UXKVisualDOM.js in Resources */,
+				634A88781D5F5FF70022AC22 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		634A88661D5F5FF70022AC22 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6396DB6F1D6089D7001D9B6D /* UXKView.m in Sources */,
+				63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */,
+				634A88751D5F5FF70022AC22 /* ViewController.m in Sources */,
+				634A88721D5F5FF70022AC22 /* AppDelegate.m in Sources */,
+				634A886F1D5F5FF70022AC22 /* main.m in Sources */,
+				634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */,
+				63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		634A88761D5F5FF70022AC22 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				634A88771D5F5FF70022AC22 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		634A887B1D5F5FF70022AC22 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				634A887C1D5F5FF70022AC22 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		634A887F1D5F5FF70022AC22 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		634A88801D5F5FF70022AC22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		634A88821D5F5FF70022AC22 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = uxkit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yy.uxkit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		634A88831D5F5FF70022AC22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = uxkit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yy.uxkit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		634A88651D5F5FF70022AC22 /* Build configuration list for PBXProject "uxkit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				634A887F1D5F5FF70022AC22 /* Debug */,
+				634A88801D5F5FF70022AC22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		634A88811D5F5FF70022AC22 /* Build configuration list for PBXNativeTarget "uxkit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				634A88821D5F5FF70022AC22 /* Debug */,
+				634A88831D5F5FF70022AC22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 634A88621D5F5FF70022AC22 /* Project object */;
+}
