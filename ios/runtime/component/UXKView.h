@@ -10,6 +10,8 @@
 
 @interface UXKView : UIView
 
+@property (nonatomic, copy) NSString *layoutFrame;
+
 + (BOOL)toBool:(NSString *)stringValue;
 + (CGFloat)toCGFloat:(NSString *)stringValue;
 + (CGRect)toRect:(NSString *)stringValue;

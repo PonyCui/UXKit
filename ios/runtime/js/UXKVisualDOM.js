@@ -1,4 +1,5 @@
 window._UXK_VisualDOMNames = ["BODY", "VIEW"];
+window._UXK_Components = {};
 window._UXK_VisualDOMAttrs = ["frame", 
                               "userInteractionEnabled", 
                               "transform",
@@ -26,6 +27,9 @@ window._UXK_VisualDOM = function () {
                 this.assignKeys(node);
                 this.commitTree(node);
             }
+        },
+        rendComponents: function (node) {
+            
         },
         assignKeys: function (node) {
             var childNodes = node.childNodes;
