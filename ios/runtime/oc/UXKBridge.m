@@ -13,20 +13,36 @@
 @interface UXKBridge ()
 
 @property (nonatomic, strong) UIView *view;
+@property (nonatomic, strong) WKWebViewConfiguration *configureation;
 @property (nonatomic, strong) WKWebView *webView;
 
 @end
 
 @implementation UXKBridge
 
+static BOOL debugMode;
+
++ (void)setDebugMode:(BOOL)isOn {
+    debugMode = isOn;
+}
+
++ (WKWebViewConfiguration *)configurationWithView:(UIView *)view {
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    configuration.userContentController = [[UXKBridgeController alloc] initWithView:view];
+    return configuration;
+}
+
 - (instancetype)initWithView:(UIView *)view
 {
     self = [super init];
     if (self) {
-        WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-        configuration.userContentController = [[UXKBridgeController alloc] initWithView:view];
-        _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[UXKBridge configurationWithView:view]];
         _view = view;
+        if (debugMode) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[[UIApplication sharedApplication] keyWindow] addSubview:self.webView];
+            });
+        }
     }
     return self;
 }

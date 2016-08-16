@@ -127,6 +127,7 @@ static NSDictionary *kUXKViewTypes;
             }
         }
     }
+    [currentView layoutSubviews];
     return currentView;
 }
 

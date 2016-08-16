@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "UXKBridge.h"
 
 @interface AppDelegate ()
 
@@ -15,6 +16,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [UXKBridge setDebugMode:YES];
     return YES;
 }
 

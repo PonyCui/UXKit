@@ -11,6 +11,8 @@
 
 @interface UXKBridge : NSObject
 
++ (void)setDebugMode:(BOOL)isOn;
+
 - (instancetype)initWithView:(UIView *)view;
 
 - (void)loadRequest:(NSURLRequest *)request;
