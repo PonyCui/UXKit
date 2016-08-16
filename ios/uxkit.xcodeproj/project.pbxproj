@@ -16,8 +16,9 @@
 		634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A88881D5F60A80022AC22 /* UXKBridge.m */; };
 		6396DB681D606DB2001D9B6D /* UXKVisualDOM.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB671D606DB2001D9B6D /* UXKVisualDOM.js */; };
 		6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB6A1D606E59001D9B6D /* RedBox.html */; };
-		6396DB6F1D6089D7001D9B6D /* UXKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB6E1D6089D7001D9B6D /* UXKView.m */; };
 		6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB701D60A0BF001D9B6D /* UXKTasks.js */; };
+		6396DB7A1D63598E001D9B6D /* UXKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB791D63598E001D9B6D /* UXKView.m */; };
+		6396DB7D1D6359A2001D9B6D /* UXKProps.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB7C1D6359A2001D9B6D /* UXKProps.m */; };
 		63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */; };
 		63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */; };
 /* End PBXBuildFile section */
@@ -37,9 +38,11 @@
 		634A88881D5F60A80022AC22 /* UXKBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridge.m; sourceTree = "<group>"; };
 		6396DB671D606DB2001D9B6D /* UXKVisualDOM.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKVisualDOM.js; sourceTree = "<group>"; };
 		6396DB6A1D606E59001D9B6D /* RedBox.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RedBox.html; sourceTree = "<group>"; };
-		6396DB6D1D6089D7001D9B6D /* UXKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKView.h; sourceTree = "<group>"; };
-		6396DB6E1D6089D7001D9B6D /* UXKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKView.m; sourceTree = "<group>"; };
 		6396DB701D60A0BF001D9B6D /* UXKTasks.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKTasks.js; sourceTree = "<group>"; };
+		6396DB781D63598E001D9B6D /* UXKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKView.h; sourceTree = "<group>"; };
+		6396DB791D63598E001D9B6D /* UXKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKView.m; sourceTree = "<group>"; };
+		6396DB7B1D6359A2001D9B6D /* UXKProps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKProps.h; sourceTree = "<group>"; };
+		6396DB7C1D6359A2001D9B6D /* UXKProps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKProps.m; sourceTree = "<group>"; };
 		63ADA2AB1D5F6F3A00C13191 /* UXKBridgeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeController.h; sourceTree = "<group>"; };
 		63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeController.m; sourceTree = "<group>"; };
 		63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeViewUpdater.h; sourceTree = "<group>"; };
@@ -102,7 +105,7 @@
 		634A88841D5F603F0022AC22 /* runtime */ = {
 			isa = PBXGroup;
 			children = (
-				6396DB6C1D608972001D9B6D /* component */,
+				6396DB751D63598E001D9B6D /* components */,
 				634A88851D5F60550022AC22 /* js */,
 				634A88861D5F60550022AC22 /* oc */,
 			);
@@ -139,13 +142,31 @@
 			path = Sample;
 			sourceTree = "<group>";
 		};
-		6396DB6C1D608972001D9B6D /* component */ = {
+		6396DB751D63598E001D9B6D /* components */ = {
 			isa = PBXGroup;
 			children = (
-				6396DB6D1D6089D7001D9B6D /* UXKView.h */,
-				6396DB6E1D6089D7001D9B6D /* UXKView.m */,
+				6396DB761D63598E001D9B6D /* js */,
+				6396DB771D63598E001D9B6D /* oc */,
 			);
-			path = component;
+			path = components;
+			sourceTree = "<group>";
+		};
+		6396DB761D63598E001D9B6D /* js */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = js;
+			sourceTree = "<group>";
+		};
+		6396DB771D63598E001D9B6D /* oc */ = {
+			isa = PBXGroup;
+			children = (
+				6396DB781D63598E001D9B6D /* UXKView.h */,
+				6396DB791D63598E001D9B6D /* UXKView.m */,
+				6396DB7B1D6359A2001D9B6D /* UXKProps.h */,
+				6396DB7C1D6359A2001D9B6D /* UXKProps.m */,
+			);
+			path = oc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,7 +243,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6396DB6F1D6089D7001D9B6D /* UXKView.m in Sources */,
+				6396DB7A1D63598E001D9B6D /* UXKView.m in Sources */,
+				6396DB7D1D6359A2001D9B6D /* UXKProps.m in Sources */,
 				63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */,
 				634A88751D5F5FF70022AC22 /* ViewController.m in Sources */,
 				634A88721D5F5FF70022AC22 /* AppDelegate.m in Sources */,

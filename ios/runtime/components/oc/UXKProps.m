@@ -1,14 +1,14 @@
 //
-//  UXKView.m
+//  UXKProps.m
 //  uxkit
 //
-//  Created by 崔 明辉 on 16/8/14.
+//  Created by 崔 明辉 on 16/8/16.
 //  Copyright © 2016年 YY Inc. All rights reserved.
 //
 
-#import "UXKView.h"
+#import "UXKProps.h"
 
-@implementation UXKView
+@implementation UXKProps
 
 + (BOOL)toBool:(NSString *)stringValue {
     if ([stringValue isEqualToString:@"true"]) {
@@ -23,8 +23,8 @@
     return (CGFloat)[stringValue floatValue];
 }
 
-+ (CGRect)toRect:(NSString *)stringValue {
-    NSArray *components = [stringValue componentsSeparatedByString:@","];
++ (CGRect)toRectWithRect:(NSString *)rectString {
+    NSArray *components = [rectString componentsSeparatedByString:@","];
     if ([components count] == 4) {
         return CGRectMake([components[0] floatValue],
                           [components[1] floatValue],
@@ -36,33 +36,47 @@
     }
 }
 
-+ (CGRect)toRect:(NSString *)layoutFrame forView:(UIView *)view {
++ (CGRect)toRectWithFormat:(NSString *)formatString
+                   forView:(UIView *)view
+              previousView:(UIView *)previousView
+                  nextView:(UIView *)nextView {
     static NSRegularExpression *leftExp;
     static NSRegularExpression *widthExp;
     static NSRegularExpression *rightExp;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        leftExp = [NSRegularExpression regularExpressionWithPattern:@"\\|-([0-9]+)-"
+        leftExp = [NSRegularExpression regularExpressionWithPattern:@"([<\\|])-([@\\-0-9]+)-"
                                                             options:kNilOptions
                                                               error:nil];
         widthExp = [NSRegularExpression regularExpressionWithPattern:@"\\[([0-9]+)\\]"
                                                              options:kNilOptions
                                                                error:nil];
-        rightExp = [NSRegularExpression regularExpressionWithPattern:@"-([0-9]+)-\\|"
+        rightExp = [NSRegularExpression regularExpressionWithPattern:@"-([@\\-0-9]+)-\\|"
                                                              options:kNilOptions
                                                                error:nil];
     });
     CGRect superBounds = [[view superview] bounds];
-    NSArray *components = [layoutFrame componentsSeparatedByString:@","];
+    NSArray *components = [formatString componentsSeparatedByString:@","];
     if ([components count] == 2) {
         CGFloat x = 0.0, y = 0.0, width = 0.0, height = 0.0;
         {
+            BOOL cl = NO, cr = NO, relatePrev = NO;
             {
                 NSArray<NSTextCheckingResult *> *results = [leftExp matchesInString:components[0]
                                                                             options:NSMatchingReportCompletion
                                                                               range:NSMakeRange(0, [components[0] length])];
-                if ([results firstObject] != nil && 1 < [[results firstObject] numberOfRanges]) {
-                    x = [[components[0] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue];
+                if ([results firstObject] != nil && 2 < [[results firstObject] numberOfRanges]) {
+                    NSString *lSymbol = [components[0] substringWithRange:[[results firstObject] rangeAtIndex:1]];
+                    NSString *val = [components[0] substringWithRange:[[results firstObject] rangeAtIndex:2]];
+                    if ([lSymbol isEqualToString:@"<"]) {
+                        relatePrev = YES;
+                    }
+                    if ([val isEqualToString:@"@"]) {
+                        cl = YES;
+                    }
+                    else {
+                        x = [val floatValue];
+                    }
                 }
             }
             {
@@ -78,22 +92,42 @@
                                                                              options:NSMatchingReportCompletion
                                                                                range:NSMakeRange(0, [components[0] length])];
                 if ([results firstObject] != nil && 1 < [[results firstObject] numberOfRanges]) {
-                    if (width > 0.0) {
-                        x = superBounds.size.width - [[components[0] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue] - width;
+                    NSString *val = [components[0] substringWithRange:[[results firstObject] rangeAtIndex:1]];
+                    if ([val isEqualToString:@"@"]) {
+                        cr = YES;
                     }
                     else {
-                        width = superBounds.size.width - [[components[0] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue] - x;
+                        if (width > 0.0) {
+                            x = superBounds.size.width - [val floatValue] - width;
+                        }
+                        else {
+                            width = superBounds.size.width - [val floatValue] - x;
+                        }
                     }
                 }
             }
+            if (cl && cr && width > 0) {
+                x = (superBounds.size.width - width) / 2.0;
+            }
         }
         {
+            BOOL cl = NO, cr = NO, relatePrev = NO;
             {
                 NSArray<NSTextCheckingResult *> *results = [leftExp matchesInString:components[1]
                                                                             options:NSMatchingReportCompletion
                                                                               range:NSMakeRange(0, [components[1] length])];
-                if ([results firstObject] != nil && 1 < [[results firstObject] numberOfRanges]) {
-                    y = [[components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue];
+                if ([results firstObject] != nil && 2 < [[results firstObject] numberOfRanges]) {
+                    NSString *lSymbol = [components[0] substringWithRange:[[results firstObject] rangeAtIndex:1]];
+                    NSString *val = [components[1] substringWithRange:[[results firstObject] rangeAtIndex:2]];
+                    if ([lSymbol isEqualToString:@"<"]) {
+                        relatePrev = YES;
+                    }
+                    if ([val isEqualToString:@"@"]) {
+                        cl = YES;
+                    }
+                    else {
+                        y = [[components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue];
+                    }
                 }
             }
             {
@@ -109,13 +143,22 @@
                                                                              options:NSMatchingReportCompletion
                                                                                range:NSMakeRange(0, [components[1] length])];
                 if ([results firstObject] != nil && 1 < [[results firstObject] numberOfRanges]) {
-                    if (height > 0.0) {
-                        y = superBounds.size.height - [[components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue] - height;
+                    NSString *val = [components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]];
+                    if ([val isEqualToString:@"@"]) {
+                        cr = YES;
                     }
                     else {
-                        height = superBounds.size.height - [[components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue] - y;
+                        if (height > 0.0) {
+                            y = superBounds.size.height - [[components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue] - height;
+                        }
+                        else {
+                            height = superBounds.size.height - [[components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue] - y;
+                        }
                     }
                 }
+            }
+            if (cl && cr && height > 0) {
+                y = (superBounds.size.height - height) / 2.0;
             }
         }
         return CGRectMake(x, y, width, height);
@@ -169,48 +212,6 @@
     unsigned hexComponent;
     [[NSScanner scannerWithString: fullHex] scanHexInt: &hexComponent];
     return hexComponent / 255.0;
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (self.layoutFrame != nil) {
-        self.frame = [UXKView toRect:self.layoutFrame forView:self];
-        for (UIView *subview in self.subviews) {
-            [subview layoutSubviews];
-        }
-    }
-}
-
-@end
-
-@implementation UIView (UXKProps)
-
-- (void)uxk_setProps:(NSDictionary *)props {
-    if (props[@"frame"] && [props[@"frame"] isKindOfClass:[NSString class]]) {
-        if ([(NSString *)props[@"frame"] containsString:@"["]) {
-            if ([self isKindOfClass:[UXKView class]]) {
-                [(UXKView *)self setLayoutFrame:props[@"frame"]];
-            }
-        }
-        else {
-            self.frame = [UXKView toRect:props[@"frame"]];
-        }
-    }
-    if (props[@"userInteractionEnabled"] && [props[@"userInteractionEnabled"] isKindOfClass:[NSString class]]) {
-        self.userInteractionEnabled = [UXKView toBool:props[@"userInteractionEnabled"]];
-    }
-    if (props[@"clipsToBounds"] && [props[@"clipsToBounds"] isKindOfClass:[NSString class]]) {
-        self.clipsToBounds = [UXKView toBool:props[@"clipsToBounds"]];
-    }
-    if (props[@"backgroundColor"] && [props[@"backgroundColor"] isKindOfClass:[NSString class]]) {
-        self.backgroundColor = [UXKView toColor:props[@"backgroundColor"]];
-    }
-    if (props[@"alpha"] && [props[@"alpha"] isKindOfClass:[NSString class]]) {
-        self.alpha = [UXKView toCGFloat:props[@"alpha"]];
-    }
-    if (props[@"hidden"] && [props[@"hidden"] isKindOfClass:[NSString class]]) {
-        self.hidden = [UXKView toBool:props[@"hidden"]];
-    }
 }
 
 @end
