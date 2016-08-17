@@ -10,7 +10,11 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
+@class UXKBridgeController;
+
 @interface UXKBridgeViewUpdater : NSObject<WKScriptMessageHandler>
+
+@property (nonatomic, weak) UXKBridgeController *bridgeController;
 
 + (NSString *)bridgeScript;
 

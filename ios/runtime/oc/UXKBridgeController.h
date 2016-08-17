@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
+@class UXKBridgeViewUpdater, UXKBridgeAnimationHandler;
+
 @interface UXKBridgeController : WKUserContentController
+
+@property (nonatomic, readonly) UXKBridgeViewUpdater *viewUpdater;
+@property (nonatomic, readonly) UXKBridgeAnimationHandler *animationHandler;
 
 - (instancetype)initWithView:(UIView *)view;
 

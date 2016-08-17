@@ -19,8 +19,12 @@
 		6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB701D60A0BF001D9B6D /* UXKTasks.js */; };
 		6396DB7A1D63598E001D9B6D /* UXKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB791D63598E001D9B6D /* UXKView.m */; };
 		6396DB7D1D6359A2001D9B6D /* UXKProps.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB7C1D6359A2001D9B6D /* UXKProps.m */; };
+		6396DB861D64ACB0001D9B6D /* UXKAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB851D64ACB0001D9B6D /* UXKAnimation.m */; };
+		6396DB891D64AF03001D9B6D /* UXKBridgeAnimationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB881D64AF03001D9B6D /* UXKBridgeAnimationHandler.m */; };
+		6396DB8B1D64AF4E001D9B6D /* UXKAnimation.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */; };
 		63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */; };
 		63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */; };
+		78B69A7CF0F1D4A8CB1A1E4E /* libPods-uxkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A7F856FC364E5821C96704 /* libPods-uxkit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,10 +47,18 @@
 		6396DB791D63598E001D9B6D /* UXKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKView.m; sourceTree = "<group>"; };
 		6396DB7B1D6359A2001D9B6D /* UXKProps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKProps.h; sourceTree = "<group>"; };
 		6396DB7C1D6359A2001D9B6D /* UXKProps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKProps.m; sourceTree = "<group>"; };
+		6396DB841D64ACB0001D9B6D /* UXKAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKAnimation.h; sourceTree = "<group>"; };
+		6396DB851D64ACB0001D9B6D /* UXKAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKAnimation.m; sourceTree = "<group>"; };
+		6396DB871D64AF03001D9B6D /* UXKBridgeAnimationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeAnimationHandler.h; sourceTree = "<group>"; };
+		6396DB881D64AF03001D9B6D /* UXKBridgeAnimationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeAnimationHandler.m; sourceTree = "<group>"; };
+		6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKAnimation.js; sourceTree = "<group>"; };
 		63ADA2AB1D5F6F3A00C13191 /* UXKBridgeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeController.h; sourceTree = "<group>"; };
 		63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeController.m; sourceTree = "<group>"; };
 		63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeViewUpdater.h; sourceTree = "<group>"; };
 		63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeViewUpdater.m; sourceTree = "<group>"; };
+		84A7F856FC364E5821C96704 /* libPods-uxkit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-uxkit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A323CB07B5FD3C2291BF3FA6 /* Pods-uxkit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uxkit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-uxkit/Pods-uxkit.debug.xcconfig"; sourceTree = "<group>"; };
+		BCD4182A117B55AC8D1616DB /* Pods-uxkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uxkit.release.xcconfig"; path = "Pods/Target Support Files/Pods-uxkit/Pods-uxkit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,18 +66,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78B69A7CF0F1D4A8CB1A1E4E /* libPods-uxkit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F500DF2140AC27B9F0153AF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84A7F856FC364E5821C96704 /* libPods-uxkit.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		634A88611D5F5FF70022AC22 = {
 			isa = PBXGroup;
 			children = (
 				634A88841D5F603F0022AC22 /* runtime */,
 				634A886C1D5F5FF70022AC22 /* uxkit */,
 				634A886B1D5F5FF70022AC22 /* Products */,
+				682C8749216896E50DBFE9B8 /* Pods */,
+				4F500DF2140AC27B9F0153AF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,6 +140,7 @@
 			children = (
 				6396DB701D60A0BF001D9B6D /* UXKTasks.js */,
 				6396DB671D606DB2001D9B6D /* UXKVisualDOM.js */,
+				6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */,
 			);
 			path = js;
 			sourceTree = "<group>";
@@ -130,6 +154,8 @@
 				63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */,
 				63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */,
 				63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */,
+				6396DB871D64AF03001D9B6D /* UXKBridgeAnimationHandler.h */,
+				6396DB881D64AF03001D9B6D /* UXKBridgeAnimationHandler.m */,
 			);
 			path = oc;
 			sourceTree = "<group>";
@@ -163,10 +189,21 @@
 			children = (
 				6396DB781D63598E001D9B6D /* UXKView.h */,
 				6396DB791D63598E001D9B6D /* UXKView.m */,
+				6396DB841D64ACB0001D9B6D /* UXKAnimation.h */,
+				6396DB851D64ACB0001D9B6D /* UXKAnimation.m */,
 				6396DB7B1D6359A2001D9B6D /* UXKProps.h */,
 				6396DB7C1D6359A2001D9B6D /* UXKProps.m */,
 			);
 			path = oc;
+			sourceTree = "<group>";
+		};
+		682C8749216896E50DBFE9B8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A323CB07B5FD3C2291BF3FA6 /* Pods-uxkit.debug.xcconfig */,
+				BCD4182A117B55AC8D1616DB /* Pods-uxkit.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,9 +213,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 634A88811D5F5FF70022AC22 /* Build configuration list for PBXNativeTarget "uxkit" */;
 			buildPhases = (
+				CFA615F4B20020FD27A55B68 /* [CP] Check Pods Manifest.lock */,
 				634A88661D5F5FF70022AC22 /* Sources */,
 				634A88671D5F5FF70022AC22 /* Frameworks */,
 				634A88681D5F5FF70022AC22 /* Resources */,
+				426C2DD6E1844EFB52AE8010 /* [CP] Embed Pods Frameworks */,
+				E52E40E359026270E5F3853F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -227,6 +267,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6396DB8B1D64AF4E001D9B6D /* UXKAnimation.js in Resources */,
 				6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */,
 				6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */,
 				634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */,
@@ -238,15 +279,65 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		426C2DD6E1844EFB52AE8010 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-uxkit/Pods-uxkit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CFA615F4B20020FD27A55B68 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E52E40E359026270E5F3853F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-uxkit/Pods-uxkit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		634A88661D5F5FF70022AC22 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				6396DB7A1D63598E001D9B6D /* UXKView.m in Sources */,
+				6396DB891D64AF03001D9B6D /* UXKBridgeAnimationHandler.m in Sources */,
 				6396DB7D1D6359A2001D9B6D /* UXKProps.m in Sources */,
 				63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */,
 				634A88751D5F5FF70022AC22 /* ViewController.m in Sources */,
+				6396DB861D64ACB0001D9B6D /* UXKAnimation.m in Sources */,
 				634A88721D5F5FF70022AC22 /* AppDelegate.m in Sources */,
 				634A886F1D5F5FF70022AC22 /* main.m in Sources */,
 				634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */,
@@ -358,6 +449,7 @@
 		};
 		634A88821D5F5FF70022AC22 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A323CB07B5FD3C2291BF3FA6 /* Pods-uxkit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = uxkit/Info.plist;
@@ -370,6 +462,7 @@
 		};
 		634A88831D5F5FF70022AC22 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCD4182A117B55AC8D1616DB /* Pods-uxkit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = uxkit/Info.plist;

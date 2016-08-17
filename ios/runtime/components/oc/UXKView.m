@@ -8,6 +8,9 @@
 
 #import "UXKView.h"
 #import "UXKProps.h"
+#import "UXKBridgeAnimationHandler.h"
+#import "UXKAnimation.h"
+#import <pop/POP.h>
 
 @interface UXKView ()
 
@@ -53,6 +56,12 @@
 @implementation UIView (UXKProps)
 
 - (void)uxk_setProps:(NSDictionary *)props {
+    BOOL animationEnabled = NO;
+    NSDictionary *animationParams = nil;
+    if ([self isKindOfClass:[UXKView class]]) {
+        animationEnabled = [[(UXKView *)self aniHandler] animationEnabled];
+        animationParams = [[(UXKView *)self aniHandler] animationParams];
+    }
     if (props[@"frame"] && [props[@"frame"] isKindOfClass:[NSString class]]) {
         if ([(NSString *)props[@"frame"] containsString:@"["]) {
             if ([self isKindOfClass:[UXKView class]]) {
@@ -60,7 +69,22 @@
             }
         }
         else {
-            self.frame = [UXKProps toRectWithRect:props[@"frame"]];
+            if (animationEnabled) {
+                POPAnimation *ani = [UXKAnimation
+                                     animationWithParams:animationParams
+                                     aniProperty:kPOPViewFrame
+                                     fromValue:[NSValue valueWithCGRect:self.frame]
+                                     toValue:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]];
+                if (ani != nil) {
+                    [self pop_addAnimation:ani forKey:@"frame"];
+                }
+                else {
+                    self.frame = [UXKProps toRectWithRect:props[@"frame"]];
+                }
+            }
+            else {
+                self.frame = [UXKProps toRectWithRect:props[@"frame"]];
+            }
         }
     }
     if (props[@"userInteractionEnabled"] && [props[@"userInteractionEnabled"] isKindOfClass:[NSString class]]) {

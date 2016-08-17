@@ -8,6 +8,7 @@
 
 #import "UXKBridgeViewUpdater.h"
 #import "UXKView.h"
+#import "UXKBridgeController.h"
 
 static NSDictionary *kUXKViewTypes;
 
@@ -100,6 +101,9 @@ static NSDictionary *kUXKViewTypes;
         return nil;
     }
     currentView.accessibilityIdentifier = visualKey;
+    if ([currentView isKindOfClass:[UXKView class]]) {
+        [(UXKView *)currentView setAniHandler:self.bridgeController.animationHandler];
+    }
     if (props != nil && [props isKindOfClass:[NSDictionary class]]) {
         [currentView uxk_setProps:props];
     }

@@ -11,6 +11,7 @@ window._UXK_VisualDOMAttrs = ["frame",
                               "borderWidth",
                               "borderColor",
                               ];
+
 window._UXK_VisualDOM = function () {
     return {
         guid: function () {
@@ -31,8 +32,11 @@ window._UXK_VisualDOM = function () {
                 this.commitTree(node);
             }
         },
-        rendComponents: function (node) {
-            
+        updateWithAnimation: function(animation, node, onlyProps) {
+            webkit.messageHandlers.UXK_AnimationHandler_Commit.postMessage(JSON.stringify(animation));
+            webkit.messageHandlers.UXK_AnimationHandler_Enable.postMessage("");
+            this.update(node, onlyProps);
+            webkit.messageHandlers.UXK_AnimationHandler_Disable.postMessage("");
         },
         assignKeys: function (node) {
             var childNodes = node.childNodes;

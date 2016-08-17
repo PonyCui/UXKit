@@ -24,6 +24,7 @@
 }
 
 + (CGRect)toRectWithRect:(NSString *)rectString {
+    rectString = [rectString stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSArray *components = [rectString componentsSeparatedByString:@","];
     if ([components count] == 4) {
         return CGRectMake([components[0] floatValue],
@@ -40,6 +41,7 @@
                    forView:(UIView *)view
               previousView:(UIView *)previousView
                   nextView:(UIView *)nextView {
+    formatString = [formatString stringByReplacingOccurrencesOfString:@" " withString:@""];
     static NSRegularExpression *leftExp;
     static NSRegularExpression *widthExp;
     static NSRegularExpression *rightExp;

@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class UXKBridgeAnimationHandler;
+
 @interface UXKView : UIView
 
+@property (nonatomic, weak) UXKBridgeAnimationHandler *aniHandler;
 @property (nonatomic, copy) NSString *formatFrame;
 
 @end

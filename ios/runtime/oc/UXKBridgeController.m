@@ -8,9 +8,12 @@
 
 #import "UXKBridgeController.h"
 #import "UXKBridgeViewUpdater.h"
+#import "UXKBridgeAnimationHandler.h"
 
 @interface UXKBridgeController()
 
+@property (nonatomic, strong) UXKBridgeViewUpdater *viewUpdater;
+@property (nonatomic, strong) UXKBridgeAnimationHandler *animationHandler;
 @property (nonatomic, strong) UIView *view;
 
 @end
@@ -29,6 +32,7 @@
 
 - (void)configure {
     [self configureViewUpdater];
+    [self configureAnimationHandler];
     [self configureTasks];
 }
 
@@ -36,8 +40,21 @@
     [self addUserScript:[[WKUserScript alloc] initWithSource:[UXKBridgeViewUpdater bridgeScript]
                                                injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                             forMainFrameOnly:YES]];
-    [self addScriptMessageHandler:[[UXKBridgeViewUpdater alloc] initWithView:self.view]
+    self.viewUpdater = [[UXKBridgeViewUpdater alloc] initWithView:self.view];
+    self.viewUpdater.bridgeController = self;
+    [self addScriptMessageHandler:self.viewUpdater
                              name:@"UXK_ViewUpdater"];
+}
+
+- (void)configureAnimationHandler {
+    [self addUserScript:[[WKUserScript alloc] initWithSource:[UXKBridgeAnimationHandler bridgeScript]
+                                               injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                            forMainFrameOnly:YES]];
+    self.animationHandler = [[UXKBridgeAnimationHandler alloc] initWithView:self.view];
+    self.animationHandler.bridgeController = self;
+    [self addScriptMessageHandler:self.animationHandler name:@"UXK_AnimationHandler_Commit"];
+    [self addScriptMessageHandler:self.animationHandler name:@"UXK_AnimationHandler_Enable"];
+    [self addScriptMessageHandler:self.animationHandler name:@"UXK_AnimationHandler_Disable"];
 }
 
 - (void)configureTasks {
