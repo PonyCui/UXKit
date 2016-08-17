@@ -7,6 +7,9 @@ window._UXK_VisualDOMAttrs = ["frame",
                               "backgroundColor",
                               "alpha",
                               "hidden",
+                              "cornerRadius",
+                              "borderWidth",
+                              "borderColor",
                               ];
 window._UXK_VisualDOM = function () {
     return {

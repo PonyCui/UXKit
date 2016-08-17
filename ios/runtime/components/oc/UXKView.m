@@ -78,6 +78,15 @@
     if (props[@"hidden"] && [props[@"hidden"] isKindOfClass:[NSString class]]) {
         self.hidden = [UXKProps toBool:props[@"hidden"]];
     }
+    if (props[@"cornerRadius"] && [props[@"cornerRadius"] isKindOfClass:[NSString class]]) {
+        self.layer.cornerRadius = [UXKProps toCGFloat:props[@"cornerRadius"]];
+    }
+    if (props[@"borderWidth"] && [props[@"borderWidth"] isKindOfClass:[NSString class]]) {
+        self.layer.borderWidth = [UXKProps toCGFloat:props[@"borderWidth"]];
+    }
+    if (props[@"borderColor"] && [props[@"borderColor"] isKindOfClass:[NSString class]]) {
+        self.layer.borderColor = [UXKProps toColor:props[@"borderColor"]].CGColor;
+    }
 }
 
 @end
