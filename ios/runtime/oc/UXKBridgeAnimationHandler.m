@@ -52,4 +52,8 @@
     }
 }
 
+- (BOOL)addAnimationWithView:(UIView *)view {
+    
+}
+
 @end

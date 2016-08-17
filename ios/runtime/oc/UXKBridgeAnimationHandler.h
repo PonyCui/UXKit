@@ -24,4 +24,6 @@
 
 - (instancetype)initWithView:(UIView *)view;
 
+- (BOOL)addAnimationWithView:(UIView *)view;
+
 @end
