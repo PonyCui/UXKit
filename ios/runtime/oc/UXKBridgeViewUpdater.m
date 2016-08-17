@@ -33,14 +33,25 @@ static NSDictionary *kUXKViewTypes;
     return [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UXKVisualDOM" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
 }
 
+- (void)dealloc {
+    [self.view removeObserver:self forKeyPath:@"bounds" context:nil];
+}
+
 - (instancetype)initWithView:(UIView *)view
 {
     self = [super init];
     if (self) {
         _view = view;
         _mirrorViews = [NSMutableDictionary dictionary];
+        [view addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+    for (UIView *subview in [self.view subviews]) {
+        [subview layoutSubviews];
+    }
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {

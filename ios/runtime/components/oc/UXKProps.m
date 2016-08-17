@@ -51,7 +51,7 @@
         widthExp = [NSRegularExpression regularExpressionWithPattern:@"\\[([0-9]+)\\]"
                                                              options:kNilOptions
                                                                error:nil];
-        rightExp = [NSRegularExpression regularExpressionWithPattern:@"-([@\\-0-9]+)-\\|"
+        rightExp = [NSRegularExpression regularExpressionWithPattern:@"-([@\\-0-9]+)-([\\|>])"
                                                              options:kNilOptions
                                                                error:nil];
     });
@@ -60,7 +60,8 @@
     if ([components count] == 2) {
         CGFloat x = 0.0, y = 0.0, width = 0.0, height = 0.0;
         {
-            BOOL cl = NO, cr = NO, relatePrev = NO;
+            BOOL cl = NO, cr = NO, relatePrev = NO, relateNext = NO;
+            CGFloat lval = 0.0, cval = 0.0, rval = 0.0;
             {
                 NSArray<NSTextCheckingResult *> *results = [leftExp matchesInString:components[0]
                                                                             options:NSMatchingReportCompletion
@@ -75,7 +76,7 @@
                         cl = YES;
                     }
                     else {
-                        x = [val floatValue];
+                        lval = x = [val floatValue];
                     }
                 }
             }
@@ -84,15 +85,19 @@
                                                                              options:NSMatchingReportCompletion
                                                                                range:NSMakeRange(0, [components[0] length])];
                 if ([results firstObject] != nil && 1 < [[results firstObject] numberOfRanges]) {
-                    width = [[components[0] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue];
+                    cval = width = [[components[0] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue];
                 }
             }
             {
                 NSArray<NSTextCheckingResult *> *results = [rightExp matchesInString:components[0]
                                                                              options:NSMatchingReportCompletion
                                                                                range:NSMakeRange(0, [components[0] length])];
-                if ([results firstObject] != nil && 1 < [[results firstObject] numberOfRanges]) {
+                if ([results firstObject] != nil && 2 < [[results firstObject] numberOfRanges]) {
+                    NSString *rSymbol = [components[0] substringWithRange:[[results firstObject] rangeAtIndex:2]];
                     NSString *val = [components[0] substringWithRange:[[results firstObject] rangeAtIndex:1]];
+                    if ([rSymbol isEqualToString:@">"]) {
+                        relateNext = YES;
+                    }
                     if ([val isEqualToString:@"@"]) {
                         cr = YES;
                     }
@@ -103,11 +108,24 @@
                         else {
                             width = superBounds.size.width - [val floatValue] - x;
                         }
+                        rval = [val floatValue];
                     }
                 }
             }
             if (cl && cr && width > 0) {
                 x = (superBounds.size.width - width) / 2.0;
+            }
+            if (relateNext && relatePrev && nextView != nil && previousView != nil) {
+                x = previousView.frame.origin.x + previousView.frame.size.width + lval;
+                width = nextView.frame.origin.x - rval - x;
+            }
+            else if (relateNext && !relatePrev && nextView != nil) {
+                width = cval;
+                x = nextView.frame.origin.x - rval - width;
+            }
+            else if (!relateNext && relatePrev && previousView != nil) {
+                width = cval;
+                x = previousView.frame.origin.x + previousView.frame.size.width + lval;
             }
         }
         {

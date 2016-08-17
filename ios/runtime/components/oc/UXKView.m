@@ -9,27 +9,40 @@
 #import "UXKView.h"
 #import "UXKProps.h"
 
+@interface UXKView ()
+
+@end
+
 @implementation UXKView
-
-
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (self.formatFrame != nil) {
-        self.frame = [UXKProps toRectWithFormat:self.formatFrame
-                                        forView:self
-                                   previousView:nil
-                                       nextView:nil];
-        for (UIView *subview in self.subviews) {
-            [subview layoutSubviews];
+        if (([self.formatFrame containsString:@"<"] || [self.formatFrame containsString:@">"]) && [self superview] != nil) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.001 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSInteger currentIndex = [[[self superview] subviews] indexOfObject:self];
+                CGRect newFrame = [UXKProps toRectWithFormat:self.formatFrame
+                                                     forView:self
+                                                previousView:(currentIndex - 1 >= 0 ? [[self superview] subviews][currentIndex - 1] : nil)
+                                                    nextView:(currentIndex + 1 < [[[self superview] subviews] count] ? [[self superview] subviews][currentIndex + 1] : nil)];
+                if (!CGRectEqualToRect(self.frame, newFrame)) {
+                    self.frame = newFrame;
+                    for (UIView *subview in self.subviews) {
+                        [subview layoutSubviews];
+                    }
+                }
+            });
         }
-        if ([self superview] != nil) {
-            NSInteger currentIndex = [[[self superview] subviews] indexOfObject:self];
-            if (currentIndex - 1 >= 0 && currentIndex + 1 < [[[self superview] subviews] count]) {
-                self.frame = [UXKProps toRectWithFormat:self.formatFrame
-                                                forView:self
-                                           previousView:[[self superview] subviews][currentIndex - 1]
-                                               nextView:[[self superview] subviews][currentIndex + 1]];
+        else {
+            CGRect newFrame = [UXKProps toRectWithFormat:self.formatFrame
+                                                 forView:self
+                                            previousView:nil
+                                                nextView:nil];
+            if (!CGRectEqualToRect(self.frame, newFrame)) {
+                self.frame = newFrame;
+                for (UIView *subview in self.subviews) {
+                    [subview layoutSubviews];
+                }
             }
         }
     }
