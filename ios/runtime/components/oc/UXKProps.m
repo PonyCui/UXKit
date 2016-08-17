@@ -129,13 +129,14 @@
             }
         }
         {
-            BOOL cl = NO, cr = NO, relatePrev = NO;
+            BOOL cl = NO, cr = NO, relatePrev = NO, relateNext = NO;
+            CGFloat lval = 0.0, cval = 0.0, rval = 0.0;
             {
                 NSArray<NSTextCheckingResult *> *results = [leftExp matchesInString:components[1]
                                                                             options:NSMatchingReportCompletion
                                                                               range:NSMakeRange(0, [components[1] length])];
                 if ([results firstObject] != nil && 2 < [[results firstObject] numberOfRanges]) {
-                    NSString *lSymbol = [components[0] substringWithRange:[[results firstObject] rangeAtIndex:1]];
+                    NSString *lSymbol = [components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]];
                     NSString *val = [components[1] substringWithRange:[[results firstObject] rangeAtIndex:2]];
                     if ([lSymbol isEqualToString:@"<"]) {
                         relatePrev = YES;
@@ -144,7 +145,7 @@
                         cl = YES;
                     }
                     else {
-                        y = [[components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue];
+                        lval = y = [val floatValue];
                     }
                 }
             }
@@ -153,30 +154,47 @@
                                                                              options:NSMatchingReportCompletion
                                                                                range:NSMakeRange(0, [components[1] length])];
                 if ([results firstObject] != nil && 1 < [[results firstObject] numberOfRanges]) {
-                    height = [[components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue];
+                    cval = height = [[components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue];
                 }
             }
             {
                 NSArray<NSTextCheckingResult *> *results = [rightExp matchesInString:components[1]
                                                                              options:NSMatchingReportCompletion
                                                                                range:NSMakeRange(0, [components[1] length])];
-                if ([results firstObject] != nil && 1 < [[results firstObject] numberOfRanges]) {
+                if ([results firstObject] != nil && 2 < [[results firstObject] numberOfRanges]) {
+                    NSString *rSymbol = [components[1] substringWithRange:[[results firstObject] rangeAtIndex:2]];
                     NSString *val = [components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]];
+                    if ([rSymbol isEqualToString:@">"]) {
+                        relateNext = YES;
+                    }
                     if ([val isEqualToString:@"@"]) {
                         cr = YES;
                     }
                     else {
                         if (height > 0.0) {
-                            y = superBounds.size.height - [[components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue] - height;
+                            y = superBounds.size.height - [val floatValue] - height;
                         }
                         else {
-                            height = superBounds.size.height - [[components[1] substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue] - y;
+                            height = superBounds.size.height - [val floatValue] - y;
                         }
+                        rval = [val floatValue];
                     }
                 }
             }
             if (cl && cr && height > 0) {
                 y = (superBounds.size.height - height) / 2.0;
+            }
+            if (relateNext && relatePrev && nextView != nil && previousView != nil) {
+                y = previousView.frame.origin.y + previousView.frame.size.height + lval;
+                height = nextView.frame.origin.y - rval - y;
+            }
+            else if (relateNext && !relatePrev && nextView != nil) {
+                height = cval;
+                y = nextView.frame.origin.y - rval - height;
+            }
+            else if (!relateNext && relatePrev && previousView != nil) {
+                height = cval;
+                y = previousView.frame.origin.y + previousView.frame.size.height + lval;
             }
         }
         return CGRectMake(x, y, width, height);
