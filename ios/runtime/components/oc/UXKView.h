@@ -15,10 +15,6 @@
 @property (nonatomic, weak) UXKBridgeAnimationHandler *animationHandler;
 @property (nonatomic, copy) NSString *formatFrame;
 
-@end
-
-@interface UIView (UXKProps)
-
-- (void)uxk_setProps:(NSDictionary *)props;
+- (void)setProps:(NSDictionary *)props;
 
 @end

@@ -104,8 +104,8 @@ static NSDictionary *kUXKViewTypes;
     if ([currentView isKindOfClass:[UXKView class]]) {
         [(UXKView *)currentView setAnimationHandler:self.bridgeController.animationHandler];
     }
-    if (props != nil && [props isKindOfClass:[NSDictionary class]]) {
-        [currentView uxk_setProps:props];
+    if (props != nil && [props isKindOfClass:[NSDictionary class]] && [currentView isKindOfClass:[UXKView class]]) {
+        [(UXKView *)currentView setProps:props];
     }
     if (subviews != nil && [subviews isKindOfClass:[NSArray class]]) {
         __block BOOL changed = NO;
@@ -142,7 +142,6 @@ static NSDictionary *kUXKViewTypes;
             }
         }
     }
-    [currentView layoutSubviews];
     return currentView;
 }
 

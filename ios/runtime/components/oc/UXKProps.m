@@ -38,9 +38,9 @@
 }
 
 + (CGRect)toRectWithFormat:(NSString *)formatString
-                   forView:(UIView *)view
-              previousView:(UIView *)previousView
-                  nextView:(UIView *)nextView {
+            superViewFrame:(CGRect)superViewFrame
+         previousViewFrame:(CGRect)previousViewFrame
+             nextViewFrame:(CGRect)nextViewFrame {
     formatString = [formatString stringByReplacingOccurrencesOfString:@" " withString:@""];
     static NSRegularExpression *leftExp;
     static NSRegularExpression *widthExp;
@@ -57,7 +57,6 @@
                                                              options:kNilOptions
                                                                error:nil];
     });
-    CGRect superBounds = [[view superview] bounds];
     NSArray *components = [formatString componentsSeparatedByString:@","];
     if ([components count] == 2) {
         CGFloat x = 0.0, y = 0.0, width = 0.0, height = 0.0;
@@ -105,29 +104,29 @@
                     }
                     else {
                         if (width > 0.0) {
-                            x = superBounds.size.width - [val floatValue] - width;
+                            x = superViewFrame.size.width - [val floatValue] - width;
                         }
                         else {
-                            width = superBounds.size.width - [val floatValue] - x;
+                            width = superViewFrame.size.width - [val floatValue] - x;
                         }
                         rval = [val floatValue];
                     }
                 }
             }
             if (cl && cr && width > 0) {
-                x = (superBounds.size.width - width) / 2.0;
+                x = (superViewFrame.size.width - width) / 2.0;
             }
-            if (relateNext && relatePrev && nextView != nil && previousView != nil) {
-                x = previousView.frame.origin.x + previousView.frame.size.width + lval;
-                width = nextView.frame.origin.x - rval - x;
+            if (relateNext && relatePrev) {
+                x = previousViewFrame.origin.x + previousViewFrame.size.width + lval;
+                width = nextViewFrame.origin.x - rval - x;
             }
-            else if (relateNext && !relatePrev && nextView != nil) {
+            else if (relateNext && !relatePrev) {
                 width = cval;
-                x = nextView.frame.origin.x - rval - width;
+                x = nextViewFrame.origin.x - rval - width;
             }
-            else if (!relateNext && relatePrev && previousView != nil) {
+            else if (!relateNext && relatePrev) {
                 width = cval;
-                x = previousView.frame.origin.x + previousView.frame.size.width + lval;
+                x = previousViewFrame.origin.x + previousViewFrame.size.width + lval;
             }
         }
         {
@@ -174,29 +173,29 @@
                     }
                     else {
                         if (height > 0.0) {
-                            y = superBounds.size.height - [val floatValue] - height;
+                            y = superViewFrame.size.height - [val floatValue] - height;
                         }
                         else {
-                            height = superBounds.size.height - [val floatValue] - y;
+                            height = superViewFrame.size.height - [val floatValue] - y;
                         }
                         rval = [val floatValue];
                     }
                 }
             }
             if (cl && cr && height > 0) {
-                y = (superBounds.size.height - height) / 2.0;
+                y = (superViewFrame.size.height - height) / 2.0;
             }
-            if (relateNext && relatePrev && nextView != nil && previousView != nil) {
-                y = previousView.frame.origin.y + previousView.frame.size.height + lval;
-                height = nextView.frame.origin.y - rval - y;
+            if (relateNext && relatePrev) {
+                y = previousViewFrame.origin.y + previousViewFrame.size.height + lval;
+                height = nextViewFrame.origin.y - rval - y;
             }
-            else if (relateNext && !relatePrev && nextView != nil) {
+            else if (relateNext && !relatePrev) {
                 height = cval;
-                y = nextView.frame.origin.y - rval - height;
+                y = nextViewFrame.origin.y - rval - height;
             }
-            else if (!relateNext && relatePrev && previousView != nil) {
+            else if (!relateNext && relatePrev) {
                 height = cval;
-                y = previousView.frame.origin.y + previousView.frame.size.height + lval;
+                y = previousViewFrame.origin.y + previousViewFrame.size.height + lval;
             }
         }
         return CGRectMake(x, y, width, height);
