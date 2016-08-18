@@ -13,8 +13,8 @@
 
 + (POPAnimation *)animationWithParams:(NSDictionary *)aniParams
                           aniProperty:(NSString *)aniProperty
-                            fromValue:(NSValue *)fromValue
-                              toValue:(NSValue *)toValue {
+                            fromValue:(id)fromValue
+                              toValue:(id)toValue {
     if ([aniParams[@"aniType"] isKindOfClass:[NSString class]]) {
         if ([aniParams[@"aniType"] isEqualToString:@"spring"]) {
             return [self springWithParams:aniParams
@@ -28,8 +28,8 @@
 
 + (POPAnimation *)springWithParams:(NSDictionary *)aniParams
                        aniProperty:(NSString *)aniProperty
-                         fromValue:(NSValue *)fromValue
-                           toValue:(NSValue *)toValue {
+                         fromValue:(id)fromValue
+                           toValue:(id)toValue {
     POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:aniProperty];
     if (aniParams[@"friction"] != nil && [aniParams[@"friction"] isKindOfClass:[NSNumber class]]) {
         animation.dynamicsFriction = [aniParams[@"friction"] floatValue];

@@ -13,7 +13,7 @@
 
 + (POPAnimation *)animationWithParams:(NSDictionary *)aniParams
                           aniProperty:(NSString *)aniProperty
-                            fromValue:(NSValue *)fromValue
-                              toValue:(NSValue *)toValue;
+                            fromValue:(id)fromValue
+                              toValue:(id)toValue;
 
 @end

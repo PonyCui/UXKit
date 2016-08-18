@@ -30,8 +30,8 @@
         }
         return [UXKProps toRectWithFormat:self.formatFrame
                            superViewFrame:[self superViewFrame]
-                        previousViewFrame:[self.formatFrame hasPrefix:@"<"] ? [self previousViewFrame] : CGRectZero
-                            nextViewFrame:[self.formatFrame hasSuffix:@">"] ? [self nextViewFrame] : CGRectZero];
+                        previousViewFrame:[self.formatFrame containsString:@"<"] ? [self previousViewFrame] : CGRectZero
+                            nextViewFrame:[self.formatFrame containsString:@">"] ? [self nextViewFrame] : CGRectZero];
     }
     else {
         return self.frame;
@@ -88,41 +88,6 @@
             [subview layoutSubviews];
         }
     }
-    
-    
-//    if (self.formatFrame != nil) {
-//        if (([self.formatFrame containsString:@"<"] || [self.formatFrame containsString:@">"]) && [self superview] != nil) {
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.001 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                NSInteger currentIndex = [[[self superview] subviews] indexOfObject:self];
-//                CGRect newFrame = [UXKProps toRectWithFormat:self.formatFrame
-//                                                     forView:self
-//                                                previousView:(currentIndex - 1 >= 0 ? [[self superview] subviews][currentIndex - 1] : nil)
-//                                                    nextView:(currentIndex + 1 < [[[self superview] subviews] count] ? [[self superview] subviews][currentIndex + 1] : nil)];
-//                if (!CGRectEqualToRect(self.frame, newFrame)) {
-//                    if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self props:kPOPViewFrame newValue:[NSValue valueWithCGRect:newFrame]]) {
-//                        self.frame = newFrame;
-//                    }
-//                    for (UIView *subview in self.subviews) {
-//                        [subview layoutSubviews];
-//                    }
-//                }
-//            });
-//        }
-//        else {
-//            CGRect newFrame = [UXKProps toRectWithFormat:self.formatFrame
-//                                                 forView:self
-//                                            previousView:nil
-//                                                nextView:nil];
-//            if (!CGRectEqualToRect(self.frame, newFrame)) {
-//                if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self props:kPOPViewFrame newValue:[NSValue valueWithCGRect:newFrame]]) {
-//                    self.frame = newFrame;
-//                }
-//                for (UIView *subview in self.subviews) {
-//                    [subview layoutSubviews];
-//                }
-//            }
-//        }
-//    }
 }
 
 - (void)setProps:(NSDictionary *)props {
@@ -134,8 +99,10 @@
         }
         else {
             CGRect newFrame = [UXKProps toRectWithRect:props[@"frame"]];
-            if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self props:kPOPViewFrame newValue:[NSValue valueWithCGRect:newFrame]]) {
-                self.frame = newFrame;
+            if (!CGRectEqualToRect(self.frame, newFrame)) {
+                if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self props:kPOPViewFrame newValue:[NSValue valueWithCGRect:newFrame]]) {
+                    self.frame = newFrame;
+                }
             }
         }
     }
@@ -146,10 +113,20 @@
         self.clipsToBounds = [UXKProps toBool:props[@"clipsToBounds"]];
     }
     if (props[@"backgroundColor"] && [props[@"backgroundColor"] isKindOfClass:[NSString class]]) {
-        self.backgroundColor = [UXKProps toColor:props[@"backgroundColor"]];
+        UIColor *newBackgroundColor = [UXKProps toColor:props[@"backgroundColor"]];
+        if (![newBackgroundColor isEqual:self.backgroundColor]) {
+            if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self props:kPOPViewBackgroundColor newValue:newBackgroundColor]) {
+                self.backgroundColor = newBackgroundColor;
+            }
+        }
     }
     if (props[@"alpha"] && [props[@"alpha"] isKindOfClass:[NSString class]]) {
-        self.alpha = [UXKProps toCGFloat:props[@"alpha"]];
+        CGFloat newAlpha = [UXKProps toCGFloat:props[@"alpha"]];
+        if (newAlpha != self.alpha) {
+            if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self props:kPOPViewAlpha newValue:@(newAlpha)]) {
+                self.alpha = newAlpha;
+            }
+        }
     }
     if (props[@"hidden"] && [props[@"hidden"] isKindOfClass:[NSString class]]) {
         self.hidden = [UXKProps toBool:props[@"hidden"]];

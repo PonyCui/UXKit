@@ -54,16 +54,19 @@
     }
 }
 
-- (BOOL)addAnimationWithView:(UIView *)view props:(NSString *)props newValue:(NSValue *)newValue {
+- (BOOL)addAnimationWithView:(UIView *)view props:(NSString *)props newValue:(id)newValue {
     if (!self.animationEnabled || self.animationParams == nil) {
         return NO;
     }
-    NSValue *oldValue;
+    id oldValue;
     if ([props isEqualToString:kPOPViewFrame]) {
         oldValue = [NSValue valueWithCGRect:view.frame];
     }
-    if (oldValue == nil) {
-        return NO;
+    else if ([props isEqualToString:kPOPViewAlpha]) {
+        oldValue = @(view.alpha);
+    }
+    else if ([props isEqualToString:kPOPViewBackgroundColor]) {
+        oldValue = view.backgroundColor;
     }
     POPAnimation *animation = [UXKAnimation animationWithParams:self.animationParams aniProperty:props fromValue:oldValue toValue:newValue];
     if (animation == nil) {
