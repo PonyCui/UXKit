@@ -29,7 +29,9 @@
                                                 previousView:(currentIndex - 1 >= 0 ? [[self superview] subviews][currentIndex - 1] : nil)
                                                     nextView:(currentIndex + 1 < [[[self superview] subviews] count] ? [[self superview] subviews][currentIndex + 1] : nil)];
                 if (!CGRectEqualToRect(self.frame, newFrame)) {
-                    self.frame = newFrame;
+                    if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self props:kPOPViewFrame newValue:[NSValue valueWithCGRect:newFrame]]) {
+                        self.frame = newFrame;
+                    }
                     for (UIView *subview in self.subviews) {
                         [subview layoutSubviews];
                     }
@@ -42,7 +44,9 @@
                                             previousView:nil
                                                 nextView:nil];
             if (!CGRectEqualToRect(self.frame, newFrame)) {
-                self.frame = newFrame;
+                if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self props:kPOPViewFrame newValue:[NSValue valueWithCGRect:newFrame]]) {
+                    self.frame = newFrame;
+                }
                 for (UIView *subview in self.subviews) {
                     [subview layoutSubviews];
                 }
@@ -56,11 +60,9 @@
 @implementation UIView (UXKProps)
 
 - (void)uxk_setProps:(NSDictionary *)props {
-    BOOL animationEnabled = NO;
-    NSDictionary *animationParams = nil;
+    UXKBridgeAnimationHandler *animationHandler;
     if ([self isKindOfClass:[UXKView class]]) {
-        animationEnabled = [[(UXKView *)self aniHandler] animationEnabled];
-        animationParams = [[(UXKView *)self aniHandler] animationParams];
+        animationHandler = [(UXKView *)self animationHandler];
     }
     if (props[@"frame"] && [props[@"frame"] isKindOfClass:[NSString class]]) {
         if ([(NSString *)props[@"frame"] containsString:@"["]) {
@@ -69,21 +71,9 @@
             }
         }
         else {
-            if (animationEnabled) {
-                POPAnimation *ani = [UXKAnimation
-                                     animationWithParams:animationParams
-                                     aniProperty:kPOPViewFrame
-                                     fromValue:[NSValue valueWithCGRect:self.frame]
-                                     toValue:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]];
-                if (ani != nil) {
-                    [self pop_addAnimation:ani forKey:@"frame"];
-                }
-                else {
-                    self.frame = [UXKProps toRectWithRect:props[@"frame"]];
-                }
-            }
-            else {
-                self.frame = [UXKProps toRectWithRect:props[@"frame"]];
+            CGRect newFrame = [UXKProps toRectWithRect:props[@"frame"]];
+            if (animationHandler == nil || ![animationHandler addAnimationWithView:self props:kPOPViewFrame newValue:[NSValue valueWithCGRect:newFrame]]) {
+                self.frame = newFrame;
             }
         }
     }

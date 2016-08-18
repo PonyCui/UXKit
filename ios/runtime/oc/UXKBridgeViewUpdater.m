@@ -102,7 +102,7 @@ static NSDictionary *kUXKViewTypes;
     }
     currentView.accessibilityIdentifier = visualKey;
     if ([currentView isKindOfClass:[UXKView class]]) {
-        [(UXKView *)currentView setAniHandler:self.bridgeController.animationHandler];
+        [(UXKView *)currentView setAnimationHandler:self.bridgeController.animationHandler];
     }
     if (props != nil && [props isKindOfClass:[NSDictionary class]]) {
         [currentView uxk_setProps:props];

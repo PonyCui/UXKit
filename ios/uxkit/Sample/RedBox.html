@@ -7,7 +7,8 @@
 <body>
     <view frame="|-0-[]-0-|,|-0-[]-0-|" backgroundColor="#e2e2e2">
         <view id="test" frame="20,20,80,80" backgroundColor="#00ff00"></view>
-        <view frame="<-20-[20],|-20-[30]" backgroundColor="#00ff00"></view>
+        <view id="test2" frame="20,200,80,80" backgroundColor="#00ffff"></view>
+<!--        <view frame="<-20-[20],|-20-[30]" backgroundColor="#00ff00"></view>-->
 <!--        <view frame="[20]-10-|,|-@-[60]-@-|" backgroundColor="#00ff00"></view>-->
     </view>
 </body>
@@ -16,7 +17,8 @@
 
 <script>
     setTimeout(function(){
-               document.getElementById('test').setAttribute("frame", "20,20,200,200");
-               ux.dom.updateWithAnimation(ux.ani.spring({friction: 5.0}));
+                   document.getElementById('test').setAttribute("frame", "20,20,200,200");
+                   document.getElementById('test2').setAttribute("frame", "20,200,200,200");
+                   ux.dom.updateWithAnimation(ux.ani.spring({friction: 5.0}));
                }.bind(this), 3000);
 </script>
