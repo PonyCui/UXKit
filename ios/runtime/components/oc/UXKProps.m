@@ -61,7 +61,7 @@
     if ([components count] == 2) {
         CGFloat x = 0.0, y = 0.0, width = 0.0, height = 0.0;
         {
-            BOOL cl = NO, cr = NO, relatePrev = NO, relateNext = NO;
+            BOOL cl = NO, cr = NO, relatePrev = NO, relateNext = NO, pressLeft = NO, pressRight = NO;
             CGFloat lval = 0.0, cval = 0.0, rval = 0.0;
             {
                 NSArray<NSTextCheckingResult *> *results = [leftExp matchesInString:components[0]
@@ -72,6 +72,9 @@
                     NSString *val = [components[0] substringWithRange:[[results firstObject] rangeAtIndex:2]];
                     if ([lSymbol isEqualToString:@"<"]) {
                         relatePrev = YES;
+                    }
+                    else if ([lSymbol isEqualToString:@"|"]) {
+                        pressLeft = YES;
                     }
                     if ([val isEqualToString:@"@"]) {
                         cl = YES;
@@ -99,6 +102,9 @@
                     if ([rSymbol isEqualToString:@">"]) {
                         relateNext = YES;
                     }
+                    else if ([rSymbol isEqualToString:@"|"]) {
+                        pressRight = YES;
+                    }
                     if ([val isEqualToString:@"@"]) {
                         cr = YES;
                     }
@@ -121,16 +127,16 @@
                 width = nextViewFrame.origin.x - rval - x;
             }
             else if (relateNext && !relatePrev) {
-                width = cval;
+                width = pressLeft ? lval : cval;
                 x = nextViewFrame.origin.x - rval - width;
             }
             else if (!relateNext && relatePrev) {
-                width = cval;
+                width = pressRight ? superViewFrame.size.width - rval - lval - previousViewFrame.origin.x - previousViewFrame.size.width : cval;
                 x = previousViewFrame.origin.x + previousViewFrame.size.width + lval;
             }
         }
         {
-            BOOL cl = NO, cr = NO, relatePrev = NO, relateNext = NO;
+            BOOL cl = NO, cr = NO, relatePrev = NO, relateNext = NO, pressLeft = NO, pressRight = NO;
             CGFloat lval = 0.0, cval = 0.0, rval = 0.0;
             {
                 NSArray<NSTextCheckingResult *> *results = [leftExp matchesInString:components[1]
@@ -141,6 +147,9 @@
                     NSString *val = [components[1] substringWithRange:[[results firstObject] rangeAtIndex:2]];
                     if ([lSymbol isEqualToString:@"<"]) {
                         relatePrev = YES;
+                    }
+                    else if ([lSymbol isEqualToString:@"|"]) {
+                        pressLeft = YES;
                     }
                     if ([val isEqualToString:@"@"]) {
                         cl = YES;
@@ -168,6 +177,9 @@
                     if ([rSymbol isEqualToString:@">"]) {
                         relateNext = YES;
                     }
+                    else if ([rSymbol isEqualToString:@"|"]) {
+                        pressRight = YES;
+                    }
                     if ([val isEqualToString:@"@"]) {
                         cr = YES;
                     }
@@ -190,11 +202,11 @@
                 height = nextViewFrame.origin.y - rval - y;
             }
             else if (relateNext && !relatePrev) {
-                height = cval;
+                height = pressLeft ? lval : cval;
                 y = nextViewFrame.origin.y - rval - height;
             }
             else if (!relateNext && relatePrev) {
-                height = cval;
+                height = pressRight ? superViewFrame.size.height - rval - lval - previousViewFrame.origin.x - previousViewFrame.size.height : cval;
                 y = previousViewFrame.origin.y + previousViewFrame.size.height + lval;
             }
         }
