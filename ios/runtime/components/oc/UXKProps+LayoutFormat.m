@@ -1,0 +1,287 @@
+//
+//  UXKProps+LayoutFormat.m
+//  uxkit
+//
+//  Created by 崔 明辉 on 16/8/19.
+//  Copyright © 2016年 YY Inc. All rights reserved.
+//
+
+#import "UXKProps+LayoutFormat.h"
+
+@implementation UXKProps (LayoutFormat)
+
++ (CGRect)rectWithView:(UXKView *)view format:(NSString *)format {
+    if (![format containsString:@","]) {
+        return CGRectZero;
+    }
+    if ([self conflict:view]) {
+        NSAssert(NO, @"Frame conflict.");
+        return CGRectZero;
+    }
+    NSString *horizonFormat = [format componentsSeparatedByString:@","].firstObject;
+    NSString *verticalFormat = [format componentsSeparatedByString:@","].lastObject;
+    CGRect horizonRect = [self horizonRectWithView:view format:horizonFormat];
+    CGRect verticalRect = [self verticalRectWithView:view format:verticalFormat];
+    return CGRectMake(horizonRect.origin.x, verticalRect.origin.y, horizonRect.size.width, verticalRect.size.height);
+}
+
++ (BOOL)conflict:(UXKView *)view {
+    NSString *thisHorizonFormat;
+    NSString *thisVerticalFormat;
+    NSString *prevHorizonFormat;
+    NSString *prevVerticalFormat;
+    NSString *nextHorizonFormat;
+    NSString *nextVerticalFormat;
+    if (view.formatFrame != nil && [view.formatFrame containsString:@","]) {
+        thisHorizonFormat = [view.formatFrame componentsSeparatedByString:@","].firstObject;
+        thisVerticalFormat = [view.formatFrame componentsSeparatedByString:@","].lastObject;
+    }
+    {
+        NSInteger idx = (NSInteger)[[[view superview] subviews] indexOfObject:view];
+        if (idx - 1 >= 0) {
+            UXKView *previousView = [[view superview] subviews][idx - 1];
+            if ([previousView isKindOfClass:[UXKView class]] && previousView.formatFrame != nil) {
+                if ([previousView.formatFrame containsString:@","]) {
+                    prevHorizonFormat = [previousView.formatFrame componentsSeparatedByString:@","].firstObject;
+                    prevVerticalFormat = [previousView.formatFrame componentsSeparatedByString:@","].lastObject;
+                }
+            }
+        }
+    }
+    {
+        NSInteger idx = (NSInteger)[[[view superview] subviews] indexOfObject:view];
+        if (idx + 1 < [[[view superview] subviews] count]) {
+            UXKView *nextView = [[view superview] subviews][idx + 1];
+            if ([nextView isKindOfClass:[UXKView class]] && nextView.formatFrame != nil) {
+                if ([nextView.formatFrame containsString:@","]) {
+                    nextHorizonFormat = [nextView.formatFrame componentsSeparatedByString:@","].firstObject;
+                    nextVerticalFormat = [nextView.formatFrame componentsSeparatedByString:@","].lastObject;
+                }
+            }
+        }
+    }
+    if (thisHorizonFormat != nil && prevHorizonFormat != nil) {
+        if ([self relatePrev:thisHorizonFormat] && [self relateNext:prevHorizonFormat]) {
+            return YES;
+        }
+    }
+    if (thisHorizonFormat != nil && nextHorizonFormat != nil) {
+        if ([self relateNext:thisHorizonFormat] && [self relatePrev:nextHorizonFormat]) {
+            return YES;
+        }
+    }
+    if (thisVerticalFormat != nil && prevVerticalFormat != nil) {
+        if ([self relatePrev:thisVerticalFormat] && [self relateNext:prevVerticalFormat]) {
+            return YES;
+        }
+    }
+    if (thisVerticalFormat != nil && nextVerticalFormat != nil) {
+        if ([self relateNext:thisVerticalFormat] && [self relatePrev:nextVerticalFormat]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
++ (CGRect)horizonRectWithView:(UXKView *)view format:(NSString *)format {
+    CGPoint point = [self rectWithFormat:format
+                              superPoint:([self pressLeft:format] || [self pressRight:format]) ? [self superHorizonRect:view] : CGPointZero
+                               prevPoint:[self relatePrev:format] ? [self prevHorizonRect:view] : CGPointZero
+                               nextPoint:[self relateNext:format] ? [self nextHorizonRect:view] : CGPointZero
+                                    view:view
+                     ];
+    return CGRectMake(point.x, 0, point.y, 0);
+}
+
++ (CGRect)verticalRectWithView:(UXKView *)view format:(NSString *)format {
+    CGPoint point = [self rectWithFormat:format
+                              superPoint:([self pressLeft:format] || [self pressRight:format]) ? [self superVerticalRect:view] : CGPointZero
+                               prevPoint:[self relatePrev:format] ? [self prevVerticalRect:view] : CGPointZero
+                               nextPoint:[self relateNext:format] ? [self nextVerticalRect:view] : CGPointZero
+                                    view:view
+                     ];
+    return CGRectMake(0, point.x, 0, point.y);
+}
+
++ (CGPoint)rectWithFormat:(NSString *)format
+              superPoint:(CGPoint)superPoint
+               prevPoint:(CGPoint)prevPoint
+               nextPoint:(CGPoint)nextPoint
+                    view:(UXKView *)view {
+    static NSRegularExpression *leftExp;
+    static NSRegularExpression *widthExp;
+    static NSRegularExpression *rightExp;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        leftExp = [NSRegularExpression regularExpressionWithPattern:@"([<\\|])-([@\\-0-9]+)-"
+                                                            options:kNilOptions
+                                                              error:nil];
+        widthExp = [NSRegularExpression regularExpressionWithPattern:@"\\[([0-9]+)\\]"
+                                                             options:kNilOptions
+                                                               error:nil];
+        rightExp = [NSRegularExpression regularExpressionWithPattern:@"-([@\\-0-9]+)-([\\|>])"
+                                                             options:kNilOptions
+                                                               error:nil];
+    });
+    CGFloat origin = 0.0, distance = 0.0;
+    CGFloat lVal = 0.0, cVal = 0.0, rVal = 0.0;
+    BOOL lFlex = NO, rFlex = NO;
+    {
+        NSArray<NSTextCheckingResult *> *results = [leftExp matchesInString:format
+                                                                    options:NSMatchingReportCompletion
+                                                                      range:NSMakeRange(0, [format length])];
+        if ([results firstObject] != nil && 2 < [[results firstObject] numberOfRanges]) {
+            NSString *val = [format substringWithRange:[[results firstObject] rangeAtIndex:2]];
+            if ([val isEqualToString:@"@"]) {
+                lFlex = YES;
+            }
+            else {
+                lVal = origin = [val floatValue];
+            }
+        }
+    }
+    {
+        NSArray<NSTextCheckingResult *> *results = [widthExp matchesInString:format
+                                                                     options:NSMatchingReportCompletion
+                                                                       range:NSMakeRange(0, [format length])];
+        if ([results firstObject] != nil && 1 < [[results firstObject] numberOfRanges]) {
+            cVal = distance = [[format substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue];
+        }
+    }
+    {
+        NSArray<NSTextCheckingResult *> *results = [rightExp matchesInString:format
+                                                                     options:NSMatchingReportCompletion
+                                                                       range:NSMakeRange(0, [format length])];
+        if ([results firstObject] != nil && 2 < [[results firstObject] numberOfRanges]) {
+            NSString *val = [format substringWithRange:[[results firstObject] rangeAtIndex:1]];
+            if ([val isEqualToString:@"@"]) {
+                rFlex = YES;
+            }
+            else {
+                if (distance > 0.0) {
+                    origin = superPoint.y - [val floatValue] - distance;
+                }
+                else {
+                    distance = superPoint.y - [val floatValue] - origin;
+                }
+                rVal = [val floatValue];
+            }
+        }
+    }
+    if (lFlex && rFlex && distance > 0) {
+        origin = (superPoint.y - distance) / 2.0;
+    }
+    if ([self relateNext:format] && [self relatePrev:format]) {
+        origin = prevPoint.x + prevPoint.y + lVal;
+        distance = nextPoint.x - rVal - origin;
+    }
+    else if ([self relateNext:format] && ![self relatePrev:format]) {
+        distance = [self pressLeft:format] ? lVal : cVal;
+        origin = nextPoint.x - rVal - distance;
+    }
+    else if (![self relateNext:format] && [self relatePrev:format]) {
+        distance = [self pressRight:format] ? superPoint.y - rVal - lVal - prevPoint.x - prevPoint.y : cVal;
+        origin = prevPoint.x + prevPoint.y + lVal;
+    }
+    return CGPointMake(origin, distance);
+}
+
++ (BOOL)relateNext:(NSString *)formatFrame {
+    return [formatFrame containsString:@">"];
+}
+
++ (BOOL)relatePrev:(NSString *)formatFrame {
+    return [formatFrame containsString:@"<"];
+}
+
++ (BOOL)pressRight:(NSString *)formatFrame {
+    return [formatFrame containsString:@"-|"];
+}
+
++ (BOOL)pressLeft:(NSString *)formatFrame {
+    return [formatFrame containsString:@"|-"];
+}
+
++ (CGPoint)superHorizonRect:(UXKView *)view {
+    UXKView *superView = (UXKView *)[view superview];
+    if ([superView isKindOfClass:[UXKView class]] && superView.formatFrame != nil) {
+        CGRect rect = [self rectWithView:superView format:superView.formatFrame];
+        return CGPointMake(rect.origin.x, rect.size.width);
+    }
+    else {
+        return CGPointMake(superView.frame.origin.x, superView.frame.size.width);
+    }
+}
+
++ (CGPoint)superVerticalRect:(UXKView *)view {
+    UXKView *superView = (UXKView *)[view superview];
+    if ([superView isKindOfClass:[UXKView class]] && superView.formatFrame != nil) {
+        CGRect rect = [self rectWithView:superView format:superView.formatFrame];
+        return CGPointMake(rect.origin.y, rect.size.height);
+    }
+    else {
+        return CGPointMake(superView.frame.origin.y, superView.frame.size.height);
+    }
+}
+
++ (CGPoint)prevHorizonRect:(UXKView *)view {
+    NSInteger idx = (NSInteger)[[[view superview] subviews] indexOfObject:view];
+    if (idx - 1 >= 0) {
+        UXKView *previousView = [[view superview] subviews][idx - 1];
+        if ([previousView isKindOfClass:[UXKView class]] && previousView.formatFrame != nil) {
+            CGRect rect = [self rectWithView:previousView format:previousView.formatFrame];
+            return CGPointMake(rect.origin.x, rect.size.width);
+        }
+        else {
+            return CGPointMake(previousView.frame.origin.x, previousView.frame.size.width);
+        }
+    }
+    return CGPointZero;
+}
+
++ (CGPoint)prevVerticalRect:(UXKView *)view {
+    NSInteger idx = (NSInteger)[[[view superview] subviews] indexOfObject:view];
+    if (idx - 1 >= 0) {
+        UXKView *previousView = [[view superview] subviews][idx - 1];
+        if ([previousView isKindOfClass:[UXKView class]] && previousView.formatFrame != nil) {
+            CGRect rect = [self rectWithView:previousView format:previousView.formatFrame];
+            return CGPointMake(rect.origin.y, rect.size.height);
+        }
+        else {
+            return CGPointMake(previousView.frame.origin.y, previousView.frame.size.height);
+        }
+    }
+    return CGPointZero;
+}
+
++ (CGPoint)nextHorizonRect:(UXKView *)view {
+    NSInteger idx = (NSInteger)[[[view superview] subviews] indexOfObject:view];
+    if (idx + 1 < [[[view superview] subviews] count]) {
+        UXKView *nextView = [[view superview] subviews][idx + 1];
+        if ([nextView isKindOfClass:[UXKView class]] && nextView.formatFrame != nil) {
+            CGRect rect = [self rectWithView:nextView format:nextView.formatFrame];
+            return CGPointMake(rect.origin.x, rect.size.width);
+        }
+        else {
+            return CGPointMake(nextView.frame.origin.x, nextView.frame.size.width);
+        }
+    }
+    return CGPointZero;
+}
+
++ (CGPoint)nextVerticalRect:(UXKView *)view {
+    NSInteger idx = (NSInteger)[[[view superview] subviews] indexOfObject:view];
+    if (idx + 1 < [[[view superview] subviews] count]) {
+        UXKView *nextView = [[view superview] subviews][idx + 1];
+        if ([nextView isKindOfClass:[UXKView class]] && nextView.formatFrame != nil) {
+            CGRect rect = [self rectWithView:nextView format:nextView.formatFrame];
+            return CGPointMake(rect.origin.y, rect.size.height);
+        }
+        else {
+            return CGPointMake(nextView.frame.origin.y, nextView.frame.size.height);
+        }
+    }
+    return CGPointZero;
+}
+
+@end

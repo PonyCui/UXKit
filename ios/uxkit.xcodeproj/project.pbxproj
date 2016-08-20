@@ -22,6 +22,7 @@
 		6396DB861D64ACB0001D9B6D /* UXKAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB851D64ACB0001D9B6D /* UXKAnimation.m */; };
 		6396DB891D64AF03001D9B6D /* UXKBridgeAnimationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB881D64AF03001D9B6D /* UXKBridgeAnimationHandler.m */; };
 		6396DB8B1D64AF4E001D9B6D /* UXKAnimation.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */; };
+		6396DB8E1D674CC5001D9B6D /* UXKProps+LayoutFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB8D1D674CC5001D9B6D /* UXKProps+LayoutFormat.m */; };
 		63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */; };
 		63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */; };
 		78B69A7CF0F1D4A8CB1A1E4E /* libPods-uxkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A7F856FC364E5821C96704 /* libPods-uxkit.a */; };
@@ -52,6 +53,8 @@
 		6396DB871D64AF03001D9B6D /* UXKBridgeAnimationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeAnimationHandler.h; sourceTree = "<group>"; };
 		6396DB881D64AF03001D9B6D /* UXKBridgeAnimationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeAnimationHandler.m; sourceTree = "<group>"; };
 		6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKAnimation.js; sourceTree = "<group>"; };
+		6396DB8C1D674CC4001D9B6D /* UXKProps+LayoutFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UXKProps+LayoutFormat.h"; sourceTree = "<group>"; };
+		6396DB8D1D674CC5001D9B6D /* UXKProps+LayoutFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UXKProps+LayoutFormat.m"; sourceTree = "<group>"; };
 		63ADA2AB1D5F6F3A00C13191 /* UXKBridgeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeController.h; sourceTree = "<group>"; };
 		63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeController.m; sourceTree = "<group>"; };
 		63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeViewUpdater.h; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 				6396DB851D64ACB0001D9B6D /* UXKAnimation.m */,
 				6396DB7B1D6359A2001D9B6D /* UXKProps.h */,
 				6396DB7C1D6359A2001D9B6D /* UXKProps.m */,
+				6396DB8C1D674CC4001D9B6D /* UXKProps+LayoutFormat.h */,
+				6396DB8D1D674CC5001D9B6D /* UXKProps+LayoutFormat.m */,
 			);
 			path = oc;
 			sourceTree = "<group>";
@@ -338,6 +343,7 @@
 				63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */,
 				634A88751D5F5FF70022AC22 /* ViewController.m in Sources */,
 				6396DB861D64ACB0001D9B6D /* UXKAnimation.m in Sources */,
+				6396DB8E1D674CC5001D9B6D /* UXKProps+LayoutFormat.m in Sources */,
 				634A88721D5F5FF70022AC22 /* AppDelegate.m in Sources */,
 				634A886F1D5F5FF70022AC22 /* main.m in Sources */,
 				634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */,
