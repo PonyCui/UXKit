@@ -1,16 +1,15 @@
 window._UXK_VisualDOMNames = ["BODY", "VIEW"];
-window._UXK_Components = {};
-window._UXK_VisualDOMAttrs = ["frame", 
-                              "userInteractionEnabled", 
-                              "transform",
-                              "clipsToBounds",
-                              "backgroundColor",
-                              "alpha",
-                              "hidden",
-                              "cornerRadius",
-                              "borderWidth",
-                              "borderColor",
-                              ];
+window._UXK_VisualDOMAttrs = ["frame",
+    "userInteractionEnabled",
+    "transform",
+    "clipsToBounds",
+    "backgroundColor",
+    "alpha",
+    "hidden",
+    "cornerRadius",
+    "borderWidth",
+    "borderColor",
+];
 
 window._UXK_VisualDOM = function () {
     return {
@@ -28,21 +27,51 @@ window._UXK_VisualDOM = function () {
                 this.commitTree(node, true);
             }
             else {
+                this.updateComponents(node);
                 this.assignKeys(node);
                 this.commitTree(node);
             }
         },
-        updateWithAnimation: function(animation, node, onlyProps) {
+        updateWithAnimation: function (animation, node, onlyProps) {
             webkit.messageHandlers.UXK_AnimationHandler_Commit.postMessage(JSON.stringify(animation));
             webkit.messageHandlers.UXK_AnimationHandler_Enable.postMessage("");
             this.update(node, onlyProps);
             webkit.messageHandlers.UXK_AnimationHandler_Disable.postMessage("");
         },
+        updateComponents: function (node) {
+            var childNodes = node.childNodes;
+            for (var i = 0; i < childNodes.length; i++) {
+                var childNode = childNodes[i];
+                if (window._UXK_Components.contents[childNode.nodeName] !== undefined) {
+                    if (childNode.getAttribute("_UXK_cKey") !== "_") {
+                        childNode.innerHTML = window._UXK_Components.rendComponent(childNode.nodeName, {});
+                        childNode.setAttribute("_UXK_cKey", "_");
+                        var attributes = {};
+                        for (var i = 0; i < childNode.attributes.length; i++) {
+                            var element = childNode.attributes[i];
+                            attributes[element.name] = element.value;
+                        }
+                        window._UXK_Components[childNode.nodeName].setProps(childNode, attributes);
+                    }
+                    else {
+                        var attributes = {};
+                        for (var i = 0; i < childNode.attributes.length; i++) {
+                            var element = childNode.attributes[i];
+                            attributes[element.name] = element.value;
+                        }
+                        window._UXK_Components[childNode.nodeName].setProps(childNode, attributes);
+                    }
+                }
+
+                this.updateComponents(childNode);
+            }
+        },
         assignKeys: function (node) {
             var childNodes = node.childNodes;
             for (var i = 0; i < childNodes.length; i++) {
                 var childNode = childNodes[i];
-                if (window._UXK_VisualDOMNames.indexOf(childNode.nodeName) < 0) {
+                if (window._UXK_VisualDOMNames.indexOf(childNode.nodeName) < 0 &&
+                    window._UXK_Components.contents[childNode.nodeName] === undefined) {
                     continue;
                 }
                 if (!childNode.hasAttribute("_UXK_vKey")) {
@@ -52,11 +81,12 @@ window._UXK_VisualDOM = function () {
             }
         },
         createTree: function (node, onlyProps) {
-            if (window._UXK_VisualDOMNames.indexOf(node.nodeName) < 0) {
+            if (window._UXK_VisualDOMNames.indexOf(node.nodeName) < 0 &&
+                window._UXK_Components.contents[node.nodeName] === undefined) {
                 return undefined;
             }
             var tree = {
-                name: node.nodeName,
+                name: window._UXK_Components.contents[node.nodeName] !== undefined ? "VIEW" : node.nodeName,
                 vKey: node.getAttribute("_UXK_vKey"),
                 props: {},
                 subviews: [],

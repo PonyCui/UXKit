@@ -23,6 +23,9 @@
 		6396DB891D64AF03001D9B6D /* UXKBridgeAnimationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB881D64AF03001D9B6D /* UXKBridgeAnimationHandler.m */; };
 		6396DB8B1D64AF4E001D9B6D /* UXKAnimation.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */; };
 		6396DB8E1D674CC5001D9B6D /* UXKProps+LayoutFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB8D1D674CC5001D9B6D /* UXKProps+LayoutFormat.m */; };
+		6396DB921D69693E001D9B6D /* UXKTEST.html in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB901D69693E001D9B6D /* UXKTEST.html */; };
+		6396DB931D69693E001D9B6D /* UXKTEST.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB911D69693E001D9B6D /* UXKTEST.js */; };
+		6396DB951D697598001D9B6D /* UXKComponents.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB941D697598001D9B6D /* UXKComponents.js */; };
 		63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */; };
 		63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */; };
 		78B69A7CF0F1D4A8CB1A1E4E /* libPods-uxkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A7F856FC364E5821C96704 /* libPods-uxkit.a */; };
@@ -55,6 +58,9 @@
 		6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKAnimation.js; sourceTree = "<group>"; };
 		6396DB8C1D674CC4001D9B6D /* UXKProps+LayoutFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UXKProps+LayoutFormat.h"; sourceTree = "<group>"; };
 		6396DB8D1D674CC5001D9B6D /* UXKProps+LayoutFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UXKProps+LayoutFormat.m"; sourceTree = "<group>"; };
+		6396DB901D69693E001D9B6D /* UXKTEST.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKTEST.html; sourceTree = "<group>"; };
+		6396DB911D69693E001D9B6D /* UXKTEST.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKTEST.js; sourceTree = "<group>"; };
+		6396DB941D697598001D9B6D /* UXKComponents.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKComponents.js; sourceTree = "<group>"; };
 		63ADA2AB1D5F6F3A00C13191 /* UXKBridgeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeController.h; sourceTree = "<group>"; };
 		63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeController.m; sourceTree = "<group>"; };
 		63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeViewUpdater.h; sourceTree = "<group>"; };
@@ -141,6 +147,7 @@
 		634A88851D5F60550022AC22 /* js */ = {
 			isa = PBXGroup;
 			children = (
+				6396DB941D697598001D9B6D /* UXKComponents.js */,
 				6396DB701D60A0BF001D9B6D /* UXKTasks.js */,
 				6396DB671D606DB2001D9B6D /* UXKVisualDOM.js */,
 				6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */,
@@ -183,6 +190,7 @@
 		6396DB761D63598E001D9B6D /* js */ = {
 			isa = PBXGroup;
 			children = (
+				6396DB8F1D69693E001D9B6D /* TEST */,
 			);
 			path = js;
 			sourceTree = "<group>";
@@ -200,6 +208,15 @@
 				6396DB8D1D674CC5001D9B6D /* UXKProps+LayoutFormat.m */,
 			);
 			path = oc;
+			sourceTree = "<group>";
+		};
+		6396DB8F1D69693E001D9B6D /* TEST */ = {
+			isa = PBXGroup;
+			children = (
+				6396DB901D69693E001D9B6D /* UXKTEST.html */,
+				6396DB911D69693E001D9B6D /* UXKTEST.js */,
+			);
+			path = TEST;
 			sourceTree = "<group>";
 		};
 		682C8749216896E50DBFE9B8 /* Pods */ = {
@@ -272,10 +289,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6396DB931D69693E001D9B6D /* UXKTEST.js in Resources */,
+				6396DB951D697598001D9B6D /* UXKComponents.js in Resources */,
 				6396DB8B1D64AF4E001D9B6D /* UXKAnimation.js in Resources */,
 				6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */,
 				6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */,
 				634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */,
+				6396DB921D69693E001D9B6D /* UXKTEST.html in Resources */,
 				634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */,
 				6396DB681D606DB2001D9B6D /* UXKVisualDOM.js in Resources */,
 				634A88781D5F5FF70022AC22 /* Main.storyboard in Resources */,
