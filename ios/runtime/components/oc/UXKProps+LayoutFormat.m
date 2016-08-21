@@ -116,7 +116,7 @@
         leftExp = [NSRegularExpression regularExpressionWithPattern:@"([<\\|]+)-([@\\-0-9]+)-"
                                                             options:kNilOptions
                                                               error:nil];
-        widthExp = [NSRegularExpression regularExpressionWithPattern:@"\\[([0-9]+)\\]"
+        widthExp = [NSRegularExpression regularExpressionWithPattern:@"\\[([<>0-9]+)\\]"
                                                              options:kNilOptions
                                                                error:nil];
         rightExp = [NSRegularExpression regularExpressionWithPattern:@"-([@\\-0-9]+)-([\\|>])"
@@ -126,6 +126,7 @@
     CGFloat origin = 0.0, distance = 0.0;
     CGFloat lVal = 0.0, cVal = 0.0, rVal = 0.0;
     BOOL lFlex = NO, rFlex = NO;
+    BOOL lEqual = NO, rEqual = NO;
     {
         NSArray<NSTextCheckingResult *> *results = [leftExp matchesInString:format
                                                                     options:NSMatchingReportCompletion
@@ -145,7 +146,18 @@
                                                                      options:NSMatchingReportCompletion
                                                                        range:NSMakeRange(0, [format length])];
         if ([results firstObject] != nil && 1 < [[results firstObject] numberOfRanges]) {
-            cVal = distance = [[format substringWithRange:[[results firstObject] rangeAtIndex:1]] floatValue];
+            NSString *cString = [format substringWithRange:[[results firstObject] rangeAtIndex:1]];
+            if ([cString isEqualToString:@"<"]) {
+                lEqual = YES;
+                cVal = distance = prevPoint.y;
+            }
+            else if ([cString isEqualToString:@">"]) {
+                rEqual = YES;
+                cVal = distance = nextPoint.y;
+            }
+            else {
+                cVal = distance = [cString floatValue];
+            }
         }
     }
     {
@@ -171,7 +183,7 @@
     if (lFlex && rFlex && distance > 0) {
         origin = (superPoint.y - distance) / 2.0;
     }
-    if ([self relateNext:format] && [self relatePrev:format]) {
+    if ([self relateNextLeft:format] && [self relatePrevRight:format]) {
         if ([self relatePrevLeft:format]) {
             origin = prevPoint.x + lVal;
         }
@@ -185,7 +197,7 @@
             distance = nextPoint.x - rVal - origin;
         }
     }
-    else if ([self relateNext:format] && ![self relatePrev:format]) {
+    else if ([self relateNextLeft:format] && ![self relatePrevRight:format]) {
         if ([self pressLeft:format]) {
             origin = lVal;
             distance = nextPoint.x - rVal - origin;
@@ -195,10 +207,17 @@
             distance = cVal;
         }
         if ([self relateNextRight:format]) {
-            distance = distance + nextPoint.y;
+            if (rEqual) {
+                origin = origin + nextPoint.y;
+                distance = distance + nextPoint.y;
+                distance = distance - cVal;
+            }
+            else {
+                distance = distance + nextPoint.y;
+            }
         }
     }
-    else if (![self relateNext:format] && [self relatePrev:format]) {
+    else if (![self relateNextLeft:format] && [self relatePrevRight:format]) {
         if ([self pressRight:format]) {
             if ([self relatePrevLeft:format]) {
                 origin = prevPoint.x + lVal;
@@ -221,16 +240,24 @@
     return [formatFrame containsString:@">"];
 }
 
++ (BOOL)relateNextLeft:(NSString *)formatFrame {
+    return [formatFrame hasSuffix:@">"];
+}
+
 + (BOOL)relateNextRight:(NSString *)formatFrame {
-    return [formatFrame containsString:@">>"];
+    return [formatFrame hasSuffix:@">>"];
 }
 
 + (BOOL)relatePrev:(NSString *)formatFrame {
     return [formatFrame containsString:@"<"];
 }
 
++ (BOOL)relatePrevRight:(NSString *)formatFrame {
+    return [formatFrame hasPrefix:@"<"];
+}
+
 + (BOOL)relatePrevLeft:(NSString *)formatFrame {
-    return [formatFrame containsString:@"<<"];
+    return [formatFrame hasPrefix:@"<<"];
 }
 
 + (BOOL)pressRight:(NSString *)formatFrame {
