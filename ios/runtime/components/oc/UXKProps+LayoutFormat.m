@@ -181,9 +181,22 @@
         }
     }
     if (lFlex && rFlex && distance > 0) {
-        origin = (superPoint.y - distance) / 2.0;
+        CGFloat left = 0.0, right = superPoint.y;
+        if ([self relateNextRight:format]) {
+            right = nextPoint.x + nextPoint.y;
+        }
+        else if ([self relateNextLeft:format]) {
+            right = nextPoint.x;
+        }
+        if ([self relatePrevLeft:format]) {
+            left = prevPoint.x;
+        }
+        else if ([self relatePrevRight:format]) {
+            left = prevPoint.x + prevPoint.y;
+        }
+        origin = (left + right) / 2.0 - distance / 2.0;
     }
-    if ([self relateNextLeft:format] && [self relatePrevRight:format]) {
+    else if ([self relateNextLeft:format] && [self relatePrevRight:format]) {
         if ([self relatePrevLeft:format]) {
             origin = prevPoint.x + lVal;
         }
