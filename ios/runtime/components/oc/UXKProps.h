@@ -17,11 +17,6 @@
 
 + (CGRect)toRectWithRect:(NSString *)rectString;
 
-+ (CGRect)toRectWithFormat:(NSString *)formatString
-            superViewFrame:(CGRect)superViewFrame
-         previousViewFrame:(CGRect)previousViewFrame
-             nextViewFrame:(CGRect)nextViewFrame;
-
 + (UIColor *)toColor:(NSString *)stringValue;
 
 @end

@@ -113,7 +113,7 @@
     static NSRegularExpression *rightExp;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        leftExp = [NSRegularExpression regularExpressionWithPattern:@"([<\\|])-([@\\-0-9]+)-"
+        leftExp = [NSRegularExpression regularExpressionWithPattern:@"([<\\|]+)-([@\\-0-9]+)-"
                                                             options:kNilOptions
                                                               error:nil];
         widthExp = [NSRegularExpression regularExpressionWithPattern:@"\\[([0-9]+)\\]"
@@ -172,16 +172,47 @@
         origin = (superPoint.y - distance) / 2.0;
     }
     if ([self relateNext:format] && [self relatePrev:format]) {
-        origin = prevPoint.x + prevPoint.y + lVal;
-        distance = nextPoint.x - rVal - origin;
+        if ([self relatePrevLeft:format]) {
+            origin = prevPoint.x + lVal;
+        }
+        else {
+            origin = prevPoint.x + prevPoint.y + lVal;
+        }
+        if ([self relateNextRight:format]) {
+            distance = nextPoint.x + nextPoint.y - origin - rVal;
+        }
+        else {
+            distance = nextPoint.x - rVal - origin;
+        }
     }
     else if ([self relateNext:format] && ![self relatePrev:format]) {
-        distance = [self pressLeft:format] ? lVal : cVal;
-        origin = nextPoint.x - rVal - distance;
+        if ([self pressLeft:format]) {
+            origin = lVal;
+            distance = nextPoint.x - rVal - origin;
+        }
+        else {
+            origin = nextPoint.x - rVal - cVal;
+            distance = cVal;
+        }
+        if ([self relateNextRight:format]) {
+            distance = distance + nextPoint.y;
+        }
     }
     else if (![self relateNext:format] && [self relatePrev:format]) {
-        distance = [self pressRight:format] ? superPoint.y - rVal - lVal - prevPoint.x - prevPoint.y : cVal;
-        origin = prevPoint.x + prevPoint.y + lVal;
+        if ([self pressRight:format]) {
+            if ([self relatePrevLeft:format]) {
+                origin = prevPoint.x + lVal;
+                distance = superPoint.y - rVal - origin;
+            }
+            else {
+                origin = prevPoint.x + prevPoint.y + lVal;
+                distance = superPoint.y - rVal - origin;
+            }
+        }
+        else {
+            origin = prevPoint.x + lVal;
+            distance = cVal;
+        }
     }
     return CGPointMake(origin, distance);
 }
@@ -190,8 +221,16 @@
     return [formatFrame containsString:@">"];
 }
 
++ (BOOL)relateNextRight:(NSString *)formatFrame {
+    return [formatFrame containsString:@">>"];
+}
+
 + (BOOL)relatePrev:(NSString *)formatFrame {
     return [formatFrame containsString:@"<"];
+}
+
++ (BOOL)relatePrevLeft:(NSString *)formatFrame {
+    return [formatFrame containsString:@"<<"];
 }
 
 + (BOOL)pressRight:(NSString *)formatFrame {

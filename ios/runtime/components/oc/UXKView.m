@@ -38,7 +38,9 @@
     if (props[@"frame"] && [props[@"frame"] isKindOfClass:[NSString class]]) {
         if ([(NSString *)props[@"frame"] containsString:@"["]) {
             if ([self isKindOfClass:[UXKView class]]) {
-                [(UXKView *)self setFormatFrame:props[@"frame"]];
+                [(UXKView *)self setFormatFrame:
+                 [[props[@"frame"] stringByReplacingOccurrencesOfString:@"(" withString:@""]
+                  stringByReplacingOccurrencesOfString:@")" withString:@""]];
             }
         }
         else {
