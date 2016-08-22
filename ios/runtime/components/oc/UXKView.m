@@ -46,7 +46,9 @@
         else {
             CGRect newFrame = [UXKProps toRectWithRect:props[@"frame"]];
             if (!CGRectEqualToRect(self.frame, newFrame)) {
-                if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self props:kPOPViewFrame newValue:[NSValue valueWithCGRect:newFrame]]) {
+                if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
+                                                                                           props:kPOPViewFrame
+                                                                                        newValue:[NSValue valueWithCGRect:newFrame]]) {
                     self.frame = newFrame;
                 }
             }
@@ -61,7 +63,9 @@
     if (props[@"backgroundColor"] && [props[@"backgroundColor"] isKindOfClass:[NSString class]]) {
         UIColor *newBackgroundColor = [UXKProps toColor:props[@"backgroundColor"]];
         if (![newBackgroundColor isEqual:self.backgroundColor]) {
-            if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self props:kPOPViewBackgroundColor newValue:newBackgroundColor]) {
+            if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
+                                                                                       props:kPOPViewBackgroundColor
+                                                                                    newValue:newBackgroundColor]) {
                 self.backgroundColor = newBackgroundColor;
             }
         }
@@ -69,7 +73,9 @@
     if (props[@"alpha"] && [props[@"alpha"] isKindOfClass:[NSString class]]) {
         CGFloat newAlpha = [UXKProps toCGFloat:props[@"alpha"]];
         if (newAlpha != self.alpha) {
-            if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self props:kPOPViewAlpha newValue:@(newAlpha)]) {
+            if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
+                                                                                       props:kPOPViewAlpha
+                                                                                    newValue:@(newAlpha)]) {
                 self.alpha = newAlpha;
             }
         }

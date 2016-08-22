@@ -21,7 +21,9 @@
 @implementation UXKBridgeAnimationHandler
 
 + (NSString *)bridgeScript {
-    return [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UXKAnimation" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+    return [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UXKAnimation" ofType:@"js"]
+                                     encoding:NSUTF8StringEncoding
+                                        error:nil];
 }
 
 - (instancetype)initWithView:(UIView *)view
@@ -68,7 +70,10 @@
     else if ([props isEqualToString:kPOPViewBackgroundColor]) {
         oldValue = view.backgroundColor;
     }
-    POPAnimation *animation = [UXKAnimation animationWithParams:self.animationParams aniProperty:props fromValue:oldValue toValue:newValue];
+    POPAnimation *animation = [UXKAnimation animationWithParams:self.animationParams
+                                                    aniProperty:props
+                                                      fromValue:oldValue
+                                                        toValue:newValue];
     if (animation == nil) {
         return NO;
     }
