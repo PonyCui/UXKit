@@ -31,7 +31,9 @@ static NSDictionary *kUXKViewTypes;
 }
 
 + (NSString *)bridgeScript {
-    return [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UXKVisualDOM" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+    return [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UXKVisualDOM" ofType:@"js"]
+                                     encoding:NSUTF8StringEncoding
+                                        error:nil];
 }
 
 - (void)dealloc {
