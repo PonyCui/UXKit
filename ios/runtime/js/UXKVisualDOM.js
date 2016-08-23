@@ -19,9 +19,16 @@ window._UXK_VisualDOM = function () {
             }
             return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
         },
-        update: function (node, onlyProps) {
-            if (node === undefined) {
+        update: function (selector, onlyProps) {
+            var node;
+            if (selector === undefined || selector === null) {
                 node = document.body;
+            }
+            else {
+                node = document.querySelector(selector);
+            }
+            if (undefined === node || null === node) {
+                return;
             }
             if (onlyProps === true) {
                 this.commitTree(node, true);
@@ -32,10 +39,10 @@ window._UXK_VisualDOM = function () {
                 this.commitTree(node);
             }
         },
-        updateWithAnimation: function (animation, node, onlyProps) {
+        updateWithAnimation: function (animation, selector, onlyProps) {
             webkit.messageHandlers.UXK_AnimationHandler_Commit.postMessage(JSON.stringify(animation));
             webkit.messageHandlers.UXK_AnimationHandler_Enable.postMessage("");
-            this.update(node, onlyProps);
+            this.update(selector, onlyProps);
             webkit.messageHandlers.UXK_AnimationHandler_Disable.postMessage("");
         },
         updateComponents: function (node) {
@@ -62,7 +69,6 @@ window._UXK_VisualDOM = function () {
                         window._UXK_Components[childNode.nodeName].setProps(childNode, attributes);
                     }
                 }
-
                 this.updateComponents(childNode);
             }
         },
