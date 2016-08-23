@@ -7,5 +7,18 @@ window._UXK_Animation = {
             'bounciness': options ? options.bounciness : undefined,
             'speed': options ? options.speed : undefined,
         }
-    }
+    },
+    decay: function(options) {
+        return {
+            'aniType': 'decay',
+            'velocity': options ? options.velocity : undefined,
+            'deceleration': options ? options.deceleration : undefined,
+        }
+    },
+    timing: function(options) {
+        return {
+            'aniType': 'timing',
+            'duration': options ? options.duration : undefined,
+        }
+    },
 };

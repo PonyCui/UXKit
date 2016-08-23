@@ -15,15 +15,33 @@
                           aniProperty:(NSString *)aniProperty
                             fromValue:(id)fromValue
                               toValue:(id)toValue {
-    if ([aniParams[@"aniType"] isKindOfClass:[NSString class]]) {
-        if ([aniParams[@"aniType"] isEqualToString:@"spring"]) {
-            return [self springWithParams:aniParams
-                              aniProperty:aniProperty
-                                fromValue:fromValue
-                                  toValue:toValue];
-        }
+    if ([aniParams[@"aniType"] isKindOfClass:[NSString class]] && [aniParams[@"aniType"] isEqualToString:@"spring"]) {
+        return [self springWithParams:aniParams
+                          aniProperty:aniProperty
+                            fromValue:fromValue
+                              toValue:toValue];
     }
-    return nil;
+    else if ([aniParams[@"aniType"] isKindOfClass:[NSString class]] && [aniParams[@"aniType"] isEqualToString:@"decay"]) {
+        return [self decayWithParams:aniParams
+                         aniProperty:aniProperty
+                           fromValue:fromValue];
+    }
+    else {
+        return [self timingWithParams:aniParams aniProperty:aniProperty fromValue:fromValue toValue:toValue];
+    }
+}
+
++ (POPAnimation *)timingWithParams:(NSDictionary *)aniParams
+                       aniProperty:(NSString *)aniProperty
+                         fromValue:(id)fromValue
+                           toValue:(id)toValue {
+    POPBasicAnimation *animation = [POPBasicAnimation animationWithPropertyNamed:aniProperty];
+    if (aniParams[@"duration"] != nil && [aniParams[@"duration"] isKindOfClass:[NSNumber class]]) {
+        animation.duration = [aniParams[@"duration"] floatValue];
+    }
+    animation.fromValue = fromValue;
+    animation.toValue = toValue;
+    return animation;
 }
 
 + (POPAnimation *)springWithParams:(NSDictionary *)aniParams
@@ -45,6 +63,20 @@
     }
     animation.fromValue = fromValue;
     animation.toValue = toValue;
+    return animation;
+}
+
++ (POPAnimation *)decayWithParams:(NSDictionary *)aniParams
+                      aniProperty:(NSString *)aniProperty
+                        fromValue:(id)fromValue {
+    POPDecayAnimation *animation = [POPDecayAnimation animationWithPropertyNamed:aniProperty];
+    if (aniParams[@"velocity"] != nil && [aniParams[@"velocity"] isKindOfClass:[NSNumber class]]) {
+        [animation setVelocity:aniParams[@"velocity"]];
+    }
+    if (aniParams[@"deceleration"] != nil && [aniParams[@"deceleration"] isKindOfClass:[NSNumber class]]) {
+        [animation setDeceleration:[aniParams[@"deceleration"] floatValue]];
+    }
+    animation.fromValue = fromValue;
     return animation;
 }
 
