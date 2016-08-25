@@ -70,6 +70,11 @@
                       aniProperty:(NSString *)aniProperty
                         fromValue:(id)fromValue {
     POPDecayAnimation *animation = [POPDecayAnimation animationWithPropertyNamed:aniProperty];
+    if (aniParams[@"props"] != nil && [aniParams[@"props"] isKindOfClass:[NSString class]]) {
+        if ([aniParams[@"props"] isEqualToString:@"frame"]) {
+            
+        }
+    }
     if (aniParams[@"velocity"] != nil && [aniParams[@"velocity"] isKindOfClass:[NSNumber class]]) {
         [animation setVelocity:aniParams[@"velocity"]];
     }

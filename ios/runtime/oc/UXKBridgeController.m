@@ -31,10 +31,19 @@
 }
 
 - (void)configure {
+    [self configureJQuery];
     [self configureViewUpdater];
     [self configureAnimationHandler];
     [self configureTasks];
     [self configureComponents];
+}
+
+- (void)configureJQuery {
+    [self addUserScript:[[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UXKjQuery.min" ofType:@"js"]
+                                                                                       encoding:NSUTF8StringEncoding
+                                                                                          error:nil]
+                                               injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                            forMainFrameOnly:YES]];
 }
 
 - (void)configureViewUpdater {

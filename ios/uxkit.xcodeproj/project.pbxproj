@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		630AC5501D6F30E600314FA3 /* UXKjQuery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 630AC54F1D6F30E600314FA3 /* UXKjQuery.min.js */; };
 		634A886F1D5F5FF70022AC22 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A886E1D5F5FF70022AC22 /* main.m */; };
 		634A88721D5F5FF70022AC22 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A88711D5F5FF70022AC22 /* AppDelegate.m */; };
 		634A88751D5F5FF70022AC22 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A88741D5F5FF70022AC22 /* ViewController.m */; };
@@ -14,7 +15,7 @@
 		634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 634A88791D5F5FF70022AC22 /* Assets.xcassets */; };
 		634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 634A887B1D5F5FF70022AC22 /* LaunchScreen.storyboard */; };
 		634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A88881D5F60A80022AC22 /* UXKBridge.m */; };
-		6396DB681D606DB2001D9B6D /* UXKVisualDOM.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB671D606DB2001D9B6D /* UXKVisualDOM.js */; };
+		6396DB681D606DB2001D9B6D /* UXKDom.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB671D606DB2001D9B6D /* UXKDom.js */; };
 		6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB6A1D606E59001D9B6D /* RedBox.html */; };
 		6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB701D60A0BF001D9B6D /* UXKTasks.js */; };
 		6396DB7A1D63598E001D9B6D /* UXKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB791D63598E001D9B6D /* UXKView.m */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		630AC54F1D6F30E600314FA3 /* UXKjQuery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKjQuery.min.js; sourceTree = "<group>"; };
 		634A886A1D5F5FF70022AC22 /* uxkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uxkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		634A886E1D5F5FF70022AC22 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		634A88701D5F5FF70022AC22 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -44,7 +46,7 @@
 		634A887E1D5F5FF70022AC22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		634A88871D5F60A80022AC22 /* UXKBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridge.h; sourceTree = "<group>"; };
 		634A88881D5F60A80022AC22 /* UXKBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridge.m; sourceTree = "<group>"; };
-		6396DB671D606DB2001D9B6D /* UXKVisualDOM.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKVisualDOM.js; sourceTree = "<group>"; };
+		6396DB671D606DB2001D9B6D /* UXKDom.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKDom.js; sourceTree = "<group>"; };
 		6396DB6A1D606E59001D9B6D /* RedBox.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = RedBox.html; sourceTree = "<group>"; };
 		6396DB701D60A0BF001D9B6D /* UXKTasks.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKTasks.js; sourceTree = "<group>"; };
 		6396DB781D63598E001D9B6D /* UXKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKView.h; sourceTree = "<group>"; };
@@ -147,9 +149,10 @@
 		634A88851D5F60550022AC22 /* js */ = {
 			isa = PBXGroup;
 			children = (
+				630AC54F1D6F30E600314FA3 /* UXKjQuery.min.js */,
 				6396DB941D697598001D9B6D /* UXKComponents.js */,
 				6396DB701D60A0BF001D9B6D /* UXKTasks.js */,
-				6396DB671D606DB2001D9B6D /* UXKVisualDOM.js */,
+				6396DB671D606DB2001D9B6D /* UXKDom.js */,
 				6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */,
 			);
 			path = js;
@@ -295,9 +298,10 @@
 				6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */,
 				6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */,
 				634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */,
+				630AC5501D6F30E600314FA3 /* UXKjQuery.min.js in Resources */,
 				6396DB921D69693E001D9B6D /* UXKTEST.html in Resources */,
 				634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */,
-				6396DB681D606DB2001D9B6D /* UXKVisualDOM.js in Resources */,
+				6396DB681D606DB2001D9B6D /* UXKDom.js in Resources */,
 				634A88781D5F5FF70022AC22 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
