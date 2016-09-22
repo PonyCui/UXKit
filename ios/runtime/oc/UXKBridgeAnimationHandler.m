@@ -60,24 +60,19 @@
     if (!self.animationEnabled || self.animationParams == nil) {
         return NO;
     }
-    id oldValue;
-    if ([props isEqualToString:kPOPViewFrame]) {
-        oldValue = [NSValue valueWithCGRect:view.frame];
-    }
-    else if ([props isEqualToString:kPOPViewAlpha]) {
-        oldValue = @(view.alpha);
-    }
-    else if ([props isEqualToString:kPOPViewBackgroundColor]) {
-        oldValue = view.backgroundColor;
-    }
     POPAnimation *animation = [UXKAnimation animationWithParams:self.animationParams
                                                     aniProperty:props
-                                                      fromValue:oldValue
+                                                      fromValue:nil
                                                         toValue:newValue];
     if (animation == nil) {
         return NO;
     }
-    [view pop_addAnimation:animation forKey:props];
+    if (props == kPOPLayerCornerRadius || props == kPOPLayerBorderWidth || props == kPOPLayerBorderColor) {
+        [view.layer pop_addAnimation:animation forKey:props];
+    }
+    else {
+        [view pop_addAnimation:animation forKey:props];
+    }
     return YES;
 }
 
