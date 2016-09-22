@@ -287,6 +287,10 @@
         CGRect rect = [self rectWithView:superView format:superView.formatFrame];
         return CGPointMake(rect.origin.x, rect.size.width);
     }
+    else if ([superView isKindOfClass:[UXKView class]] && superView.willChangeToFrame != nil) {
+        CGRect rect = [superView.willChangeToFrame CGRectValue];
+        return CGPointMake(rect.origin.x, rect.size.width);
+    }
     else {
         return CGPointMake(superView.frame.origin.x, superView.frame.size.width);
     }
@@ -296,6 +300,10 @@
     UXKView *superView = (UXKView *)[view superview];
     if ([superView isKindOfClass:[UXKView class]] && superView.formatFrame != nil) {
         CGRect rect = [self rectWithView:superView format:superView.formatFrame];
+        return CGPointMake(rect.origin.y, rect.size.height);
+    }
+    else if ([superView isKindOfClass:[UXKView class]] && superView.willChangeToFrame != nil) {
+        CGRect rect = [superView.willChangeToFrame CGRectValue];
         return CGPointMake(rect.origin.y, rect.size.height);
     }
     else {
@@ -309,6 +317,10 @@
         UXKView *previousView = [[view superview] subviews][idx - 1];
         if ([previousView isKindOfClass:[UXKView class]] && previousView.formatFrame != nil) {
             CGRect rect = [self rectWithView:previousView format:previousView.formatFrame];
+            return CGPointMake(rect.origin.x, rect.size.width);
+        }
+        else if ([previousView isKindOfClass:[UXKView class]] && previousView.willChangeToFrame != nil) {
+            CGRect rect = [previousView.willChangeToFrame CGRectValue];
             return CGPointMake(rect.origin.x, rect.size.width);
         }
         else {
@@ -326,6 +338,10 @@
             CGRect rect = [self rectWithView:previousView format:previousView.formatFrame];
             return CGPointMake(rect.origin.y, rect.size.height);
         }
+        else if ([previousView isKindOfClass:[UXKView class]] && previousView.willChangeToFrame != nil) {
+            CGRect rect = [previousView.willChangeToFrame CGRectValue];
+            return CGPointMake(rect.origin.y, rect.size.height);
+        }
         else {
             return CGPointMake(previousView.frame.origin.y, previousView.frame.size.height);
         }
@@ -341,6 +357,10 @@
             CGRect rect = [self rectWithView:nextView format:nextView.formatFrame];
             return CGPointMake(rect.origin.x, rect.size.width);
         }
+        else if ([nextView isKindOfClass:[UXKView class]] && nextView.willChangeToFrame != nil) {
+            CGRect rect = [nextView.willChangeToFrame CGRectValue];
+            return CGPointMake(rect.origin.x, rect.size.width);
+        }
         else {
             return CGPointMake(nextView.frame.origin.x, nextView.frame.size.width);
         }
@@ -354,6 +374,10 @@
         UXKView *nextView = [[view superview] subviews][idx + 1];
         if ([nextView isKindOfClass:[UXKView class]] && nextView.formatFrame != nil) {
             CGRect rect = [self rectWithView:nextView format:nextView.formatFrame];
+            return CGPointMake(rect.origin.y, rect.size.height);
+        }
+        else if ([nextView isKindOfClass:[UXKView class]] && nextView.willChangeToFrame != nil) {
+            CGRect rect = [nextView.willChangeToFrame CGRectValue];
             return CGPointMake(rect.origin.y, rect.size.height);
         }
         else {

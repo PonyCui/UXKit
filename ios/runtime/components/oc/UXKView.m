@@ -15,6 +15,8 @@
 
 @interface UXKView ()
 
+@property (nonatomic, assign) BOOL firstLayout;
+    
 @end
 
 @implementation UXKView
@@ -26,11 +28,42 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    if (!self.firstLayout) {
+        self.firstLayout = YES;
+        [self layoutUXKViews:nil newRect:nil except:nil];
+    }
+}
+    
+- (void)layoutUXKViews:(UXKBridgeAnimationHandler *)animationHandler newRect:(NSValue *)newRectValue except:(UXKView *)except {
+    CGRect newRect;
     if (self.formatFrame != nil) {
-        self.frame = [UXKProps rectWithView:self format:self.formatFrame];
-        for (UIView *subview in self.subviews) {
-            [subview layoutSubviews];
+        newRect = [UXKProps rectWithView:self format:self.formatFrame];
+    }
+    else if (newRectValue != nil) {
+        newRect = [newRectValue CGRectValue];
+        self.willChangeToFrame = newRectValue;
+    }
+    else {
+        return;
+    }
+    if (animationHandler == nil || ![animationHandler addAnimationWithView:self
+                                                                     props:kPOPViewFrame
+                                                                  newValue:[NSValue valueWithCGRect:newRect]]) {
+        self.frame = newRect;
+    }
+    if (self.superview != nil && self.superview != except) {
+        for (UXKView *subview in self.superview.subviews) {
+            if (subview == except || subview == self || ![subview isKindOfClass:[UXKView class]]) {
+                continue;
+            }
+            [subview layoutUXKViews:animationHandler newRect:nil except:self];
         }
+    }
+    for (UXKView *subview in self.subviews) {
+        if (![subview isKindOfClass:[UXKView class]]) {
+            continue;
+        }
+        [subview layoutUXKViews:animationHandler newRect:nil except:self];
     }
 }
 
@@ -41,17 +74,13 @@
                 [(UXKView *)self setFormatFrame:
                  [[props[@"frame"] stringByReplacingOccurrencesOfString:@"(" withString:@""]
                   stringByReplacingOccurrencesOfString:@")" withString:@""]];
+                [self layoutUXKViews:self.animationHandler newRect:nil except:nil];
             }
         }
         else {
-            CGRect newFrame = [UXKProps toRectWithRect:props[@"frame"]];
-            if (!CGRectEqualToRect(self.frame, newFrame)) {
-                if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
-                                                                                           props:kPOPViewFrame
-                                                                                        newValue:[NSValue valueWithCGRect:newFrame]]) {
-                    self.frame = newFrame;
-                }
-            }
+            [self layoutUXKViews:self.animationHandler
+                         newRect:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]
+                          except:nil];
         }
     }
     if (props[@"userInteractionEnabled"] && [props[@"userInteractionEnabled"] isKindOfClass:[NSString class]]) {
