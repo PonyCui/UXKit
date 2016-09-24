@@ -62,9 +62,36 @@
 }
 
 - (void)onTouch:(UIGestureRecognizer *)sender {
-    NSString *script = [NSString stringWithFormat:@"window.UXK_TouchCallback('%@', {})",
-                        sender.uxk_callbackID];
+    NSString *script = [NSString stringWithFormat:@"window.UXK_TouchCallback('%@', {state: '%@'})",
+                        sender.uxk_callbackID,
+                        [self state:sender]];
     [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+}
+
+- (NSString *)state:(UIGestureRecognizer *)sender {
+    switch (sender.state) {
+        case UIGestureRecognizerStatePossible:
+            return @"Possible";
+            break;
+        case UIGestureRecognizerStateBegan:
+            return @"Began";
+            break;
+        case UIGestureRecognizerStateChanged:
+            return @"Changed";
+            break;
+        case UIGestureRecognizerStateEnded:
+            return @"Ended";
+            break;
+        case UIGestureRecognizerStateCancelled:
+            return @"Cancelled";
+            break;
+        case UIGestureRecognizerStateFailed:
+            return @"Failed";
+            break;
+        default:
+            break;
+    }
+    return @"";
 }
 
 @end

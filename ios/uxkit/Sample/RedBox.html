@@ -7,25 +7,18 @@
 <body>
     <view id="s" name="super" frame="|-0-[]-0-|,|-0-[]-0-|" backgroundColor="#e2e2e2">
         <test name="child" id="t" frame="0,0,100,100" />
-<!--        <view id="test2" frame="|-20-[20],[20]-20->" backgroundColor="#00ffff"></view>-->
-<!--        <view id="test" frame="20,40,40,40" backgroundColor="#00ff00">-->
-<!--            <view id="test3" frame="|-5-[]-5-|,|-5-[]-5-|" backgroundColor="#ffff00"></view>-->
-<!--        </view>-->
     </view>
 </body>
 
 </html>
 
 <script>
-    setTimeout(function(){
-//               $('#test').attr("frame", "20,40,200,200");
-//               $('#test3').attr("borderWidth", "2");
-//               $('#test3').attr("borderColor", "#ff0000");
-               $('#t').attr('on', 'true');
-               $('test').animate();
-               $('#s').onTap(function(){
-                             $('#t').attr('on', 'false');
-                             $('test').animate();
-                             })
-               }.bind(this), 3000);
+
+ux_ready = function() {
+    $('#s').onTap(function(){
+        $('#t').attr('on', 'true');
+        $('#t').animate();
+    })
+}
+
 </script>
