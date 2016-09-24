@@ -15,7 +15,7 @@
 <script>
 
 ux_ready = function() {
-    $('#s').onTap(function(){
+    var gesture = $('#s').onTap(function(){
         $('#t').attr('on', 'true');
         $('#t').animate();
     })

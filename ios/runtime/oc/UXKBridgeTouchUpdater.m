@@ -37,7 +37,26 @@
                                                              options:kNilOptions
                                                                error:nil];
         if ([args isKindOfClass:[NSDictionary class]]) {
-            [self addGestureWithArgs:args];
+            if ([args[@"removed"] isKindOfClass:[NSNumber class]] && [args[@"removed"] boolValue]) {
+                [self removeGestureWithArgs:args];
+            }
+            else {
+                [self addGestureWithArgs:args];
+            }
+        }
+    }
+}
+
+- (void)removeGestureWithArgs:(NSDictionary *)args {
+    NSString *vKey = args[@"vKey"];
+    if ([vKey isKindOfClass:[NSString class]]) {
+        UIView *view = self.bridgeController.viewUpdater.mirrorViews[vKey];
+        if (view != nil) {
+            for (UIGestureRecognizer *obj in [view.gestureRecognizers copy]) {
+                if ([obj.uxk_callbackID isEqualToString:args[@"callbackID"]]) {
+                    [view removeGestureRecognizer:obj];
+                }
+            }
         }
     }
 }
