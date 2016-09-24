@@ -15,9 +15,9 @@
 <script>
 
 ux_ready = function() {
-    var gesture = $('#s').onTap(function(){
-        $('#t').attr('on', 'true');
-        $('#t').animate();
+    var gesture = $('#s').onPan(function(params){
+        $('test').attr('frame', params.translateX + ',' + params.translateY + ',100,100');
+        $('test').update(true);
     })
 }
 

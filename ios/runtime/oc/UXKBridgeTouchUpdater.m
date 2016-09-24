@@ -69,6 +69,12 @@
         if ([touchType isEqualToString:@"tap"] && view != nil) {
             [self addTapGestureToView:view args:args];
         }
+        else if ([touchType isEqualToString:@"longPress"] && view != nil) {
+            [self addLongPressGestureToView:view args:args];
+        }
+        else if ([touchType isEqualToString:@"pan"] && view != nil) {
+            [self addPanGestureToView:view args:args];
+        }
     }
 }
 
@@ -80,10 +86,46 @@
     [view addGestureRecognizer:gesture];
 }
 
+- (void)addLongPressGestureToView:(UIView *)view args:(NSDictionary *)args {
+    UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onTouch:)];
+    gesture.uxk_callbackID = [args[@"callbackID"] isKindOfClass:[NSString class]] ? args[@"callbackID"] : nil;
+    gesture.numberOfTapsRequired = [args[@"taps"] isKindOfClass:[NSNumber class]] ? [args[@"taps"] unsignedIntegerValue] : 0;
+    gesture.numberOfTouchesRequired = [args[@"touches"] isKindOfClass:[NSNumber class]] ? [args[@"touches"] unsignedIntegerValue] : 1;
+    gesture.minimumPressDuration = [args[@"duration"] isKindOfClass:[NSNumber class]] ? [args[@"duration"] doubleValue] : 0.5;
+    gesture.allowableMovement = [args[@"allowMovement"] isKindOfClass:[NSNumber class]] ? [args[@"allowMovement"] floatValue] : 10.0;
+    [view addGestureRecognizer:gesture];
+}
+
+- (void)addPanGestureToView:(UIView *)view args:(NSDictionary *)args {
+    UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onTouch:)];
+    gesture.uxk_callbackID = [args[@"callbackID"] isKindOfClass:[NSString class]] ? args[@"callbackID"] : nil;
+    [view addGestureRecognizer:gesture];
+}
+
 - (void)onTouch:(UIGestureRecognizer *)sender {
-    NSString *script = [NSString stringWithFormat:@"window.UXK_TouchCallback('%@', {state: '%@'})",
-                        sender.uxk_callbackID,
-                        [self state:sender]];
+    NSString *script;
+    if ([sender isKindOfClass:[UIPanGestureRecognizer class]]) {
+        script = [NSString stringWithFormat:@"window.UXK_TouchCallback('%@', {state: '%@', windowX: %f, windowY: %f, locationX: %f, locationY: %f, translateX: %f, translateY: %f, velocityX: %f, velocityY: %f})",
+                  sender.uxk_callbackID,
+                  [self state:sender],
+                  [sender locationInView:nil].x,
+                  [sender locationInView:nil].y,
+                  [sender locationInView:sender.view].x,
+                  [sender locationInView:sender.view].y,
+                  [(UIPanGestureRecognizer *)sender translationInView:nil].x,
+                  [(UIPanGestureRecognizer *)sender translationInView:nil].y,
+                  [(UIPanGestureRecognizer *)sender velocityInView:nil].x,
+                  [(UIPanGestureRecognizer *)sender velocityInView:nil].y];
+    }
+    else {
+        script = [NSString stringWithFormat:@"window.UXK_TouchCallback('%@', {state: '%@', windowX: %f, windowY: %f, locationX: %f, locationY: %f})",
+                  sender.uxk_callbackID,
+                  [self state:sender],
+                  [sender locationInView:nil].x,
+                  [sender locationInView:nil].y,
+                  [sender locationInView:sender.view].x,
+                  [sender locationInView:sender.view].y];
+    }
     [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
 }
 

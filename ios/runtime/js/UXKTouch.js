@@ -47,6 +47,24 @@ window.UXK_TouchCallback = function () { };
         touchHelper.commit(this.get(0), args, callback);
         return args;
     };
+    $.fn.onLongPress = function (callback) {
+        var args = {
+            touchType: 'longPress',
+            touches: 1,
+            taps: 0,
+            duration: 0.5,
+            allowMovement: 10,
+        }
+        touchHelper.commit(this.get(0), args, callback);
+        return args;
+    };
+    $.fn.onPan = function (callback) {
+        var args = {
+            touchType: 'pan',
+        }
+        touchHelper.commit(this.get(0), args, callback);
+        return args;
+    };
     window.UXK_TouchCallback = function (callbackID, params) {
         if (typeof touchHelper.callbacks[callbackID] === "function") {
             touchHelper.callbacks[callbackID].call(this, params);
