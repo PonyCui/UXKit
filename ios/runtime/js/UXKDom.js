@@ -71,30 +71,29 @@
             }
         },
         updateComponents: function (node) {
+            if (window._UXK_Components.contents[node.nodeName] !== undefined) {
+                if (node.getAttribute("_UXK_cKey") !== "_") {
+                    node.innerHTML = window._UXK_Components.rendComponent(node.nodeName, {});
+                    node.setAttribute("_UXK_cKey", "_");
+                    var attributes = {};
+                    for (var i = 0; i < node.attributes.length; i++) {
+                        var element = node.attributes[i];
+                        attributes[element.name] = element.value;
+                    }
+                    window._UXK_Components[node.nodeName].setProps(node, attributes);
+                }
+                else {
+                    var attributes = {};
+                    for (var i = 0; i < node.attributes.length; i++) {
+                        var element = node.attributes[i];
+                        attributes[element.name] = element.value;
+                    }
+                    window._UXK_Components[node.nodeName].setProps(node, attributes);
+                }
+            }
             var childNodes = node.childNodes;
             for (var i = 0; i < childNodes.length; i++) {
-                var childNode = childNodes[i];
-                if (window._UXK_Components.contents[childNode.nodeName] !== undefined) {
-                    if (childNode.getAttribute("_UXK_cKey") !== "_") {
-                        childNode.innerHTML = window._UXK_Components.rendComponent(childNode.nodeName, {});
-                        childNode.setAttribute("_UXK_cKey", "_");
-                        var attributes = {};
-                        for (var i = 0; i < childNode.attributes.length; i++) {
-                            var element = childNode.attributes[i];
-                            attributes[element.name] = element.value;
-                        }
-                        window._UXK_Components[childNode.nodeName].setProps(childNode, attributes);
-                    }
-                    else {
-                        var attributes = {};
-                        for (var i = 0; i < childNode.attributes.length; i++) {
-                            var element = childNode.attributes[i];
-                            attributes[element.name] = element.value;
-                        }
-                        window._UXK_Components[childNode.nodeName].setProps(childNode, attributes);
-                    }
-                }
-                this.updateComponents(childNode);
+                this.updateComponents(childNodes[i]);
             }
         },
     }
