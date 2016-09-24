@@ -26,6 +26,26 @@
     [self layoutSubviews];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    NSLog(@"touchesBegan, %@", self.name);
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesMoved:touches withEvent:event];
+    NSLog(@"touchesMoved, %@", self.name);
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
+    NSLog(@"touchesEnded, %@", self.name);
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesCancelled:touches withEvent:event];
+    NSLog(@"touchesCancelled, %@", self.name);
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (!self.firstLayout) {
@@ -68,6 +88,9 @@
 }
 
 - (void)setProps:(NSDictionary *)props {
+    if (props[@"name"] && [props[@"name"] isKindOfClass:[NSString class]]) {
+        self.name = props[@"name"];
+    }
     if (props[@"frame"] && [props[@"frame"] isKindOfClass:[NSString class]]) {
         if ([(NSString *)props[@"frame"] containsString:@"["]) {
             if ([self isKindOfClass:[UXKView class]]) {

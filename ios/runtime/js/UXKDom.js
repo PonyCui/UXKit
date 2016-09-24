@@ -1,7 +1,9 @@
 (function ($) {
     var domHelper = {
         kVisualDOMNames: ["BODY", "VIEW"],
-        kVisualDOMAttrs: ["frame",
+        kVisualDOMAttrs: [
+            "name",
+            "frame",
             "userInteractionEnabled",
             "transform",
             "clipsToBounds",

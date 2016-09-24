@@ -12,6 +12,7 @@
 
 @interface UXKView : UIView
 
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, weak) UXKBridgeAnimationHandler *animationHandler;
 @property (nonatomic, copy) NSString *formatFrame;
 @property (nonatomic, strong) NSValue *willChangeToFrame;
