@@ -8,11 +8,13 @@
 
 #import "UXKBridgeController.h"
 #import "UXKBridgeViewUpdater.h"
+#import "UXKBridgeTouchUpdater.h"
 #import "UXKBridgeAnimationHandler.h"
 
 @interface UXKBridgeController()
 
 @property (nonatomic, strong) UXKBridgeViewUpdater *viewUpdater;
+@property (nonatomic, strong) UXKBridgeTouchUpdater *touchUpdater;
 @property (nonatomic, strong) UXKBridgeAnimationHandler *animationHandler;
 @property (nonatomic, strong) UIView *view;
 
@@ -33,6 +35,7 @@
 - (void)configure {
     [self configureJQuery];
     [self configureViewUpdater];
+    [self configureTouchUpdater];
     [self configureAnimationHandler];
     [self configureTasks];
     [self configureComponents];
@@ -52,8 +55,16 @@
                                             forMainFrameOnly:YES]];
     self.viewUpdater = [[UXKBridgeViewUpdater alloc] initWithView:self.view];
     self.viewUpdater.bridgeController = self;
-    [self addScriptMessageHandler:self.viewUpdater
-                             name:@"UXK_ViewUpdater"];
+    [self addScriptMessageHandler:self.viewUpdater name:@"UXK_ViewUpdater"];
+}
+
+- (void)configureTouchUpdater {
+    [self addUserScript:[[WKUserScript alloc] initWithSource:[UXKBridgeTouchUpdater bridgeScript]
+                                               injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                            forMainFrameOnly:YES]];
+    self.touchUpdater = [[UXKBridgeTouchUpdater alloc] init];
+    self.touchUpdater.bridgeController = self;
+    [self addScriptMessageHandler:self.touchUpdater name:@"UXK_TouchUpdater"];
 }
 
 - (void)configureAnimationHandler {

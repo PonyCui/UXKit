@@ -30,6 +30,8 @@
 		6396DB951D697598001D9B6D /* UXKComponents.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB941D697598001D9B6D /* UXKComponents.js */; };
 		63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */; };
 		63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */; };
+		63E017AF1D963CD900389045 /* UXKTouch.js in Resources */ = {isa = PBXBuildFile; fileRef = 63E017AE1D963CD900389045 /* UXKTouch.js */; };
+		63E017B21D96B05200389045 /* UXKBridgeTouchUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,9 @@
 		63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeController.m; sourceTree = "<group>"; };
 		63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeViewUpdater.h; sourceTree = "<group>"; };
 		63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeViewUpdater.m; sourceTree = "<group>"; };
+		63E017AE1D963CD900389045 /* UXKTouch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKTouch.js; sourceTree = "<group>"; };
+		63E017B01D96B05200389045 /* UXKBridgeTouchUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeTouchUpdater.h; sourceTree = "<group>"; };
+		63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeTouchUpdater.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +158,7 @@
 				6396DB941D697598001D9B6D /* UXKComponents.js */,
 				6396DB701D60A0BF001D9B6D /* UXKTasks.js */,
 				6396DB671D606DB2001D9B6D /* UXKDom.js */,
+				63E017AE1D963CD900389045 /* UXKTouch.js */,
 				6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */,
 			);
 			path = js;
@@ -167,6 +173,8 @@
 				63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */,
 				63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */,
 				63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */,
+				63E017B01D96B05200389045 /* UXKBridgeTouchUpdater.h */,
+				63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */,
 				6396DB871D64AF03001D9B6D /* UXKBridgeAnimationHandler.h */,
 				6396DB881D64AF03001D9B6D /* UXKBridgeAnimationHandler.m */,
 			);
@@ -301,6 +309,7 @@
 				630AC5501D6F30E600314FA3 /* UXKjQuery.min.js in Resources */,
 				6396DB921D69693E001D9B6D /* UXKTEST.html in Resources */,
 				634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */,
+				63E017AF1D963CD900389045 /* UXKTouch.js in Resources */,
 				6396DB681D606DB2001D9B6D /* UXKDom.js in Resources */,
 				634A88781D5F5FF70022AC22 /* Main.storyboard in Resources */,
 			);
@@ -364,6 +373,7 @@
 				6396DB7A1D63598E001D9B6D /* UXKView.m in Sources */,
 				6396DB891D64AF03001D9B6D /* UXKBridgeAnimationHandler.m in Sources */,
 				6396DB7D1D6359A2001D9B6D /* UXKProps.m in Sources */,
+				63E017B21D96B05200389045 /* UXKBridgeTouchUpdater.m in Sources */,
 				63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */,
 				634A88751D5F5FF70022AC22 /* ViewController.m in Sources */,
 				6396DB861D64ACB0001D9B6D /* UXKAnimation.m in Sources */,

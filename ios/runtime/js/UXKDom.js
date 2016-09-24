@@ -98,7 +98,7 @@
                 this.updateComponents(childNodes[i]);
             }
         },
-    }
+    };
     $.fn.update = function (updatePropsOnly) {
         if (updatePropsOnly === true) {
             domHelper.commitTree(this.get(0), true);
@@ -108,5 +108,5 @@
             domHelper.assignKeys(this.get(0));
             domHelper.commitTree(this.get(0));
         }
-    }
-})(jQuery)
+    };
+})(jQuery);

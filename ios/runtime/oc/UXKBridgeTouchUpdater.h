@@ -1,8 +1,8 @@
 //
-//  UXKBridgeViewUpdater.h
+//  UXKBridgeTouchUpdater.h
 //  uxkit
 //
-//  Created by 崔 明辉 on 16/8/13.
+//  Created by 崔 明辉 on 16/9/24.
 //  Copyright © 2016年 YY Inc. All rights reserved.
 //
 
@@ -12,13 +12,10 @@
 
 @class UXKBridgeController;
 
-@interface UXKBridgeViewUpdater : NSObject<WKScriptMessageHandler>
+@interface UXKBridgeTouchUpdater : NSObject<WKScriptMessageHandler>
 
 @property (nonatomic, weak) UXKBridgeController *bridgeController;
-@property (nonatomic, readonly) NSMutableDictionary *mirrorViews;
 
 + (NSString *)bridgeScript;
-
-- (instancetype)initWithView:(UIView *)view;
 
 @end
