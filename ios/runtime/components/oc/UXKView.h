@@ -19,5 +19,6 @@
 
 - (BOOL)staticLayouts;
 - (void)setProps:(NSDictionary *)props;
+- (CGSize)intrinsicContentSizeWithProps:(NSDictionary *)props;
 
 @end

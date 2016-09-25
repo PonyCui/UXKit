@@ -85,9 +85,18 @@
             }
         }
         else {
-            [self layoutUXKViews:self.animationHandler
-                         newRect:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]
-                          except:nil];
+            if ([props[@"frame"] rangeOfString:@"*"].location != NSNotFound) {
+                CGRect newRect = [UXKProps toRectWithRect:props[@"frame"]];
+                newRect.size = [self intrinsicContentSizeWithProps:props];
+                [self layoutUXKViews:self.animationHandler
+                             newRect:[NSValue valueWithCGRect:newRect]
+                              except:nil];
+            }
+            else {
+                [self layoutUXKViews:self.animationHandler
+                             newRect:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]
+                              except:nil];
+            }
         }
     }
     if (props[@"userInteractionEnabled"] && [props[@"userInteractionEnabled"] isKindOfClass:[NSString class]]) {
@@ -143,6 +152,10 @@
             self.layer.borderColor = newValue.CGColor;
         }
     }
+}
+
+- (CGSize)intrinsicContentSizeWithProps:(NSDictionary *)props {
+    return CGSizeZero;
 }
 
 @end

@@ -1,6 +1,6 @@
 (function ($) {
     var domHelper = {
-        kVisualDOMNames: ["BODY", "VIEW", "IMAGEVIEW"],
+        kVisualDOMNames: ["BODY", "VIEW", "IMAGEVIEW", "LABEL"],
         kVisualDOMAttrs: [
             "name",
             "frame",
@@ -15,6 +15,10 @@
             "borderColor",
             "URL",
             "base64",
+            "text",
+            "textColor",
+            "font",
+            "lines",
         ],
         guid: function () {
             function s4() {
@@ -52,6 +56,9 @@
                 if (node.hasAttribute(attr)) {
                     tree.props[attr] = node.getAttribute(attr);
                 }
+            }
+            if (node.nodeName === "LABEL" && tree.props.text === undefined) {
+                tree.props["text"] = node.innerHTML.trim();
             }
             if (updatePropsOnly === true) {
                 delete tree.subviews;

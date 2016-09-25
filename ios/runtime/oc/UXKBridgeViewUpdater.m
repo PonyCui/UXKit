@@ -27,6 +27,7 @@ static NSDictionary *kUXKViewTypes;
         kUXKViewTypes = @{
                           @"VIEW": @"UXKView",
                           @"IMAGEVIEW": @"UXKImageView",
+                          @"LABEL": @"UXKLabel",
                           };
     });
 }

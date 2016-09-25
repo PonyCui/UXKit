@@ -37,6 +37,26 @@
     }
 }
 
++ (CGSize)toMaxSize:(NSString *)stringValue {
+    NSString *rectString = [stringValue stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSArray *components = [rectString componentsSeparatedByString:@","];
+    if ([components count] == 2) {
+        NSString *hString = components[0];
+        NSString *vString = components[1];
+        NSRange widthRange = [hString rangeOfString:@"[0-9]+" options:NSRegularExpressionSearch];
+        NSRange heightRange = [vString rangeOfString:@"[0-9]+" options:NSRegularExpressionSearch];
+        return CGSizeMake(widthRange.location != NSNotFound ? [[hString substringWithRange:widthRange] floatValue] : CGFLOAT_MAX,
+                          heightRange.location != NSNotFound ? [[vString substringWithRange:heightRange] floatValue] : CGFLOAT_MAX);
+    }
+    else if ([components count] == 4) {
+        return CGSizeMake([components[2] isEqualToString:@"*"] ? CGFLOAT_MAX : [components[2] floatValue],
+                          [components[3] isEqualToString:@"*"] ? CGFLOAT_MAX : [components[3] floatValue]);
+    }
+    else {
+        return CGSizeMake(0, 0);
+    }
+}
+
 + (UIColor *)toColor:(NSString *)stringValue {
     NSString *colorHex = [stringValue stringByReplacingOccurrencesOfString:@"#" withString:@""];
     colorHex = [colorHex uppercaseString];
@@ -81,6 +101,41 @@
     unsigned hexComponent;
     [[NSScanner scannerWithString: fullHex] scanHexInt: &hexComponent];
     return hexComponent / 255.0;
+}
+
++ (UIFont *)toFont:(NSString *)stringValue {
+    BOOL isBold = NO;
+    BOOL isItalic = NO;
+    CGFloat fontSize = 14.0;
+    if ([stringValue rangeOfString:@"bold"].location != NSNotFound) {
+        isBold = YES;
+    }
+    if ([stringValue rangeOfString:@"italic"].location != NSNotFound) {
+        isItalic = YES;
+    }
+    {
+        static NSRegularExpression *expression;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            expression = [[NSRegularExpression alloc] initWithPattern:@"[0-9]+"
+                                                              options:kNilOptions
+                                                                error:NULL];
+        });
+        NSRange intRange = [expression rangeOfFirstMatchInString:stringValue options:NSMatchingReportCompletion range:NSMakeRange(0, stringValue.length)];
+        if (intRange.location != NSNotFound) {
+            NSString *intString = [stringValue substringWithRange:intRange];
+            fontSize = [intString floatValue];
+        }
+    }
+    if (isBold) {
+        return [UIFont boldSystemFontOfSize:fontSize];
+    }
+    else if (isItalic) {
+        return [UIFont italicSystemFontOfSize:fontSize];
+    }
+    else {
+        return [UIFont systemFontOfSize:fontSize];
+    }
 }
 
 @end

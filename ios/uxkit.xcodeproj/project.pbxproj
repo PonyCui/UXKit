@@ -33,6 +33,7 @@
 		63E017AF1D963CD900389045 /* UXKTouch.js in Resources */ = {isa = PBXBuildFile; fileRef = 63E017AE1D963CD900389045 /* UXKTouch.js */; };
 		63E017B21D96B05200389045 /* UXKBridgeTouchUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */; };
 		63E017B51D97893500389045 /* UXKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B41D97893500389045 /* UXKImageView.m */; };
+		63E017B81D97984F00389045 /* UXKLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B71D97984F00389045 /* UXKLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,8 @@
 		63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeTouchUpdater.m; sourceTree = "<group>"; };
 		63E017B31D97893500389045 /* UXKImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKImageView.h; sourceTree = "<group>"; };
 		63E017B41D97893500389045 /* UXKImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKImageView.m; sourceTree = "<group>"; };
+		63E017B61D97984F00389045 /* UXKLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKLabel.h; sourceTree = "<group>"; };
+		63E017B71D97984F00389045 /* UXKLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +219,8 @@
 				6396DB791D63598E001D9B6D /* UXKView.m */,
 				63E017B31D97893500389045 /* UXKImageView.h */,
 				63E017B41D97893500389045 /* UXKImageView.m */,
+				63E017B61D97984F00389045 /* UXKLabel.h */,
+				63E017B71D97984F00389045 /* UXKLabel.m */,
 				6396DB841D64ACB0001D9B6D /* UXKAnimation.h */,
 				6396DB851D64ACB0001D9B6D /* UXKAnimation.m */,
 				6396DB7B1D6359A2001D9B6D /* UXKProps.h */,
@@ -388,6 +393,7 @@
 				634A886F1D5F5FF70022AC22 /* main.m in Sources */,
 				634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */,
 				63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */,
+				63E017B81D97984F00389045 /* UXKLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
