@@ -155,7 +155,14 @@
 }
 
 - (void)requestValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock {
+    if ([aKey isEqualToString:@"blur"]) {
+        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+    }
     valueBlock(nil);
+}
+
+- (void)listenValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock {
+    
 }
 
 - (CGSize)intrinsicContentSizeWithProps:(NSDictionary *)props {

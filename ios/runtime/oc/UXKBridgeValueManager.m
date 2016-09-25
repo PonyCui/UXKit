@@ -33,29 +33,51 @@
         if ([args isKindOfClass:[NSDictionary class]]) {
             NSString *vKey = args[@"vKey"];
             NSString *rKey = args[@"rKey"];
+            BOOL listen = [args[@"listen"] isKindOfClass:[NSNumber class]] ? [args[@"listen"] boolValue] : NO;
             NSString *callbackID = args[@"callbackID"];
             if ([vKey isKindOfClass:[NSString class]] &&
                 [rKey isKindOfClass:[NSString class]] &&
                 [callbackID isKindOfClass:[NSString class]]) {
                 UXKView *view = self.bridgeController.viewUpdater.mirrorViews[vKey];
                 if (view != nil && [view isKindOfClass:[UXKView class]]) {
-                    [view requestValueWithKey:rKey valueBlock:^(id value) {
-                        if (value == nil) {
-                            value = [NSNull null];
-                        }
-                        NSDictionary *response = @{
-                                                   @"value": value,
-                                                   };
-                        NSString *returnString = [[NSString alloc] initWithData:[NSJSONSerialization
-                                                                                 dataWithJSONObject:response
-                                                                                 options:kNilOptions
-                                                                                 error:NULL]
-                                                                       encoding:NSUTF8StringEncoding];
-                        NSString *script = [NSString stringWithFormat:@"window.UXK_ValueCallback(%@, '%@')",
-                                            callbackID,
-                                            returnString];
-                        [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
-                    }];
+                    if (listen) {
+                        [view listenValueWithKey:rKey valueBlock:^(id value) {
+                            if (value == nil) {
+                                value = [NSNull null];
+                            }
+                            NSDictionary *response = @{
+                                                       @"value": value,
+                                                       };
+                            NSString *returnString = [[NSString alloc] initWithData:[NSJSONSerialization
+                                                                                     dataWithJSONObject:response
+                                                                                     options:kNilOptions
+                                                                                     error:NULL]
+                                                                           encoding:NSUTF8StringEncoding];
+                            NSString *script = [NSString stringWithFormat:@"window.UXK_ValueCallback('%@', '%@')",
+                                                callbackID,
+                                                returnString];
+                            [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+                        }];
+                    }
+                    else {
+                        [view requestValueWithKey:rKey valueBlock:^(id value) {
+                            if (value == nil) {
+                                value = [NSNull null];
+                            }
+                            NSDictionary *response = @{
+                                                       @"value": value,
+                                                       };
+                            NSString *returnString = [[NSString alloc] initWithData:[NSJSONSerialization
+                                                                                     dataWithJSONObject:response
+                                                                                     options:kNilOptions
+                                                                                     error:NULL]
+                                                                           encoding:NSUTF8StringEncoding];
+                            NSString *script = [NSString stringWithFormat:@"window.UXK_ValueCallback('%@', '%@')",
+                                                callbackID,
+                                                returnString];
+                            [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+                        }];
+                    }
                 }
             }
         }

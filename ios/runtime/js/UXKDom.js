@@ -1,6 +1,6 @@
 (function ($) {
     var domHelper = {
-        kVisualDOMNames: ["BODY", "VIEW", "IMAGEVIEW", "LABEL"],
+        kVisualDOMNames: ["BODY", "VIEW", "IMAGEVIEW", "LABEL", "TEXTFIELD"],
         kVisualDOMAttrs: [
             "name",
             "frame",

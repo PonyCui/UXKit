@@ -28,6 +28,7 @@ static NSDictionary *kUXKViewTypes;
                           @"VIEW": @"UXKView",
                           @"IMAGEVIEW": @"UXKImageView",
                           @"LABEL": @"UXKLabel",
+                          @"TEXTFIELD": @"UXKTextField",
                           };
     });
 }

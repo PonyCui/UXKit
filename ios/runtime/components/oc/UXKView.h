@@ -22,6 +22,7 @@ typedef void(^UXKViewValueBlock)(id value);
 - (BOOL)staticLayouts;
 - (void)setProps:(NSDictionary *)props;
 - (void)requestValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock;
+- (void)listenValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock;
 - (CGSize)intrinsicContentSizeWithProps:(NSDictionary *)props;
 
 @end

@@ -28,6 +28,14 @@ window.UXK_ValueCallback = function () { };
         valueHelper.commit(this.get(0), args, callback);
         return args;
     };
+    $.fn.listen = function (rKey, callback) {
+        var args = {
+            rKey: rKey,
+            listen: true,
+        }
+        valueHelper.commit(this.get(0), args, callback);
+        return args;
+    };
     window.UXK_ValueCallback = function (callbackID, JSONString) {
         if (typeof valueHelper.callbacks[callbackID] === "function") {
             var JSONObject = JSON.parse(JSONString);
@@ -35,3 +43,14 @@ window.UXK_ValueCallback = function () { };
         }
     };
 })(jQuery);
+
+// Helpers
+
+(function($) {
+    $.fn.focus = function() {
+        this.value("focus", undefined);
+    };
+    $.fn.blur = function() {
+        this.value("blur", undefined);
+    };
+})(jQuery)
