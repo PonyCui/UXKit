@@ -34,8 +34,8 @@
 
 - (void)setProps:(NSDictionary *)props {
     [super setProps:props];
-    if ([props[@"textColor"] isKindOfClass:[NSString class]]) {
-        self.label.textColor = [UXKProps toColor:props[@"textColor"]];
+    if ([props[@"textcolor"] isKindOfClass:[NSString class]]) {
+        self.label.textColor = [UXKProps toColor:props[@"textcolor"]];
     }
     if ([props[@"font"] isKindOfClass:[NSString class]]) {
         self.label.font = [UXKProps toFont:props[@"font"]];

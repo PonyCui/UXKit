@@ -34,8 +34,8 @@
 
 - (void)setProps:(NSDictionary *)props {
     [super setProps:props];
-    if ([props[@"URL"] isKindOfClass:[NSString class]]) {
-        NSURL *URL = [NSURL URLWithString:props[@"URL"]];
+    if ([props[@"url"] isKindOfClass:[NSString class]]) {
+        NSURL *URL = [NSURL URLWithString:props[@"url"]];
         [self.imageView sd_setImageWithURL:URL];
     }
     else if ([props[@"base64"] isKindOfClass:[NSString class]]) {

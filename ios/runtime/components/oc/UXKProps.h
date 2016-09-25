@@ -12,15 +12,11 @@
 @interface UXKProps : NSObject
 
 + (BOOL)toBool:(NSString *)stringValue;
-
 + (CGFloat)toCGFloat:(NSString *)stringValue;
-
 + (CGSize)toMaxSize:(NSString *)stringValue;
-
 + (CGRect)toRectWithRect:(NSString *)rectString;
-
 + (UIColor *)toColor:(NSString *)stringValue;
-
 + (UIFont *)toFont:(NSString *)stringValue;
++ (UIReturnKeyType)toReturnKeyType:(NSString *)stringValue;
 
 @end

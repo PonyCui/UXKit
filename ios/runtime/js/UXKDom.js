@@ -1,25 +1,6 @@
 (function ($) {
     var domHelper = {
         kVisualDOMNames: ["BODY", "VIEW", "IMAGEVIEW", "LABEL", "TEXTFIELD"],
-        kVisualDOMAttrs: [
-            "name",
-            "frame",
-            "userInteractionEnabled",
-            "transform",
-            "clipsToBounds",
-            "backgroundColor",
-            "alpha",
-            "hidden",
-            "cornerRadius",
-            "borderWidth",
-            "borderColor",
-            "URL",
-            "base64",
-            "text",
-            "textColor",
-            "font",
-            "lines",
-        ],
         guid: function () {
             function s4() {
                 return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -51,11 +32,9 @@
                 props: {},
                 subviews: [],
             };
-            for (var i = 0; i < this.kVisualDOMAttrs.length; i++) {
-                var attr = this.kVisualDOMAttrs[i];
-                if (node.hasAttribute(attr)) {
-                    tree.props[attr] = node.getAttribute(attr);
-                }
+            for (var i = 0; i < node.attributes.length; i++) {
+                var attr = node.attributes[i];
+                tree.props[attr.name] = attr.value;
             }
             if (node.nodeName === "LABEL" && tree.props.text === undefined) {
                 tree.props["text"] = node.innerHTML.trim();

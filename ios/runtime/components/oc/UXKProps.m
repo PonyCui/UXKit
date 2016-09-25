@@ -138,4 +138,23 @@
     }
 }
 
++ (UIReturnKeyType)toReturnKeyType:(NSString *)stringValue {
+    if ([stringValue isEqualToString:@"Go"]) {
+        return UIReturnKeyGo;
+    }
+    else if ([stringValue isEqualToString:@"Next"]) {
+        return UIReturnKeyNext;
+    }
+    else if ([stringValue isEqualToString:@"Search"]) {
+        return UIReturnKeySearch;
+    }
+    else if ([stringValue isEqualToString:@"Send"]) {
+        return UIReturnKeySend;
+    }
+    else if ([stringValue isEqualToString:@"Done"]) {
+        return UIReturnKeyDone;
+    }
+    return UIReturnKeyDefault;
+}
+
 @end

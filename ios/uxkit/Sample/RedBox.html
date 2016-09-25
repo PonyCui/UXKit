@@ -7,7 +7,7 @@
 <body>
     <view id="s" name="super" frame="|-0-[]-0-|,|-0-[]-0-|" backgroundColor="#e2e2e2">
         <ImageView URL="http://img.hb.aicdn.com/19a84e41180b6f1bf34fa7a1d8cae6373675fb47243f8-cS0kDE_sq320" frame="0,0,88,88" cornerRadius="44" clipsToBounds="true"></ImageView>
-        <TEXTFIELD id="n" frame="0,88,200,44" text="asdfghjkl"></TEXTFIELD>
+        <TEXTFIELD id="n" frame="0,88,200,44" text="asdfghjkl" returnKey="Done"></TEXTFIELD>
     </view>
 </body>
 
@@ -23,8 +23,9 @@
 // }
 
 ux_ready = function() {
-    $('#n').listen('text', function(text){
-        console.log(text);
+    $('#n').focus();
+    $('#n').listen('onReturn', function(text){
+        $('#n').blur();
     })
 }
 

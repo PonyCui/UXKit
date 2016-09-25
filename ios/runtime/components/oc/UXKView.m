@@ -99,14 +99,14 @@
             }
         }
     }
-    if (props[@"userInteractionEnabled"] && [props[@"userInteractionEnabled"] isKindOfClass:[NSString class]]) {
-        self.userInteractionEnabled = [UXKProps toBool:props[@"userInteractionEnabled"]];
+    if (props[@"userinteractionenabled"] && [props[@"userinteractionenabled"] isKindOfClass:[NSString class]]) {
+        self.userInteractionEnabled = [UXKProps toBool:props[@"userinteractionenabled"]];
     }
-    if (props[@"clipsToBounds"] && [props[@"clipsToBounds"] isKindOfClass:[NSString class]]) {
-        self.clipsToBounds = [UXKProps toBool:props[@"clipsToBounds"]];
+    if (props[@"clipstobounds"] && [props[@"clipstobounds"] isKindOfClass:[NSString class]]) {
+        self.clipsToBounds = [UXKProps toBool:props[@"clipstobounds"]];
     }
-    if (props[@"backgroundColor"] && [props[@"backgroundColor"] isKindOfClass:[NSString class]]) {
-        UIColor *newBackgroundColor = [UXKProps toColor:props[@"backgroundColor"]];
+    if (props[@"backgroundcolor"] && [props[@"backgroundcolor"] isKindOfClass:[NSString class]]) {
+        UIColor *newBackgroundColor = [UXKProps toColor:props[@"backgroundcolor"]];
         if (![newBackgroundColor isEqual:self.backgroundColor]) {
             if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
                                                                                        props:kPOPViewBackgroundColor
@@ -128,15 +128,15 @@
     if (props[@"hidden"] && [props[@"hidden"] isKindOfClass:[NSString class]]) {
         self.hidden = [UXKProps toBool:props[@"hidden"]];
     }
-    if (props[@"cornerRadius"] && [props[@"cornerRadius"] isKindOfClass:[NSString class]]) {
-        CGFloat newValue  = [UXKProps toCGFloat:props[@"cornerRadius"]];
+    if (props[@"cornerradius"] && [props[@"cornerradius"] isKindOfClass:[NSString class]]) {
+        CGFloat newValue  = [UXKProps toCGFloat:props[@"cornerradius"]];
         if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
                                                                                    props:kPOPLayerCornerRadius
                                                                                 newValue:@(newValue)]) {
             self.layer.cornerRadius = newValue;
         }
     }
-    if (props[@"borderWidth"] && [props[@"borderWidth"] isKindOfClass:[NSString class]]) {
+    if (props[@"borderwidth"] && [props[@"borderwidth"] isKindOfClass:[NSString class]]) {
         CGFloat newValue  = [UXKProps toCGFloat:props[@"borderWidth"]];
         if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
                                                                                    props:kPOPLayerBorderWidth
@@ -144,8 +144,8 @@
             self.layer.borderWidth = newValue;
         }
     }
-    if (props[@"borderColor"] && [props[@"borderColor"] isKindOfClass:[NSString class]]) {
-        UIColor *newValue = [UXKProps toColor:props[@"borderColor"]];
+    if (props[@"bordercolor"] && [props[@"bordercolor"] isKindOfClass:[NSString class]]) {
+        UIColor *newValue = [UXKProps toColor:props[@"bordercolor"]];
         if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
                                                                                    props:kPOPLayerBorderColor
                                                                                 newValue:newValue]) {

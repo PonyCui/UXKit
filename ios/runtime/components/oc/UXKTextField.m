@@ -9,23 +9,17 @@
 #import "UXKTextField.h"
 #import "UXKProps.h"
 
-@interface UXKTextField ()<UITextFieldDelegate>
+@interface UXKTextField ()<UITextFieldDelegate, UITextInputDelegate>
 
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, copy) UXKViewValueBlock onBeginEditing;
 @property (nonatomic, copy) UXKViewValueBlock onChange;
+@property (nonatomic, copy) UXKViewValueBlock onReturn;
 @property (nonatomic, copy) UXKViewValueBlock onEndEditing;
 
 @end
 
 @implementation UXKTextField
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UITextFieldTextDidChangeNotification
-                                                  object:self.textField];
-}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -33,12 +27,9 @@
     if (self) {
         self.textField = [[UITextField alloc] initWithFrame:self.bounds];
         self.textField.delegate = self;
+        self.textField.inputDelegate = self;
         self.textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:self.textField];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(textFieldDidChangedText)
-                                                     name:UITextFieldTextDidChangeNotification
-                                                   object:self.textField];
     }
     return self;
 }
@@ -66,6 +57,9 @@
     else if ([aKey isEqualToString:@"text"] || [aKey isEqualToString:@"onChange"]) {
         self.onChange = valueBlock;
     }
+    else if ([aKey isEqualToString:@"onReturn"]) {
+        self.onReturn = valueBlock;
+    }
     else if ([aKey isEqualToString:@"onEndEditing"]) {
         self.onEndEditing = valueBlock;
     }
@@ -76,14 +70,17 @@
     if ([props[@"text"] isKindOfClass:[NSString class]]) {
         self.textField.text = props[@"text"];
     }
-    else if ([props[@"font"] isKindOfClass:[NSString class]]) {
+    if ([props[@"font"] isKindOfClass:[NSString class]]) {
         self.textField.font = [UXKProps toFont:props[@"font"]];
     }
-    else if ([props[@"textColor"] isKindOfClass:[NSString class]]) {
-        self.textField.textColor = [UXKProps toColor:props[@"textColor"]];
+    if ([props[@"textcolor"] isKindOfClass:[NSString class]]) {
+        self.textField.textColor = [UXKProps toColor:props[@"textcolor"]];
     }
-    else if ([props[@"placeholder"] isKindOfClass:[NSString class]]) {
+    if ([props[@"placeholder"] isKindOfClass:[NSString class]]) {
         self.textField.placeholder = props[@"placeholder"];
+    }
+    if ([props[@"returnkey"] isKindOfClass:[NSString class]]) {
+        self.textField.returnKeyType = [UXKProps toReturnKeyType:props[@"returnkey"]];
     }
 }
 
@@ -95,10 +92,17 @@
     }
 }
 
-- (void)textFieldDidChangedText {
+- (void)textDidChange:(id<UITextInput>)textInput {
     if (self.onChange) {
         self.onChange(self.textField.text);
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (self.onReturn) {
+        self.onReturn(textField.text);
+    }
+    return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
