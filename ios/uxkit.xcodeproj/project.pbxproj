@@ -32,6 +32,7 @@
 		63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */; };
 		63E017AF1D963CD900389045 /* UXKTouch.js in Resources */ = {isa = PBXBuildFile; fileRef = 63E017AE1D963CD900389045 /* UXKTouch.js */; };
 		63E017B21D96B05200389045 /* UXKBridgeTouchUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */; };
+		63E017B51D97893500389045 /* UXKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B41D97893500389045 /* UXKImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,8 @@
 		63E017AE1D963CD900389045 /* UXKTouch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKTouch.js; sourceTree = "<group>"; };
 		63E017B01D96B05200389045 /* UXKBridgeTouchUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeTouchUpdater.h; sourceTree = "<group>"; };
 		63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeTouchUpdater.m; sourceTree = "<group>"; };
+		63E017B31D97893500389045 /* UXKImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKImageView.h; sourceTree = "<group>"; };
+		63E017B41D97893500389045 /* UXKImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKImageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +214,8 @@
 			children = (
 				6396DB781D63598E001D9B6D /* UXKView.h */,
 				6396DB791D63598E001D9B6D /* UXKView.m */,
+				63E017B31D97893500389045 /* UXKImageView.h */,
+				63E017B41D97893500389045 /* UXKImageView.m */,
 				6396DB841D64ACB0001D9B6D /* UXKAnimation.h */,
 				6396DB851D64ACB0001D9B6D /* UXKAnimation.m */,
 				6396DB7B1D6359A2001D9B6D /* UXKProps.h */,
@@ -373,6 +378,7 @@
 				6396DB7A1D63598E001D9B6D /* UXKView.m in Sources */,
 				6396DB891D64AF03001D9B6D /* UXKBridgeAnimationHandler.m in Sources */,
 				6396DB7D1D6359A2001D9B6D /* UXKProps.m in Sources */,
+				63E017B51D97893500389045 /* UXKImageView.m in Sources */,
 				63E017B21D96B05200389045 /* UXKBridgeTouchUpdater.m in Sources */,
 				63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */,
 				634A88751D5F5FF70022AC22 /* ViewController.m in Sources */,

@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSString *formatFrame;
 @property (nonatomic, strong) NSValue *willChangeToFrame;
 
+- (BOOL)staticLayouts;
 - (void)setProps:(NSDictionary *)props;
 
 @end

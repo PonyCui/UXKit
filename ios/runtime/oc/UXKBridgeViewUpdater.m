@@ -26,6 +26,7 @@ static NSDictionary *kUXKViewTypes;
     dispatch_once(&onceToken, ^{
         kUXKViewTypes = @{
                           @"VIEW": @"UXKView",
+                          @"IMAGEVIEW": @"UXKImageView",
                           };
     });
 }
@@ -109,7 +110,11 @@ static NSDictionary *kUXKViewTypes;
     if (props != nil && [props isKindOfClass:[NSDictionary class]] && [currentView isKindOfClass:[UXKView class]]) {
         [(UXKView *)currentView setProps:props];
     }
-    if (subviews != nil && [subviews isKindOfClass:[NSArray class]]) {
+    BOOL staticLayouts = NO;
+    if ([currentView isKindOfClass:[UXKView class]]) {
+        staticLayouts = [(UXKView *)currentView staticLayouts];
+    }
+    if (!staticLayouts && subviews != nil && [subviews isKindOfClass:[NSArray class]]) {
         __block BOOL changed = NO;
         if ([subviews count] != [[currentView subviews] count]) {
             changed = YES;

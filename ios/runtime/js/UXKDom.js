@@ -1,6 +1,6 @@
 (function ($) {
     var domHelper = {
-        kVisualDOMNames: ["BODY", "VIEW"],
+        kVisualDOMNames: ["BODY", "VIEW", "IMAGEVIEW"],
         kVisualDOMAttrs: [
             "name",
             "frame",
@@ -13,6 +13,8 @@
             "cornerRadius",
             "borderWidth",
             "borderColor",
+            "URL",
+            "base64",
         ],
         guid: function () {
             function s4() {

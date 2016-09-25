@@ -67,6 +67,10 @@
     }
 }
 
+- (BOOL)staticLayouts {
+    return NO;
+}
+
 - (void)setProps:(NSDictionary *)props {
     if (props[@"name"] && [props[@"name"] isKindOfClass:[NSString class]]) {
         self.name = props[@"name"];

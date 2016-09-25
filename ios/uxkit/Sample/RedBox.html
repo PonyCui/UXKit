@@ -6,7 +6,7 @@
 
 <body>
     <view id="s" name="super" frame="|-0-[]-0-|,|-0-[]-0-|" backgroundColor="#e2e2e2">
-        <test name="child" id="t" frame="0,0,100,100" />
+        <ImageView URL="http://img.hb.aicdn.com/19a84e41180b6f1bf34fa7a1d8cae6373675fb47243f8-cS0kDE_sq320" frame="0,0,88,88" cornerRadius="44" clipsToBounds="true" />
     </view>
 </body>
 
@@ -14,11 +14,11 @@
 
 <script>
 
-ux_ready = function() {
-    var gesture = $('#s').onPan(function(params){
-        $('test').attr('frame', params.translateX + ',' + params.translateY + ',100,100');
-        $('test').update(true);
-    })
-}
+// ux_ready = function() {
+//     var gesture = $('#s').onPan(function(params){
+//         $('test').attr('frame', params.translateX + ',' + params.translateY + ',100,100');
+//         $('test').update(true);
+//     })
+// }
 
 </script>
