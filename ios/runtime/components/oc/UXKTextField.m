@@ -92,12 +92,6 @@
     }
 }
 
-- (void)textDidChange:(id<UITextInput>)textInput {
-    if (self.onChange) {
-        self.onChange(self.textField.text);
-    }
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (self.onReturn) {
         self.onReturn(textField.text);
@@ -109,6 +103,26 @@
     if (self.onEndEditing) {
         self.onEndEditing(textField.text);
     }
+}
+
+#pragma mark - UITextInputDelegate
+
+- (void)textWillChange:(id<UITextInput>)textInput {
+    
+}
+
+- (void)textDidChange:(id<UITextInput>)textInput {
+    if (self.onChange) {
+        self.onChange(self.textField.text);
+    }
+}
+
+- (void)selectionDidChange:(id<UITextInput>)textInput {
+    
+}
+
+- (void)selectionWillChange:(id<UITextInput>)textInput {
+    
 }
 
 @end
