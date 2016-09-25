@@ -30,6 +30,9 @@
 		6396DB951D697598001D9B6D /* UXKComponents.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB941D697598001D9B6D /* UXKComponents.js */; };
 		63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */; };
 		63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */; };
+		63AE072D1D97BCA7000E0A20 /* UXKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE072C1D97BCA7000E0A20 /* UXKTextField.m */; };
+		63AE07301D97BF3B000E0A20 /* UXKBridgeValueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE072F1D97BF3B000E0A20 /* UXKBridgeValueManager.m */; };
+		63AE07321D97BFB5000E0A20 /* UXKValue.js in Resources */ = {isa = PBXBuildFile; fileRef = 63AE07311D97BFB5000E0A20 /* UXKValue.js */; };
 		63E017AF1D963CD900389045 /* UXKTouch.js in Resources */ = {isa = PBXBuildFile; fileRef = 63E017AE1D963CD900389045 /* UXKTouch.js */; };
 		63E017B21D96B05200389045 /* UXKBridgeTouchUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */; };
 		63E017B51D97893500389045 /* UXKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B41D97893500389045 /* UXKImageView.m */; };
@@ -74,6 +77,11 @@
 		63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeController.m; sourceTree = "<group>"; };
 		63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeViewUpdater.h; sourceTree = "<group>"; };
 		63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeViewUpdater.m; sourceTree = "<group>"; };
+		63AE072B1D97BCA7000E0A20 /* UXKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKTextField.h; sourceTree = "<group>"; };
+		63AE072C1D97BCA7000E0A20 /* UXKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKTextField.m; sourceTree = "<group>"; };
+		63AE072E1D97BF3B000E0A20 /* UXKBridgeValueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeValueManager.h; sourceTree = "<group>"; };
+		63AE072F1D97BF3B000E0A20 /* UXKBridgeValueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeValueManager.m; sourceTree = "<group>"; };
+		63AE07311D97BFB5000E0A20 /* UXKValue.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKValue.js; sourceTree = "<group>"; };
 		63E017AE1D963CD900389045 /* UXKTouch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKTouch.js; sourceTree = "<group>"; };
 		63E017B01D96B05200389045 /* UXKBridgeTouchUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeTouchUpdater.h; sourceTree = "<group>"; };
 		63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeTouchUpdater.m; sourceTree = "<group>"; };
@@ -165,6 +173,7 @@
 				6396DB701D60A0BF001D9B6D /* UXKTasks.js */,
 				6396DB671D606DB2001D9B6D /* UXKDom.js */,
 				63E017AE1D963CD900389045 /* UXKTouch.js */,
+				63AE07311D97BFB5000E0A20 /* UXKValue.js */,
 				6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */,
 			);
 			path = js;
@@ -179,6 +188,8 @@
 				63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */,
 				63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */,
 				63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */,
+				63AE072E1D97BF3B000E0A20 /* UXKBridgeValueManager.h */,
+				63AE072F1D97BF3B000E0A20 /* UXKBridgeValueManager.m */,
 				63E017B01D96B05200389045 /* UXKBridgeTouchUpdater.h */,
 				63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */,
 				6396DB871D64AF03001D9B6D /* UXKBridgeAnimationHandler.h */,
@@ -221,6 +232,8 @@
 				63E017B41D97893500389045 /* UXKImageView.m */,
 				63E017B61D97984F00389045 /* UXKLabel.h */,
 				63E017B71D97984F00389045 /* UXKLabel.m */,
+				63AE072B1D97BCA7000E0A20 /* UXKTextField.h */,
+				63AE072C1D97BCA7000E0A20 /* UXKTextField.m */,
 				6396DB841D64ACB0001D9B6D /* UXKAnimation.h */,
 				6396DB851D64ACB0001D9B6D /* UXKAnimation.m */,
 				6396DB7B1D6359A2001D9B6D /* UXKProps.h */,
@@ -314,6 +327,7 @@
 				6396DB951D697598001D9B6D /* UXKComponents.js in Resources */,
 				6396DB8B1D64AF4E001D9B6D /* UXKAnimation.js in Resources */,
 				6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */,
+				63AE07321D97BFB5000E0A20 /* UXKValue.js in Resources */,
 				6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */,
 				634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */,
 				630AC5501D6F30E600314FA3 /* UXKjQuery.min.js in Resources */,
@@ -393,7 +407,9 @@
 				634A886F1D5F5FF70022AC22 /* main.m in Sources */,
 				634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */,
 				63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */,
+				63AE072D1D97BCA7000E0A20 /* UXKTextField.m in Sources */,
 				63E017B81D97984F00389045 /* UXKLabel.m in Sources */,
+				63AE07301D97BF3B000E0A20 /* UXKBridgeValueManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

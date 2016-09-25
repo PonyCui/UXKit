@@ -10,6 +10,8 @@
 
 @class UXKBridgeAnimationHandler;
 
+typedef void(^UXKViewValueBlock)(id value);
+
 @interface UXKView : UIView
 
 @property (nonatomic, strong) NSString *name;
@@ -19,6 +21,7 @@
 
 - (BOOL)staticLayouts;
 - (void)setProps:(NSDictionary *)props;
+- (void)requestValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock;
 - (CGSize)intrinsicContentSizeWithProps:(NSDictionary *)props;
 
 @end

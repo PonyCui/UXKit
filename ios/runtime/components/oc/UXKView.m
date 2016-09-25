@@ -154,6 +154,10 @@
     }
 }
 
+- (void)requestValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock {
+    valueBlock(nil);
+}
+
 - (CGSize)intrinsicContentSizeWithProps:(NSDictionary *)props {
     return CGSizeZero;
 }
