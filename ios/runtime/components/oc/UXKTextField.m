@@ -87,6 +87,12 @@
     if ([props[@"clearMode"] isKindOfClass:[NSString class]]) {
         self.textField.clearButtonMode = [UXKProps toTextFieldViewMode:props[@"clearMode"]];
     }
+    if ([props[@"secure"] isKindOfClass:[NSString class]]) {
+        self.textField.secureTextEntry = [UXKProps toBool:props[@"secure"]];
+    }
+    if ([props[@"keyboardType"] isKindOfClass:[NSString class]]) {
+        self.textField.keyboardType = [UXKProps toKeyboardType:props[@"keyboardType"]];
+    }
 }
 
 #pragma mark - UITextFieldDelegate

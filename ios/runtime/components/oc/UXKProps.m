@@ -170,4 +170,23 @@
     return UITextFieldViewModeNever;
 }
 
++ (UIKeyboardType)toKeyboardType:(NSString *)stringValue {
+    if ([stringValue isEqualToString:@"number"]) {
+        return UIKeyboardTypeNumberPad;
+    }
+    else if ([stringValue isEqualToString:@"phone"]) {
+        return UIKeyboardTypePhonePad;
+    }
+    else if ([stringValue isEqualToString:@"ASCII"]) {
+        return UIKeyboardTypeASCIICapable;
+    }
+    else if ([stringValue isEqualToString:@"email"]) {
+        return UIKeyboardTypeEmailAddress;
+    }
+    else if ([stringValue isEqualToString:@"URL"]) {
+        return UIKeyboardTypeURL;
+    }
+    return UIKeyboardTypeDefault;
+}
+
 @end

@@ -19,5 +19,6 @@
 + (UIFont *)toFont:(NSString *)stringValue;
 + (UIReturnKeyType)toReturnKeyType:(NSString *)stringValue;
 + (UITextFieldViewMode)toTextFieldViewMode:(NSString *)stringValue;
++ (UIKeyboardType)toKeyboardType:(NSString *)stringValue;
 
 @end
