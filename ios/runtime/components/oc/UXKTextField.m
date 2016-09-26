@@ -39,6 +39,7 @@
 }
 
 - (void)requestValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock {
+    [super requestValueWithKey:aKey valueBlock:valueBlock];
     if ([aKey isEqualToString:@"text"]) {
         valueBlock(self.textField.text);
     }
@@ -51,6 +52,7 @@
 }
 
 - (void)listenValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock {
+    [super listenValueWithKey:aKey valueBlock:valueBlock];
     if ([aKey isEqualToString:@"onBeginEditing"]) {
         self.onBeginEditing = valueBlock;
     }
@@ -81,6 +83,9 @@
     }
     if ([props[@"returnkey"] isKindOfClass:[NSString class]]) {
         self.textField.returnKeyType = [UXKProps toReturnKeyType:props[@"returnkey"]];
+    }
+    if ([props[@"clearMode"] isKindOfClass:[NSString class]]) {
+        self.textField.clearButtonMode = [UXKProps toTextFieldViewMode:props[@"clearMode"]];
     }
 }
 

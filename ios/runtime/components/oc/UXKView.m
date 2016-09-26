@@ -158,7 +158,14 @@
     if ([aKey isEqualToString:@"blur"]) {
         [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     }
-    valueBlock(nil);
+    else if ([aKey isEqualToString:@"frame"]) {
+        valueBlock(@{
+                     @"x": @(self.frame.origin.x),
+                     @"y": @(self.frame.origin.y),
+                     @"width": @(self.frame.size.width),
+                     @"height": @(self.frame.size.height),
+                     });
+    }
 }
 
 - (void)listenValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock {

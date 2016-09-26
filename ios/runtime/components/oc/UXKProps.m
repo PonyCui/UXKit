@@ -157,4 +157,17 @@
     return UIReturnKeyDefault;
 }
 
++ (UITextFieldViewMode)toTextFieldViewMode:(NSString *)stringValue {
+    if ([stringValue isEqualToString:@"Always"]) {
+        return UITextFieldViewModeAlways;
+    }
+    else if ([stringValue isEqualToString:@"UnlessEditing"]) {
+        return UITextFieldViewModeUnlessEditing;
+    }
+    else if ([stringValue isEqualToString:@"WhileEditing"]) {
+        return UITextFieldViewModeWhileEditing;
+    }
+    return UITextFieldViewModeNever;
+}
+
 @end

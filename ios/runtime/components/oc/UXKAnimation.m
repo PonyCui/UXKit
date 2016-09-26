@@ -27,7 +27,10 @@
                            fromValue:fromValue];
     }
     else {
-        return [self timingWithParams:aniParams aniProperty:aniProperty fromValue:fromValue toValue:toValue];
+        return [self timingWithParams:aniParams
+                          aniProperty:aniProperty
+                            fromValue:fromValue
+                              toValue:toValue];
     }
 }
 

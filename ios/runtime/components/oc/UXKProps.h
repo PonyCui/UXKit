@@ -18,5 +18,6 @@
 + (UIColor *)toColor:(NSString *)stringValue;
 + (UIFont *)toFont:(NSString *)stringValue;
 + (UIReturnKeyType)toReturnKeyType:(NSString *)stringValue;
++ (UITextFieldViewMode)toTextFieldViewMode:(NSString *)stringValue;
 
 @end
