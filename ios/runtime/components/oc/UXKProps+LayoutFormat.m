@@ -340,7 +340,7 @@
         }
     }
     if (viewController == nil) {
-        return CGPointZero;
+        return CGPointMake(0, superView.frame.size.height);
     }
     return CGPointMake(superView.frame.origin.y + [viewController.topLayoutGuide length],
                        superView.frame.size.height - [viewController.topLayoutGuide length] - [viewController.bottomLayoutGuide length]);
