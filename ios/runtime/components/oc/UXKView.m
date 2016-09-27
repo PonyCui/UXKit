@@ -14,24 +14,14 @@
 #import "UXKProps+LayoutFormat.h"
 
 @interface UXKView ()
-
-@property (nonatomic, assign) BOOL firstLayout;
     
 @end
 
 @implementation UXKView
 
-- (void)didMoveToSuperview {
-    [super didMoveToSuperview];
-    [self layoutSubviews];
-}
-
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (!self.firstLayout) {
-        self.firstLayout = YES;
-        [self layoutUXKViews:nil newRect:nil except:nil];
-    }
+    [self layoutUXKViews:nil newRect:nil except:nil];
 }
     
 - (void)layoutUXKViews:(UXKBridgeAnimationHandler *)animationHandler newRect:(NSValue *)newRectValue except:(UXKView *)except {

@@ -33,6 +33,7 @@
 		63AE072D1D97BCA7000E0A20 /* UXKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE072C1D97BCA7000E0A20 /* UXKTextField.m */; };
 		63AE07301D97BF3B000E0A20 /* UXKBridgeValueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE072F1D97BF3B000E0A20 /* UXKBridgeValueManager.m */; };
 		63AE07321D97BFB5000E0A20 /* UXKValue.js in Resources */ = {isa = PBXBuildFile; fileRef = 63AE07311D97BFB5000E0A20 /* UXKValue.js */; };
+		63DEA7571D996F61007265EA /* UIViewController+UXKBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEA7561D996F61007265EA /* UIViewController+UXKBridge.m */; };
 		63E017AF1D963CD900389045 /* UXKTouch.js in Resources */ = {isa = PBXBuildFile; fileRef = 63E017AE1D963CD900389045 /* UXKTouch.js */; };
 		63E017B21D96B05200389045 /* UXKBridgeTouchUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */; };
 		63E017B51D97893500389045 /* UXKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B41D97893500389045 /* UXKImageView.m */; };
@@ -82,6 +83,8 @@
 		63AE072E1D97BF3B000E0A20 /* UXKBridgeValueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeValueManager.h; sourceTree = "<group>"; };
 		63AE072F1D97BF3B000E0A20 /* UXKBridgeValueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeValueManager.m; sourceTree = "<group>"; };
 		63AE07311D97BFB5000E0A20 /* UXKValue.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKValue.js; sourceTree = "<group>"; };
+		63DEA7551D996F61007265EA /* UIViewController+UXKBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+UXKBridge.h"; sourceTree = "<group>"; };
+		63DEA7561D996F61007265EA /* UIViewController+UXKBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+UXKBridge.m"; sourceTree = "<group>"; };
 		63E017AE1D963CD900389045 /* UXKTouch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKTouch.js; sourceTree = "<group>"; };
 		63E017B01D96B05200389045 /* UXKBridgeTouchUpdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeTouchUpdater.h; sourceTree = "<group>"; };
 		63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeTouchUpdater.m; sourceTree = "<group>"; };
@@ -194,6 +197,8 @@
 				63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */,
 				6396DB871D64AF03001D9B6D /* UXKBridgeAnimationHandler.h */,
 				6396DB881D64AF03001D9B6D /* UXKBridgeAnimationHandler.m */,
+				63DEA7551D996F61007265EA /* UIViewController+UXKBridge.h */,
+				63DEA7561D996F61007265EA /* UIViewController+UXKBridge.m */,
 			);
 			path = oc;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				TargetAttributes = {
 					634A88691D5F5FF70022AC22 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 8M2FQ87SLP;
 					};
 				};
 			};
@@ -405,6 +411,7 @@
 				6396DB8E1D674CC5001D9B6D /* UXKProps+LayoutFormat.m in Sources */,
 				634A88721D5F5FF70022AC22 /* AppDelegate.m in Sources */,
 				634A886F1D5F5FF70022AC22 /* main.m in Sources */,
+				63DEA7571D996F61007265EA /* UIViewController+UXKBridge.m in Sources */,
 				634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */,
 				63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */,
 				63AE072D1D97BCA7000E0A20 /* UXKTextField.m in Sources */,
@@ -520,6 +527,7 @@
 			baseConfigurationReference = 4C2ABC2CB45B79151CAECC21 /* Pods-uxkit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8M2FQ87SLP;
 				INFOPLIST_FILE = uxkit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -533,6 +541,7 @@
 			baseConfigurationReference = 477B02DF9F211418DAFB426A /* Pods-uxkit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8M2FQ87SLP;
 				INFOPLIST_FILE = uxkit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

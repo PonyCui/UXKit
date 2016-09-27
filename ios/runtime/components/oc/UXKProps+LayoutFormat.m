@@ -94,8 +94,15 @@
 }
 
 + (CGRect)verticalRectWithView:(UXKView *)view format:(NSString *)format {
+    CGPoint superPoint = CGPointZero;
+    if ([self pressLeft:format] || [self pressRight:format]) {
+        superPoint = [self superVerticalRect:view];
+    }
+    else if ([self pressLeftPadding:format] && [self pressRightPadding:format]) {
+        superPoint = [self superVerticalPaddingRect:view];
+    }
     CGPoint point = [self rectWithFormat:format
-                              superPoint:([self pressLeft:format] || [self pressRight:format]) ? [self superVerticalRect:view] : CGPointZero
+                              superPoint:superPoint
                                prevPoint:[self relatePrev:format] ? [self prevVerticalRect:view] : CGPointZero
                                nextPoint:[self relateNext:format] ? [self nextVerticalRect:view] : CGPointZero
                                     view:view
@@ -113,13 +120,13 @@
     static NSRegularExpression *rightExp;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        leftExp = [NSRegularExpression regularExpressionWithPattern:@"([<\\|]+)-([@\\-0-9]+)-"
+        leftExp = [NSRegularExpression regularExpressionWithPattern:@"([<\\|\\!]+)-([@\\-0-9]+)-"
                                                             options:kNilOptions
                                                               error:nil];
         widthExp = [NSRegularExpression regularExpressionWithPattern:@"\\[([<>0-9]+)\\]"
                                                              options:kNilOptions
                                                                error:nil];
-        rightExp = [NSRegularExpression regularExpressionWithPattern:@"-([@\\-0-9]+)-([\\|>])"
+        rightExp = [NSRegularExpression regularExpressionWithPattern:@"-([@\\-0-9]+)-([\\!\\|>])"
                                                              options:kNilOptions
                                                                error:nil];
     });
@@ -195,6 +202,10 @@
             left = prevPoint.x + prevPoint.y;
         }
         origin = (left + right) / 2.0 - distance / 2.0;
+    }
+    else if ([self pressLeftPadding:format] && [self pressRightPadding:format]) {
+        origin = superPoint.x + lVal;
+        distance = superPoint.y - rVal - lVal;
     }
     else if ([self relateNextLeft:format] && [self relatePrevRight:format]) {
         if ([self relatePrevLeft:format]) {
@@ -281,6 +292,14 @@
     return [formatFrame containsString:@"|-"];
 }
 
++ (BOOL)pressRightPadding:(NSString *)formatFrame {
+    return [formatFrame containsString:@"-!"];
+}
+
++ (BOOL)pressLeftPadding:(NSString *)formatFrame {
+    return [formatFrame containsString:@"!-"];
+}
+
 + (CGPoint)superHorizonRect:(UXKView *)view {
     UXKView *superView = (UXKView *)[view superview];
     if ([superView isKindOfClass:[UXKView class]] && superView.formatFrame != nil) {
@@ -309,6 +328,22 @@
     else {
         return CGPointMake(superView.frame.origin.y, superView.frame.size.height);
     }
+}
+
++ (CGPoint)superVerticalPaddingRect:(UXKView *)view {
+    UXKView *superView = (UXKView *)[view superview];
+    UIViewController *viewController = (id)superView;
+    while (viewController != nil) {
+        viewController = (id)[viewController nextResponder];
+        if ([viewController isKindOfClass:[UIViewController class]]) {
+            break;
+        }
+    }
+    if (viewController == nil) {
+        return CGPointZero;
+    }
+    return CGPointMake(superView.frame.origin.y + [viewController.topLayoutGuide length],
+                       superView.frame.size.height - [viewController.topLayoutGuide length] - [viewController.bottomLayoutGuide length]);
 }
 
 + (CGPoint)prevHorizonRect:(UXKView *)view {

@@ -10,7 +10,7 @@
 #import "UXKBridge.h"
 #import "UXKBridgeController.h"
 
-@interface UXKBridge ()
+@interface UXKBridge ()<WKNavigationDelegate>
 
 @property (nonatomic, strong) UIView *view;
 @property (nonatomic, strong) WKWebViewConfiguration *configureation;
@@ -37,6 +37,7 @@ static BOOL debugMode;
     self = [super init];
     if (self) {
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[UXKBridge configurationWithView:view]];
+        _webView.navigationDelegate = self;
         [(UXKBridgeController *)_webView.configuration.userContentController setWebView:_webView];
         _view = view;
         if (debugMode) {
@@ -54,6 +55,17 @@ static BOOL debugMode;
 
 - (void)loadHTMLString:(NSString *)HTMLString baseURL:(NSURL *)baseURL {
     [self.webView loadHTMLString:HTMLString baseURL:baseURL];
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    UIViewController *responder = (id)self.view;
+    while (responder != nil) {
+        responder = (id)[responder nextResponder];
+        if ([responder isKindOfClass:[UIViewController class]]) {
+            break;
+        }
+    }
+    [responder setTitle:webView.title];
 }
 
 @end

@@ -7,11 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "UXKBridge.h"
+#import "UIViewController+UXKBridge.h"
 
 @interface ViewController ()
-
-@property (nonatomic, strong) UXKBridge *bridge;
 
 @end
 
@@ -19,8 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.bridge = [[UXKBridge alloc] initWithView:self.view];
-    [self.bridge loadHTMLString:[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"RedBox" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil] baseURL:nil];
+    [self uxk_loadHTMLString:[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"RedBox" ofType:@"html"] encoding:NSUTF8StringEncoding error:nil] baseURL:nil];
 }
 
 @end
