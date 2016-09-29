@@ -15,6 +15,25 @@
 - (void)uxk_setup {
     [self.view addSubview:self.uxk_bodyView];
     self.uxk_bodyView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[top]-0-[bodyView]-[bottom]-0-|"
+                                                                      options:kNilOptions
+                                                                      metrics:nil
+                                                                        views:@{
+                                                                                @"top": self.topLayoutGuide,
+                                                                                @"bodyView": self.uxk_bodyView,
+                                                                                @"bottom": self.bottomLayoutGuide,
+                                                                                }]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[bodyView]-0-|"
+                                                                      options:kNilOptions
+                                                                      metrics:nil
+                                                                        views:@{
+                                                                                @"bodyView": self.uxk_bodyView,
+                                                                                }]];
+}
+
+- (void)uxk_setupWithoutMargins {
+    [self.uxk_bodyView removeFromSuperview];
+    [self.view addSubview:self.uxk_bodyView];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[bodyView]-0-|"
                                                                       options:kNilOptions
                                                                       metrics:nil
@@ -27,6 +46,8 @@
                                                                         views:@{
                                                                                 @"bodyView": self.uxk_bodyView,
                                                                                 }]];
+    [self.view setNeedsLayout];
+    [self.view layoutIfNeeded];
 }
 
 - (void)uxk_loadURLString:(NSString *)URLString {

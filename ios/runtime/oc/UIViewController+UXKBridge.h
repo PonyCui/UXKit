@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIView *uxk_bodyView;
 
 - (void)uxk_setup;
+- (void)uxk_setupWithoutMargins;
 - (void)uxk_loadURLString:(NSString *)URLString;
 - (void)uxk_loadHTMLString:(NSString *)HTMLString baseURL:(NSURL *)baseURL;
 

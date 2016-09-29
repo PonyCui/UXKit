@@ -9,12 +9,14 @@
 #import "UXKBridgeViewUpdater.h"
 #import "UXKView.h"
 #import "UXKBridgeController.h"
+#import "UIViewController+UXKBridge.h"
 
 static NSDictionary *kUXKViewTypes;
 
 @interface UXKBridgeViewUpdater()
 
 @property (nonatomic, strong) UIView *view;
+@property (nonatomic, assign) BOOL nonMargins;
 @property (nonatomic, strong) NSMutableDictionary *mirrorViews;
 
 @end
@@ -76,6 +78,17 @@ static NSDictionary *kUXKViewTypes;
     }
 }
 
+- (UIViewController *)sourceViewController {
+    UIResponder *responder = self.view;
+    while (responder != nil) {
+        responder = [responder nextResponder];
+        if ([responder isKindOfClass:[UIViewController class]]) {
+            return (id)responder;
+        }
+    }
+    return nil;
+}
+
 - (UIView *)viewWithNode:(NSDictionary *)node {
     NSString *nodeName = node[@"name"];
     NSString *visualKey = node[@"vKey"];
@@ -91,6 +104,10 @@ static NSDictionary *kUXKViewTypes;
     }
     UIView *currentView;
     if ([nodeName isEqualToString:@"BODY"]) {
+        if ([props[@"margin"] isEqualToString:@"auto"] && !self.nonMargins) {
+            self.nonMargins = YES;
+            [[self sourceViewController] uxk_setupWithoutMargins];
+        }
         currentView = self.view;
     }
     else if (self.mirrorViews[visualKey] != nil) {
