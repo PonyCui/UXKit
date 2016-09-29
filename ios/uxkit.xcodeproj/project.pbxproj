@@ -10,6 +10,8 @@
 		3F06971334B09D91DF94C86F /* libPods-uxkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B72DCBE39D39185CB07A5D /* libPods-uxkit.a */; };
 		630AC5501D6F30E600314FA3 /* UXKjQuery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 630AC54F1D6F30E600314FA3 /* UXKjQuery.min.js */; };
 		6339AD251D9D56C50022B605 /* UXKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6339AD241D9D56C50022B605 /* UXKViewController.m */; };
+		6339AD281D9D5F230022B605 /* UXKRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6339AD271D9D5F230022B605 /* UXKRouter.m */; };
+		6339AD2A1D9D644A0022B605 /* UXKRouter.js in Resources */ = {isa = PBXBuildFile; fileRef = 6339AD291D9D644A0022B605 /* UXKRouter.js */; };
 		634A886F1D5F5FF70022AC22 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A886E1D5F5FF70022AC22 /* main.m */; };
 		634A88721D5F5FF70022AC22 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A88711D5F5FF70022AC22 /* AppDelegate.m */; };
 		634A88751D5F5FF70022AC22 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A88741D5F5FF70022AC22 /* ViewController.m */; };
@@ -48,6 +50,9 @@
 		630AC54F1D6F30E600314FA3 /* UXKjQuery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKjQuery.min.js; sourceTree = "<group>"; };
 		6339AD231D9D56C50022B605 /* UXKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKViewController.h; sourceTree = "<group>"; };
 		6339AD241D9D56C50022B605 /* UXKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKViewController.m; sourceTree = "<group>"; };
+		6339AD261D9D5F230022B605 /* UXKRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKRouter.h; sourceTree = "<group>"; };
+		6339AD271D9D5F230022B605 /* UXKRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKRouter.m; sourceTree = "<group>"; };
+		6339AD291D9D644A0022B605 /* UXKRouter.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKRouter.js; sourceTree = "<group>"; };
 		634A886A1D5F5FF70022AC22 /* uxkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uxkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		634A886E1D5F5FF70022AC22 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		634A88701D5F5FF70022AC22 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -181,6 +186,7 @@
 				63E017AE1D963CD900389045 /* UXKTouch.js */,
 				63AE07311D97BFB5000E0A20 /* UXKValue.js */,
 				6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */,
+				6339AD291D9D644A0022B605 /* UXKRouter.js */,
 			);
 			path = js;
 			sourceTree = "<group>";
@@ -192,6 +198,8 @@
 				634A88881D5F60A80022AC22 /* UXKBridge.m */,
 				63ADA2AB1D5F6F3A00C13191 /* UXKBridgeController.h */,
 				63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */,
+				6339AD261D9D5F230022B605 /* UXKRouter.h */,
+				6339AD271D9D5F230022B605 /* UXKRouter.m */,
 				63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */,
 				63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */,
 				63AE072E1D97BF3B000E0A20 /* UXKBridgeValueManager.h */,
@@ -342,6 +350,7 @@
 				6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */,
 				634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */,
 				630AC5501D6F30E600314FA3 /* UXKjQuery.min.js in Resources */,
+				6339AD2A1D9D644A0022B605 /* UXKRouter.js in Resources */,
 				6396DB921D69693E001D9B6D /* UXKTEST.html in Resources */,
 				634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */,
 				63E017AF1D963CD900389045 /* UXKTouch.js in Resources */,
@@ -410,6 +419,7 @@
 				6396DB7D1D6359A2001D9B6D /* UXKProps.m in Sources */,
 				63E017B51D97893500389045 /* UXKImageView.m in Sources */,
 				63E017B21D96B05200389045 /* UXKBridgeTouchUpdater.m in Sources */,
+				6339AD281D9D5F230022B605 /* UXKRouter.m in Sources */,
 				63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */,
 				634A88751D5F5FF70022AC22 /* ViewController.m in Sources */,
 				6396DB861D64ACB0001D9B6D /* UXKAnimation.m in Sources */,

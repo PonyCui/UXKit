@@ -11,9 +11,11 @@
 #import "UXKBridgeValueManager.h"
 #import "UXKBridgeTouchUpdater.h"
 #import "UXKBridgeAnimationHandler.h"
+#import "UXKRouter.h"
 
 @interface UXKBridgeController()
 
+@property (nonatomic, strong) UXKRouter *router;
 @property (nonatomic, strong) UXKBridgeViewUpdater *viewUpdater;
 @property (nonatomic, strong) UXKBridgeValueManager *valueManager;
 @property (nonatomic, strong) UXKBridgeTouchUpdater *touchUpdater;
@@ -36,6 +38,7 @@
 
 - (void)configure {
     [self configureJQuery];
+    [self configureRouter];
     [self configureViewUpdater];
     [self configureValueManager];
     [self configureTouchUpdater];
@@ -50,6 +53,14 @@
                                                                                           error:nil]
                                                injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                             forMainFrameOnly:YES]];
+}
+
+- (void)configureRouter {
+    [self addUserScript:[[WKUserScript alloc] initWithSource:[UXKRouter bridgeScript]
+                                               injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                            forMainFrameOnly:YES]];
+    self.router = [[UXKRouter alloc] initWithView:self.view];
+    [self addScriptMessageHandler:self.router name:@"UXK_Router"];
 }
 
 - (void)configureViewUpdater {

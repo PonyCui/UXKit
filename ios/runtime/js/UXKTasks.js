@@ -1,6 +1,7 @@
 
 window.ux = {
     ani: window._UXK_Animation,
+    router: window._UXK_Router,
     ready: window.ux_ready,
 }
 

@@ -15,6 +15,11 @@
 
 @implementation UXKViewController
 
+- (void)loadView {
+    self.view = [UIView new];
+    self.view.backgroundColor = [UIColor whiteColor];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self uxk_setup];
