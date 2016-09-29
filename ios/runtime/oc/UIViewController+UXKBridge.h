@@ -12,7 +12,9 @@
 @interface UIViewController (UXKBridge)
 
 @property (nonatomic, strong) UXKBridge *uxk_bridge;
+@property (nonatomic, strong) UIView *uxk_bodyView;
 
+- (void)uxk_setup;
 - (void)uxk_loadURLString:(NSString *)URLString;
 - (void)uxk_loadHTMLString:(NSString *)HTMLString baseURL:(NSURL *)baseURL;
 

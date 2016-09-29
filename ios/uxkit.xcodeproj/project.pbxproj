@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3F06971334B09D91DF94C86F /* libPods-uxkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B72DCBE39D39185CB07A5D /* libPods-uxkit.a */; };
 		630AC5501D6F30E600314FA3 /* UXKjQuery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 630AC54F1D6F30E600314FA3 /* UXKjQuery.min.js */; };
+		6339AD251D9D56C50022B605 /* UXKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6339AD241D9D56C50022B605 /* UXKViewController.m */; };
 		634A886F1D5F5FF70022AC22 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A886E1D5F5FF70022AC22 /* main.m */; };
 		634A88721D5F5FF70022AC22 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A88711D5F5FF70022AC22 /* AppDelegate.m */; };
 		634A88751D5F5FF70022AC22 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 634A88741D5F5FF70022AC22 /* ViewController.m */; };
@@ -45,6 +46,8 @@
 		477B02DF9F211418DAFB426A /* Pods-uxkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uxkit.release.xcconfig"; path = "Pods/Target Support Files/Pods-uxkit/Pods-uxkit.release.xcconfig"; sourceTree = "<group>"; };
 		4C2ABC2CB45B79151CAECC21 /* Pods-uxkit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uxkit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-uxkit/Pods-uxkit.debug.xcconfig"; sourceTree = "<group>"; };
 		630AC54F1D6F30E600314FA3 /* UXKjQuery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKjQuery.min.js; sourceTree = "<group>"; };
+		6339AD231D9D56C50022B605 /* UXKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKViewController.h; sourceTree = "<group>"; };
+		6339AD241D9D56C50022B605 /* UXKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKViewController.m; sourceTree = "<group>"; };
 		634A886A1D5F5FF70022AC22 /* uxkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uxkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		634A886E1D5F5FF70022AC22 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		634A88701D5F5FF70022AC22 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -197,6 +200,8 @@
 				63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */,
 				6396DB871D64AF03001D9B6D /* UXKBridgeAnimationHandler.h */,
 				6396DB881D64AF03001D9B6D /* UXKBridgeAnimationHandler.m */,
+				6339AD231D9D56C50022B605 /* UXKViewController.h */,
+				6339AD241D9D56C50022B605 /* UXKViewController.m */,
 				63DEA7551D996F61007265EA /* UIViewController+UXKBridge.h */,
 				63DEA7561D996F61007265EA /* UIViewController+UXKBridge.m */,
 			);
@@ -415,6 +420,7 @@
 				634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */,
 				63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */,
 				63AE072D1D97BCA7000E0A20 /* UXKTextField.m in Sources */,
+				6339AD251D9D56C50022B605 /* UXKViewController.m in Sources */,
 				63E017B81D97984F00389045 /* UXKLabel.m in Sources */,
 				63AE07301D97BF3B000E0A20 /* UXKBridgeValueManager.m in Sources */,
 			);

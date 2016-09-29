@@ -7,6 +7,7 @@
 //
 
 #import "UXKProps+LayoutFormat.h"
+#import "UIViewController+UXKBridge.h"
 
 @implementation UXKProps (LayoutFormat)
 

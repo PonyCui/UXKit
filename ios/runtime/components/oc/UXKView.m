@@ -25,21 +25,23 @@
 }
     
 - (void)layoutUXKViews:(UXKBridgeAnimationHandler *)animationHandler newRect:(NSValue *)newRectValue except:(UXKView *)except {
-    CGRect newRect;
+    CGRect newRect = CGRectZero;
+    BOOL hasNewRect = NO;
     if (self.formatFrame != nil) {
         newRect = [UXKProps rectWithView:self format:self.formatFrame];
+        hasNewRect = YES;
     }
     else if (newRectValue != nil) {
         newRect = [newRectValue CGRectValue];
         self.willChangeToFrame = newRectValue;
+        hasNewRect = YES;
     }
-    else {
-        return;
-    }
-    if (animationHandler == nil || ![animationHandler addAnimationWithView:self
-                                                                     props:kPOPViewFrame
-                                                                  newValue:[NSValue valueWithCGRect:newRect]]) {
-        self.frame = newRect;
+    if (hasNewRect) {
+        if (animationHandler == nil || ![animationHandler addAnimationWithView:self
+                                                                         props:kPOPViewFrame
+                                                                      newValue:[NSValue valueWithCGRect:newRect]]) {
+            self.frame = newRect;
+        }
     }
     if (self.superview != nil && self.superview != except) {
         for (UXKView *subview in self.superview.subviews) {

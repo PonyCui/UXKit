@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UXKViewController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UXKViewController
 
 
 @end
