@@ -46,6 +46,12 @@
     return YES;
 }
 
+- (void)layoutUXKViews:(UXKBridgeAnimationHandler *)animationHandler
+               newRect:(NSValue *)newRectValue
+                except:(UXKView *)except {
+    self.frame = newRectValue.CGRectValue;
+}
+
 - (void)didMoveToSuperview {
     [super didMoveToSuperview];
     [self attachBarButtonItem];
