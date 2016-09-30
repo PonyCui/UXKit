@@ -16,10 +16,12 @@
 - (instancetype)initWithView:(UIView *)view;
 
 - (void)showNextWithURLString:(NSString *)URLString
+                        title:(NSString *)title
          sourceViewController:(UIViewController *)sourceViewController;
 
 - (void)showNextWithHTMLString:(NSString *)HTMLString
                        baseURL:(NSURL *)baseURL
+                         title:(NSString *)title
           sourceViewController:(UIViewController *)sourceViewController;
 
 @end

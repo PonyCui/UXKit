@@ -70,21 +70,28 @@
     NSData *HTMLData = [[NSData alloc] initWithBase64EncodedString:obj[@"html"] options:kNilOptions];
     if (HTMLData != nil) {
         NSString *HTMLString = [[NSString alloc] initWithData:HTMLData encoding:NSUTF8StringEncoding];
-        [self showNextWithHTMLString:HTMLString baseURL:nil sourceViewController:[self sourceViewController]];
+        [self showNextWithHTMLString:HTMLString
+                             baseURL:nil
+                               title:([obj[@"title"] isKindOfClass:[NSString class]] ? obj[@"title"] : nil)
+                sourceViewController:[self sourceViewController]];
     }
 }
 
 - (void)showNextWithURLString:(NSString *)URLString
+                        title:(NSString *)title
          sourceViewController:(UIViewController *)sourceViewController {
     UXKViewController *viewController = [UXKViewController new];
+    viewController.title = title;
     [viewController uxk_loadURLString:URLString];
     [sourceViewController.navigationController showViewController:viewController sender:nil];
 }
 
 - (void)showNextWithHTMLString:(NSString *)HTMLString
                        baseURL:(NSURL *)baseURL
+                         title:(NSString *)title
           sourceViewController:(UIViewController *)sourceViewController {
     UXKViewController *viewController = [UXKViewController new];
+    viewController.title = title;
     [viewController uxk_loadHTMLString:HTMLString baseURL:baseURL];
     [sourceViewController.navigationController showViewController:viewController sender:nil];
 }

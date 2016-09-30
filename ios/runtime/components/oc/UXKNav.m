@@ -7,6 +7,7 @@
 //
 
 #import "UXKNav.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface UXKNav ()
 
@@ -78,6 +79,9 @@
     if ([props[@"text"] isKindOfClass:[NSString class]]) {
         [self setText:props[@"text"]];
     }
+    if ([props[@"url"] isKindOfClass:[NSString class]]) {
+        [self setImageViewWithURLString:props[@"url"]];
+    }
 }
 
 - (void)setText:(NSString *)text {
@@ -96,6 +100,18 @@
     button.frame = CGRectMake(0, 0, button.bounds.size.width, 44.0);
     [self.customView addSubview:button];
     self.customView.frame = CGRectMake(self.customView.frame.origin.x, 0, button.bounds.size.width, 44.0);
+}
+
+- (void)setImageViewWithURLString:(NSString *)URLString {
+    [self.customView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [imageView sd_setImageWithURL:[NSURL URLWithString:URLString] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.customView addSubview:imageView];
+        }];
+    }];
+    self.customView.frame = CGRectMake(self.customView.frame.origin.x, 0, self.bounds.size.width, self.bounds.size.height);
 }
 
 - (UIViewController *)sourceViewController {
