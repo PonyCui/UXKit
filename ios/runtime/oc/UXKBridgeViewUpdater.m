@@ -31,8 +31,15 @@ static NSDictionary *kUXKViewTypes;
                           @"IMAGEVIEW": @"UXKImageView",
                           @"LABEL": @"UXKLabel",
                           @"TEXTFIELD": @"UXKTextField",
+                          @"NAV": @"UXKNav",
                           };
     });
+}
+
++ (void)createTagWithName:(NSString *)tagName viewClass:(Class)viewClass {
+    NSMutableDictionary *dict = [kUXKViewTypes mutableCopy];
+    [dict setObject:NSStringFromClass(viewClass) forKey:tagName];
+    kUXKViewTypes = [dict copy];
 }
 
 + (NSString *)bridgeScript {

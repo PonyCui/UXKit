@@ -19,6 +19,8 @@
 
 + (NSString *)bridgeScript;
 
++ (void)createTagWithName:(NSString *)tagName viewClass:(Class)viewClass;
+
 - (instancetype)initWithView:(UIView *)view;
 
 @end

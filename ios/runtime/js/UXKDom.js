@@ -1,6 +1,6 @@
 (function ($) {
     var domHelper = {
-        kVisualDOMNames: ["BODY", "VIEW", "IMAGEVIEW", "LABEL", "TEXTFIELD"],
+        kVisualDOMNames: ["BODY", "NAV", "VIEW", "IMAGEVIEW", "LABEL", "TEXTFIELD"],
         guid: function () {
             function s4() {
                 return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);

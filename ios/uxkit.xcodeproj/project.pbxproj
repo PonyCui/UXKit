@@ -41,6 +41,7 @@
 		63E017B21D96B05200389045 /* UXKBridgeTouchUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */; };
 		63E017B51D97893500389045 /* UXKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B41D97893500389045 /* UXKImageView.m */; };
 		63E017B81D97984F00389045 /* UXKLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B71D97984F00389045 /* UXKLabel.m */; };
+		9063A3761D9E2C18002E9AB8 /* UXKNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 9063A3751D9E2C18002E9AB8 /* UXKNav.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,8 @@
 		63E017B41D97893500389045 /* UXKImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKImageView.m; sourceTree = "<group>"; };
 		63E017B61D97984F00389045 /* UXKLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKLabel.h; sourceTree = "<group>"; };
 		63E017B71D97984F00389045 /* UXKLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKLabel.m; sourceTree = "<group>"; };
+		9063A3741D9E2C18002E9AB8 /* UXKNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKNav.h; sourceTree = "<group>"; };
+		9063A3751D9E2C18002E9AB8 /* UXKNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKNav.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +255,8 @@
 				63E017B71D97984F00389045 /* UXKLabel.m */,
 				63AE072B1D97BCA7000E0A20 /* UXKTextField.h */,
 				63AE072C1D97BCA7000E0A20 /* UXKTextField.m */,
+				9063A3741D9E2C18002E9AB8 /* UXKNav.h */,
+				9063A3751D9E2C18002E9AB8 /* UXKNav.m */,
 				6396DB841D64ACB0001D9B6D /* UXKAnimation.h */,
 				6396DB851D64ACB0001D9B6D /* UXKAnimation.m */,
 				6396DB7B1D6359A2001D9B6D /* UXKProps.h */,
@@ -389,7 +394,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		E52E40E359026270E5F3853F /* [CP] Copy Pods Resources */ = {
@@ -426,6 +431,7 @@
 				6396DB8E1D674CC5001D9B6D /* UXKProps+LayoutFormat.m in Sources */,
 				634A88721D5F5FF70022AC22 /* AppDelegate.m in Sources */,
 				634A886F1D5F5FF70022AC22 /* main.m in Sources */,
+				9063A3761D9E2C18002E9AB8 /* UXKNav.m in Sources */,
 				63DEA7571D996F61007265EA /* UIViewController+UXKBridge.m in Sources */,
 				634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */,
 				63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */,
