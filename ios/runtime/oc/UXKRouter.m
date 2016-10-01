@@ -46,9 +46,16 @@
                                                                   error:nil];
         if ([specObj isKindOfClass:[NSDictionary class]]) {
             if ([specObj[@"routeType"] isKindOfClass:[NSString class]]) {
-                if ([specObj[@"routeType"] isEqualToString:@"openHTML"] &&
+                if ([specObj[@"routeType"] isEqualToString:@"open"] &&
+                    [specObj[@"url"] isKindOfClass:[NSString class]]) {
+                    [self openURL:specObj];
+                }
+                else if ([specObj[@"routeType"] isEqualToString:@"openHTML"] &&
                     [specObj[@"html"] isKindOfClass:[NSString class]]) {
                     [self openHTML:specObj];
+                }
+                else if ([specObj[@"routeType"] isEqualToString:@"back"]) {
+                    [[[self sourceViewController] navigationController] popViewControllerAnimated:YES];
                 }
             }
         }
@@ -64,6 +71,12 @@
         }
     }
     return nil;
+}
+
+- (void)openURL:(NSDictionary *)obj {
+    [self showNextWithURLString:obj[@"url"]
+                          title:([obj[@"title"] isKindOfClass:[NSString class]] ? obj[@"title"] : nil)
+           sourceViewController:[self sourceViewController]];
 }
 
 - (void)openHTML:(NSDictionary *)obj {

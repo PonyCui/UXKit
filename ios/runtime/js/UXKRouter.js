@@ -1,4 +1,10 @@
 window._UXK_Router = {
+    back: function() {
+        var args = JSON.stringify({
+                                  routeType: "back",
+                                  });
+        webkit.messageHandlers.UXK_Router.postMessage(args);
+    },
     open: function(url, title) {
         var args = JSON.stringify({
                                   routeType: "open",
