@@ -36,6 +36,8 @@
 		63AE072D1D97BCA7000E0A20 /* UXKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE072C1D97BCA7000E0A20 /* UXKTextField.m */; };
 		63AE07301D97BF3B000E0A20 /* UXKBridgeValueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE072F1D97BF3B000E0A20 /* UXKBridgeValueManager.m */; };
 		63AE07321D97BFB5000E0A20 /* UXKValue.js in Resources */ = {isa = PBXBuildFile; fileRef = 63AE07311D97BFB5000E0A20 /* UXKValue.js */; };
+		63CF27291DA1D6EA0048EF6F /* UXKSCROLLVIEW.html in Resources */ = {isa = PBXBuildFile; fileRef = 63CF27271DA1D6EA0048EF6F /* UXKSCROLLVIEW.html */; };
+		63CF272A1DA1D6EA0048EF6F /* UXKSCROLLVIEW.js in Resources */ = {isa = PBXBuildFile; fileRef = 63CF27281DA1D6EA0048EF6F /* UXKSCROLLVIEW.js */; };
 		63DEA7571D996F61007265EA /* UIViewController+UXKBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEA7561D996F61007265EA /* UIViewController+UXKBridge.m */; };
 		63E017AF1D963CD900389045 /* UXKTouch.js in Resources */ = {isa = PBXBuildFile; fileRef = 63E017AE1D963CD900389045 /* UXKTouch.js */; };
 		63E017B21D96B05200389045 /* UXKBridgeTouchUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */; };
@@ -92,6 +94,8 @@
 		63AE072E1D97BF3B000E0A20 /* UXKBridgeValueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeValueManager.h; sourceTree = "<group>"; };
 		63AE072F1D97BF3B000E0A20 /* UXKBridgeValueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeValueManager.m; sourceTree = "<group>"; };
 		63AE07311D97BFB5000E0A20 /* UXKValue.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKValue.js; sourceTree = "<group>"; };
+		63CF27271DA1D6EA0048EF6F /* UXKSCROLLVIEW.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSCROLLVIEW.html; sourceTree = "<group>"; };
+		63CF27281DA1D6EA0048EF6F /* UXKSCROLLVIEW.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSCROLLVIEW.js; sourceTree = "<group>"; };
 		63DEA7551D996F61007265EA /* UIViewController+UXKBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+UXKBridge.h"; sourceTree = "<group>"; };
 		63DEA7561D996F61007265EA /* UIViewController+UXKBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+UXKBridge.m"; sourceTree = "<group>"; };
 		63E017AE1D963CD900389045 /* UXKTouch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKTouch.js; sourceTree = "<group>"; };
@@ -239,6 +243,7 @@
 		6396DB761D63598E001D9B6D /* js */ = {
 			isa = PBXGroup;
 			children = (
+				63CF27221DA1D5540048EF6F /* ScrollView */,
 				6396DB8F1D69693E001D9B6D /* TEST */,
 			);
 			path = js;
@@ -274,6 +279,15 @@
 				6396DB911D69693E001D9B6D /* UXKTEST.js */,
 			);
 			path = TEST;
+			sourceTree = "<group>";
+		};
+		63CF27221DA1D5540048EF6F /* ScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				63CF27271DA1D6EA0048EF6F /* UXKSCROLLVIEW.html */,
+				63CF27281DA1D6EA0048EF6F /* UXKSCROLLVIEW.js */,
+			);
+			path = ScrollView;
 			sourceTree = "<group>";
 		};
 		D2438D969DDB3FFA006B640B /* Pods */ = {
@@ -353,12 +367,14 @@
 				6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */,
 				63AE07321D97BFB5000E0A20 /* UXKValue.js in Resources */,
 				6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */,
+				63CF27291DA1D6EA0048EF6F /* UXKSCROLLVIEW.html in Resources */,
 				634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */,
 				630AC5501D6F30E600314FA3 /* UXKjQuery.min.js in Resources */,
 				6339AD2A1D9D644A0022B605 /* UXKRouter.js in Resources */,
 				6396DB921D69693E001D9B6D /* UXKTEST.html in Resources */,
 				634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */,
 				63E017AF1D963CD900389045 /* UXKTouch.js in Resources */,
+				63CF272A1DA1D6EA0048EF6F /* UXKSCROLLVIEW.js in Resources */,
 				6396DB681D606DB2001D9B6D /* UXKDom.js in Resources */,
 				634A88781D5F5FF70022AC22 /* Main.storyboard in Resources */,
 			);

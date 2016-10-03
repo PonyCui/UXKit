@@ -62,15 +62,22 @@
         },
         updateComponents: function (node) {
             if (window._UXK_Components.contents[node.nodeName] !== undefined) {
+                if (node.innerHTML.indexOf('<!--Rended-->') < 0) {
+                    node.innerHTML = window._UXK_Components.rendComponent(node.nodeName, {}, node.innerHTML);
+                    if (typeof window._UXK_Components[node.nodeName].onLoad === "function") {
+                        window._UXK_Components[node.nodeName].onLoad(node);
+                    }
+                }
                 if (node.getAttribute("_UXK_cKey") !== "_") {
-                    node.innerHTML = window._UXK_Components.rendComponent(node.nodeName, {});
                     node.setAttribute("_UXK_cKey", "_");
                     var attributes = {};
                     for (var i = 0; i < node.attributes.length; i++) {
                         var element = node.attributes[i];
                         attributes[element.name] = element.value;
                     }
-                    window._UXK_Components[node.nodeName].setProps(node, attributes);
+                    if (typeof window._UXK_Components[node.nodeName].setProps === "function") {
+                        window._UXK_Components[node.nodeName].setProps(node, attributes);
+                    }
                 }
                 else {
                     var attributes = {};
@@ -78,7 +85,9 @@
                         var element = node.attributes[i];
                         attributes[element.name] = element.value;
                     }
-                    window._UXK_Components[node.nodeName].setProps(node, attributes);
+                    if (typeof window._UXK_Components[node.nodeName].setProps === "function") {
+                        window._UXK_Components[node.nodeName].setProps(node, attributes);
+                    }
                 }
             }
             var childNodes = node.childNodes;

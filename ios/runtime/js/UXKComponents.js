@@ -1,7 +1,7 @@
 window._UXK_Components = {
     contents: {},
-    rendComponent: function(name, props) {
-        return this.contents[name];
+    rendComponent: function(name, props, innerHTML) {
+        return '<!--Rended-->' + this.contents[name].replace('<innerHTML/>', innerHTML);
     },
     createJSComponent: function (name, contents) {
         this.contents[name] = decodeURIComponent(atob(contents));
