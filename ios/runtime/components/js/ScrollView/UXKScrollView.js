@@ -1,16 +1,25 @@
 window._UXK_Components.SCROLLVIEW = {
     onLoad: function (dom) {
         $(dom).onPan(function (sender) {
-            var contentOffset = {
-                x: 0,
-                y: sender.translateY,
+            if (sender.state == "Changed") {
+                var contentOffset = {
+                    x: 0,
+                    y: sender.translateY,
+                }
+                var contentSize = {
+                    width: -1,
+                    height: 0,
+                }
+                console.log(sender);
+                dom.setAttribute('contentOffset', contentOffset.x + ',' + contentOffset.y);
+                $(dom).update();
             }
-            var contentSize = {
-                width: -1,
-                height: 0,
+            else if (sender.state == "Ended") {
+                $(dom).decay({
+                    aniProps: 'frame',
+                    velocity: '0,' + sender.velocityY + ',0,0',
+                });
             }
-            dom.setAttribute('contentOffset', contentOffset.x + ',' + contentOffset.y);
-            $(dom).update();
         });
     },
     setProps: function (dom, props) {
@@ -35,10 +44,10 @@ window._UXK_Components.SCROLLVIEW = {
             }
         }
         dom.querySelector("[vKey='contentView']").setAttribute(
-            'frame', 
-            contentOffset.x + ',' + 
-            contentOffset.y + ',' + 
-            contentSize.width + ',' + 
+            'frame',
+            contentOffset.x + ',' +
+            contentOffset.y + ',' +
+            contentSize.width + ',' +
             contentSize.height);
     },
 }

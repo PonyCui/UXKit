@@ -65,7 +65,9 @@
                 if (node.innerHTML.indexOf('<!--Rended-->') < 0) {
                     node.innerHTML = window._UXK_Components.rendComponent(node.nodeName, {}, node.innerHTML);
                     if (typeof window._UXK_Components[node.nodeName].onLoad === "function") {
-                        window._UXK_Components[node.nodeName].onLoad(node);
+                        setTimeout(function(){
+                            window._UXK_Components[node.nodeName].onLoad(node);
+                        }, 0);
                     }
                 }
                 if (node.getAttribute("_UXK_cKey") !== "_") {

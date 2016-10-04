@@ -27,14 +27,14 @@
     [super layoutSubviews];
     CGRect shouldChangeRect = [self.shouldChangeToFrame CGRectValue];
     if (shouldChangeRect.size.width == -1.0 || shouldChangeRect.size.height == -1.0) {
-        [self layoutUXKViews:nil newRect:self.shouldChangeToFrame except:nil];
+        [self layoutUXKViews:nil newRect:self.shouldChangeToFrame excepts:nil];
     }
     else {
-        [self layoutUXKViews:nil newRect:nil except:nil];
+        [self layoutUXKViews:nil newRect:nil excepts:nil];
     }
 }
     
-- (void)layoutUXKViews:(UXKBridgeAnimationHandler *)animationHandler newRect:(NSValue *)newRectValue except:(UXKView *)except {
+- (void)layoutUXKViews:(UXKBridgeAnimationHandler *)animationHandler newRect:(NSValue *)newRectValue excepts:(NSArray<UXKView *> *)excepts {
     CGRect newRect = CGRectZero;
     BOOL hasNewRect = NO;
     if (self.formatFrame != nil) {
@@ -66,19 +66,19 @@
             self.frame = newRect;
         }
     }
-    if (self.superview != nil && self.superview != except) {
+    if (self.superview != nil && ![excepts containsObject:(id)self.superview]) {
         for (UXKView *subview in self.superview.subviews) {
-            if (subview == except || subview == self || ![subview isKindOfClass:[UXKView class]]) {
+            if ([excepts containsObject:subview] || subview == self || ![subview isKindOfClass:[UXKView class]]) {
                 continue;
             }
-            [subview layoutUXKViews:animationHandler newRect:nil except:self];
+            [subview layoutUXKViews:animationHandler newRect:nil excepts:self.superview.subviews];
         }
     }
     for (UXKView *subview in self.subviews) {
         if (![subview isKindOfClass:[UXKView class]]) {
             continue;
         }
-        [subview layoutUXKViews:animationHandler newRect:nil except:self];
+        [subview layoutUXKViews:animationHandler newRect:nil excepts:@[self]];
     }
 }
 
@@ -96,7 +96,7 @@
                 [self setFormatFrame:
                  [[props[@"frame"] stringByReplacingOccurrencesOfString:@"(" withString:@""]
                   stringByReplacingOccurrencesOfString:@")" withString:@""]];
-                [self layoutUXKViews:self.animationHandler newRect:nil except:nil];
+                [self layoutUXKViews:self.animationHandler newRect:nil excepts:nil];
             }
         }
         else {
@@ -105,13 +105,13 @@
                 newRect.size = [self intrinsicContentSizeWithProps:props];
                 [self layoutUXKViews:self.animationHandler
                              newRect:[NSValue valueWithCGRect:newRect]
-                              except:nil];
+                              excepts:nil];
             }
             else {
                 [self setShouldChangeToFrame:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]];
                 [self layoutUXKViews:self.animationHandler
                              newRect:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]
-                              except:nil];
+                              excepts:nil];
             }
         }
     }
