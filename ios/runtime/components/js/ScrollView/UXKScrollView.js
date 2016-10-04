@@ -11,7 +11,6 @@ window._UXK_Components.SCROLLVIEW = {
                     y: parseFloat($(dom).attr('contentoffset').split(',')[1]),
                 }
             }
-            console.log($(dom).attr('contentoffset'));
         },
         onBeingDrag: function (dom, sender) {
             var contentOffset = {
@@ -25,7 +24,7 @@ window._UXK_Components.SCROLLVIEW = {
             $(dom).find("[vKey='contentView']").decay({
                 aniProps: 'frame',
                 velocity: '0,' + sender.velocityY + ',0,0',
-                onChange: function(frame) {
+                onChange: function (frame) {
                     $(dom).attr('contentoffset', frame.x + ',' + frame.y);
                 }
             });
@@ -33,8 +32,14 @@ window._UXK_Components.SCROLLVIEW = {
     },
     onLoad: function (dom) {
         var obj = this;
+        $(dom).onTouch(function (sender) {
+            if (sender.state == "Began") {
+                $(dom).find("[vKey='contentView']").stop();
+            }
+        });
         $(dom).onPan(function (sender) {
             if (sender.state == "Began") {
+                $(dom).find("[vKey='contentView']").stop();
                 obj.scroller.onDragStart(dom, sender);
             }
             else if (sender.state == "Changed") {

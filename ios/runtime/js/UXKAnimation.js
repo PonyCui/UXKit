@@ -53,8 +53,8 @@ window._UXK_Animation = {
             }
         },
     };
-    $.fn.animate = function (duration) {
-        var animation = window._UXK_Animation.timing({duration: duration});
+    $.fn.animate = function (duration, options) {
+        var animation = window._UXK_Animation.timing(Object.assign({duration: duration}, (options ? options : {})));
         callbackHelper.register(animation);
         webkit.messageHandlers.UXK_AnimationHandler_Commit.postMessage(JSON.stringify(animation));
         webkit.messageHandlers.UXK_AnimationHandler_Enable.postMessage("");

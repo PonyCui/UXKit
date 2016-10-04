@@ -9,6 +9,7 @@
 #import "UXKBridgeTouchUpdater.h"
 #import "UXKBridgeController.h"
 #import "UXKBridgeViewUpdater.h"
+#import "UXKView.h"
 #import <objc/runtime.h>
 
 @interface UIGestureRecognizer (UXKProps)
@@ -66,7 +67,10 @@
     NSString *vKey = args[@"vKey"];
     if ([touchType isKindOfClass:[NSString class]] && [vKey isKindOfClass:[NSString class]]) {
         UIView *view = self.bridgeController.viewUpdater.mirrorViews[vKey];
-        if ([touchType isEqualToString:@"tap"] && view != nil) {
+        if ([touchType isEqualToString:@"touch"] && view != nil) {
+            [self addTouchToView:view args:args];
+        }
+        else if ([touchType isEqualToString:@"tap"] && view != nil) {
             [self addTapGestureToView:view args:args];
         }
         else if ([touchType isEqualToString:@"longPress"] && view != nil) {
@@ -75,6 +79,17 @@
         else if ([touchType isEqualToString:@"pan"] && view != nil) {
             [self addPanGestureToView:view args:args];
         }
+    }
+}
+
+- (void)addTouchToView:(UIView *)view args:(NSDictionary *)args {
+    if ([view isKindOfClass:[UXKView class]]) {
+        [(UXKView *)view setTouchCallback:^(NSString *eventType){
+            NSString *callbackID = args[@"callbackID"];
+            NSString *script = [NSString stringWithFormat:@"window.UXK_TouchCallback('%@', {state: '%@'})",
+                                callbackID, eventType];
+            [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+        }];
     }
 }
 

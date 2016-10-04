@@ -19,6 +19,27 @@
 
 @implementation UXKView
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    if (self.touchCallback) {
+        self.touchCallback(@"Began");
+    }
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
+    if (self.touchCallback) {
+        self.touchCallback(@"Ended");
+    }
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesCancelled:touches withEvent:event];
+    if (self.touchCallback) {
+        self.touchCallback(@"Cancelled");
+    }
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"Name = %@, %@", self.name, [super description]];
 }

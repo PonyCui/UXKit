@@ -141,6 +141,17 @@
             [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
         }];
     }
+    if ([self.animationParams[@"onComplete"] isKindOfClass:[NSString class]]) {
+        [animation setCompletionBlock:^(POPAnimation *animation, BOOL finished) {
+            NSString *script = @"";
+            if ([props isEqualToString:kPOPViewFrame]) {
+                script = [NSString stringWithFormat:@"window._UXK_Animation.callbacks['%@'].call(this, %@)",
+                          self.animationParams[@"onComplete"],
+                          [UXKProps stringWithRect:view.frame]];
+            }
+            [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+        }];
+    }
 }
 
 - (void)removeAnimationsWithView:(UIView *)view {

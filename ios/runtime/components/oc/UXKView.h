@@ -11,6 +11,7 @@
 @class UXKBridgeAnimationHandler;
 
 typedef void(^UXKViewValueBlock)(id value);
+typedef void(^UXKViewTouchBlock)(NSString *eventType);
 
 @interface UXKView : UIView
 
@@ -20,6 +21,7 @@ typedef void(^UXKViewValueBlock)(id value);
 @property (nonatomic, copy) NSString *formatFrame;
 @property (nonatomic, strong) NSValue *shouldChangeToFrame;
 @property (nonatomic, strong) NSValue *willChangeToFrame;
+@property (nonatomic, copy) UXKViewTouchBlock touchCallback;
 
 - (BOOL)staticLayouts;
 - (void)setProps:(NSDictionary *)props;

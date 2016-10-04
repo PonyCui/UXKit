@@ -29,6 +29,13 @@ window.UXK_TouchCallback = function () { };
             }
         },
     };
+    $.fn.onTouch = function (callback) {
+        var args = {
+            touchType: 'touch',
+        }
+        touchHelper.commit(this.get(0), args, callback);
+        return args;
+    };
     $.fn.onTap = function (callback) {
         var args = {
             touchType: 'tap',
