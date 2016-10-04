@@ -90,6 +90,9 @@
     if (props[@"name"] && [props[@"name"] isKindOfClass:[NSString class]]) {
         self.name = props[@"name"];
     }
+    if (props[@"_uxk_vkey"] && [props[@"_uxk_vkey"] isKindOfClass:[NSString class]]) {
+        self.vKey = props[@"_uxk_vkey"];
+    }
     if (props[@"frame"] && [props[@"frame"] isKindOfClass:[NSString class]]) {
         if ([(NSString *)props[@"frame"] containsString:@"["]) {
             if ([self isKindOfClass:[UXKView class]]) {

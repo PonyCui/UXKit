@@ -63,6 +63,12 @@ static NSDictionary *kUXKViewTypes;
     return self;
 }
 
+- (void)updateView:(UXKView *)view aKey:(NSString *)aKey aValue:(NSString *)aValue {
+    NSString *script = [NSString stringWithFormat:@"jQuery(\"[vKey='%@']\").attr('%@', '%@')",
+                        view.vKey, aKey, aValue];
+    [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     for (UIView *subview in [self.view subviews]) {
         [subview layoutSubviews];

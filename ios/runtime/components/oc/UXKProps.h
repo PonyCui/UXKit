@@ -15,6 +15,7 @@
 + (CGFloat)toCGFloat:(NSString *)stringValue;
 + (CGSize)toMaxSize:(NSString *)stringValue;
 + (CGRect)toRectWithRect:(NSString *)rectString;
++ (NSString *)stringWithRect:(CGRect)rect;
 + (UIColor *)toColor:(NSString *)stringValue;
 + (UIFont *)toFont:(NSString *)stringValue;
 + (UIReturnKeyType)toReturnKeyType:(NSString *)stringValue;

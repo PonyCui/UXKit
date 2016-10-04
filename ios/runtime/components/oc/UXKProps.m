@@ -37,6 +37,11 @@
     }
 }
 
++ (NSString *)stringWithRect:(CGRect)rect {
+    return [NSString stringWithFormat:@"{\"x\": %f, \"y\": %f, \"width\": %f, \"height\": %f}",
+            rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+}
+
 + (CGSize)toMaxSize:(NSString *)stringValue {
     NSString *rectString = [stringValue stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSArray *components = [rectString componentsSeparatedByString:@","];

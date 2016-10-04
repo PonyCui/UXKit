@@ -15,6 +15,7 @@ typedef void(^UXKViewValueBlock)(id value);
 @interface UXKView : UIView
 
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *vKey;
 @property (nonatomic, weak) UXKBridgeAnimationHandler *animationHandler;
 @property (nonatomic, copy) NSString *formatFrame;
 @property (nonatomic, strong) NSValue *shouldChangeToFrame;

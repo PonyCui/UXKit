@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-@class UXKBridgeController;
+@class UXKBridgeController, UXKView;
 
 @interface UXKBridgeViewUpdater : NSObject<WKScriptMessageHandler>
 
@@ -22,5 +22,7 @@
 + (void)createTagWithName:(NSString *)tagName viewClass:(Class)viewClass;
 
 - (instancetype)initWithView:(UIView *)view;
+
+- (void)updateView:(UXKView *)view aKey:(NSString *)aKey aValue:(NSString *)aValue;
 
 @end

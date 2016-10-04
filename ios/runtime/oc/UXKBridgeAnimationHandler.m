@@ -10,6 +10,8 @@
 #import "UXKBridgeController.h"
 #import "UXKBridgeViewUpdater.h"
 #import "UXKAnimation.h"
+#import "UXKView.h"
+#import "UXKProps.h"
 #import <pop/POP.h>
 
 @interface UXKBridgeAnimationHandler()
@@ -117,6 +119,7 @@
     if (animation == nil) {
         return NO;
     }
+    [self configureCallbacks:view props:props animation:animation];
     if (props == kPOPLayerCornerRadius || props == kPOPLayerBorderWidth || props == kPOPLayerBorderColor) {
         [view.layer pop_addAnimation:animation forKey:props];
     }
@@ -124,6 +127,20 @@
         [view pop_addAnimation:animation forKey:props];
     }
     return YES;
+}
+
+- (void)configureCallbacks:(UIView *)view props:(NSString *)props animation:(POPAnimation *)animation {
+    if ([self.animationParams[@"onChange"] isKindOfClass:[NSString class]]) {
+        [animation setAnimationDidApplyBlock:^(POPAnimation *animation) {
+            NSString *script = @"";
+            if ([props isEqualToString:kPOPViewFrame]) {
+                script = [NSString stringWithFormat:@"window._UXK_Animation.callbacks['%@'].call(this, %@)",
+                          self.animationParams[@"onChange"],
+                          [UXKProps stringWithRect:view.frame]];
+            }
+            [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+        }];
+    }
 }
 
 - (void)removeAnimationsWithView:(UIView *)view {
