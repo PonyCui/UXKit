@@ -5,7 +5,7 @@
 </head>
 
 <body margin="auto">
-    <ScrollView id="sss" frame="|-0-[]-0-|,!-0-[]-0-!" contentSize="414,1000">
+    <ScrollView id="sss" frame="|-0-[]-0-|,!-0-[]-0-!" contentSize="-1,1000" contentOffset="0,0">
         <View id="g" frame="0,0,20,20" backgroundColor="#ff0000"></View>
     </ScrollView>
 </body>
@@ -15,6 +15,6 @@
 <script>
 setTimeout(function(){
     $('#sss').html('<View frame="0,0,40,40" backgroundColor="#ffffff"></View>');
-    $('body').update();
+    $('#sss').update();
 }, 1000)
 </script>

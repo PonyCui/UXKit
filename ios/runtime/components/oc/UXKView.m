@@ -19,9 +19,19 @@
 
 @implementation UXKView
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Name = %@, %@", self.name, [super description]];
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self layoutUXKViews:nil newRect:nil except:nil];
+    CGRect shouldChangeRect = [self.shouldChangeToFrame CGRectValue];
+    if (shouldChangeRect.size.width == -1.0 || shouldChangeRect.size.height == -1.0) {
+        [self layoutUXKViews:nil newRect:self.shouldChangeToFrame except:nil];
+    }
+    else {
+        [self layoutUXKViews:nil newRect:nil except:nil];
+    }
 }
     
 - (void)layoutUXKViews:(UXKBridgeAnimationHandler *)animationHandler newRect:(NSValue *)newRectValue except:(UXKView *)except {
@@ -36,10 +46,24 @@
         self.willChangeToFrame = newRectValue;
         hasNewRect = YES;
     }
+    else if (self.shouldChangeToFrame != nil) {
+        CGRect shouldChangeRect = [self.shouldChangeToFrame CGRectValue];
+        if (shouldChangeRect.size.width == -1.0 || shouldChangeRect.size.height == -1.0) {
+            newRect = shouldChangeRect;
+            self.willChangeToFrame = self.shouldChangeToFrame;
+            hasNewRect = YES;
+        }
+    }
     if (hasNewRect) {
         if (animationHandler == nil || ![animationHandler addAnimationWithView:self
                                                                          props:kPOPViewFrame
                                                                       newValue:[NSValue valueWithCGRect:newRect]]) {
+            if (newRect.size.width == -1) {
+                newRect.size.width = self.superview.bounds.size.width;
+            }
+            if (newRect.size.height == -1) {
+                newRect.size.height = self.superview.bounds.size.height;
+            }
             self.frame = newRect;
         }
     }
@@ -70,7 +94,7 @@
     if (props[@"frame"] && [props[@"frame"] isKindOfClass:[NSString class]]) {
         if ([(NSString *)props[@"frame"] containsString:@"["]) {
             if ([self isKindOfClass:[UXKView class]]) {
-                [(UXKView *)self setFormatFrame:
+                [self setFormatFrame:
                  [[props[@"frame"] stringByReplacingOccurrencesOfString:@"(" withString:@""]
                   stringByReplacingOccurrencesOfString:@")" withString:@""]];
                 [self layoutUXKViews:self.animationHandler newRect:nil except:nil];
@@ -85,6 +109,7 @@
                               except:nil];
             }
             else {
+                [self setShouldChangeToFrame:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]];
                 [self layoutUXKViews:self.animationHandler
                              newRect:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]
                               except:nil];

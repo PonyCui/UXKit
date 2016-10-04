@@ -17,6 +17,7 @@ typedef void(^UXKViewValueBlock)(id value);
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, weak) UXKBridgeAnimationHandler *animationHandler;
 @property (nonatomic, copy) NSString *formatFrame;
+@property (nonatomic, strong) NSValue *shouldChangeToFrame;
 @property (nonatomic, strong) NSValue *willChangeToFrame;
 
 - (BOOL)staticLayouts;
