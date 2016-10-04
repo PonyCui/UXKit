@@ -43,14 +43,12 @@
     }
     else if (newRectValue != nil) {
         newRect = [newRectValue CGRectValue];
-        self.willChangeToFrame = newRectValue;
         hasNewRect = YES;
     }
     else if (self.shouldChangeToFrame != nil) {
         CGRect shouldChangeRect = [self.shouldChangeToFrame CGRectValue];
         if (shouldChangeRect.size.width == -1.0 || shouldChangeRect.size.height == -1.0) {
             newRect = shouldChangeRect;
-            self.willChangeToFrame = self.shouldChangeToFrame;
             hasNewRect = YES;
         }
     }
@@ -64,6 +62,7 @@
             if (newRect.size.height == -1) {
                 newRect.size.height = self.superview.bounds.size.height;
             }
+            self.willChangeToFrame = [NSValue valueWithCGRect:newRect];
             self.frame = newRect;
         }
     }

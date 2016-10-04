@@ -99,6 +99,8 @@
     [self addScriptMessageHandler:self.animationHandler name:@"UXK_AnimationHandler_Commit"];
     [self addScriptMessageHandler:self.animationHandler name:@"UXK_AnimationHandler_Enable"];
     [self addScriptMessageHandler:self.animationHandler name:@"UXK_AnimationHandler_Disable"];
+    [self addScriptMessageHandler:self.animationHandler name:@"UXK_AnimationHandler_DecayStart"];
+    [self addScriptMessageHandler:self.animationHandler name:@"UXK_AnimationHandler_Stop"];
 }
 
 - (void)configureTasks {

@@ -11,6 +11,8 @@ window._UXK_Animation = {
     decay: function (options) {
         return {
             'aniType': 'decay',
+            'aniProps': options ? options.aniProps : undefined,
+            'viewID': options ? options.viewID : undefined,
             'velocity': options ? options.velocity : undefined,
             'deceleration': options ? options.deceleration : undefined,
         }
@@ -46,5 +48,14 @@ window._UXK_Animation = {
         webkit.messageHandlers.UXK_AnimationHandler_Enable.postMessage("");
         this.update();
         webkit.messageHandlers.UXK_AnimationHandler_Disable.postMessage("");
+    };
+    $.fn.decay = function () {
+
+    };
+    $.fn.stop = function() {
+        var vKey = this.get(0).getAttribute("_UXK_vKey");
+        webkit.messageHandlers.UXK_AnimationHandler_Stop.postMessage(JSON.stringify({
+            vKey: vKey,
+        }));
     };
 })(jQuery)

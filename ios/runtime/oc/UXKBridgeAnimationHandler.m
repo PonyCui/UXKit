@@ -7,6 +7,8 @@
 //
 
 #import "UXKBridgeAnimationHandler.h"
+#import "UXKBridgeController.h"
+#import "UXKBridgeViewUpdater.h"
 #import "UXKAnimation.h"
 #import <pop/POP.h>
 
@@ -54,6 +56,52 @@
     else if ([message.name isEqualToString:@"UXK_AnimationHandler_Disable"]) {
         self.animationEnabled = NO;
     }
+    else if ([message.name isEqualToString:@"UXK_AnimationHandler_DecayStart"]) {
+        if ([[message body] isKindOfClass:[NSString class]]) {
+            NSData *aniData = [[message body] dataUsingEncoding:NSUTF8StringEncoding];
+            if (aniData == nil) {
+                return;
+            }
+            NSDictionary *aniParams = [NSJSONSerialization JSONObjectWithData:aniData
+                                                                      options:kNilOptions
+                                                                        error:nil];
+            if (![aniParams[@"vKey"] isKindOfClass:[NSString class]]) {
+                return;
+            }
+            UIView *view = self.bridgeController.viewUpdater.mirrorViews[aniParams[@"vKey"]];
+            if (view == nil) {
+                return;
+            }
+            NSString *aniProps = @"";
+            if (![aniParams[@"aniProps"] isKindOfClass:[NSString class]]) {
+                return;
+            }
+            if ([aniParams[@"aniProps"] isEqualToString:@"frame"]) {
+                aniProps = kPOPViewFrame;
+            }
+            self.animationParams = aniParams;
+            [self addAnimationWithView:view props:aniProps newValue:nil];
+        }
+    }
+    else if ([message.name isEqualToString:@"UXK_AnimationHandler_Stop"]) {
+        if ([[message body] isKindOfClass:[NSString class]]) {
+            NSData *aniData = [[message body] dataUsingEncoding:NSUTF8StringEncoding];
+            if (aniData == nil) {
+                return;
+            }
+            NSDictionary *aniParams = [NSJSONSerialization JSONObjectWithData:aniData
+                                                                      options:kNilOptions
+                                                                        error:nil];
+            if (![aniParams[@"vKey"] isKindOfClass:[NSString class]]) {
+                return;
+            }
+            UIView *view = self.bridgeController.viewUpdater.mirrorViews[aniParams[@"vKey"]];
+            if (view == nil) {
+                return;
+            }
+            [self removeAnimationsWithView:view];
+        }
+    }
 }
 
 - (BOOL)addAnimationWithView:(UIView *)view props:(NSString *)props newValue:(id)newValue {
@@ -74,6 +122,11 @@
         [view pop_addAnimation:animation forKey:props];
     }
     return YES;
+}
+
+- (void)removeAnimationsWithView:(UIView *)view {
+    [view pop_removeAllAnimations];
+    [view.layer pop_removeAllAnimations];
 }
 
 @end

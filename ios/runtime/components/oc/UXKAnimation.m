@@ -7,6 +7,7 @@
 //
 
 #import "UXKAnimation.h"
+#import "UXKProps.h"
 #import <pop/POP.h>
 
 @implementation UXKAnimation
@@ -22,9 +23,7 @@
                               toValue:toValue];
     }
     else if ([aniParams[@"aniType"] isKindOfClass:[NSString class]] && [aniParams[@"aniType"] isEqualToString:@"decay"]) {
-        return [self decayWithParams:aniParams
-                         aniProperty:aniProperty
-                           fromValue:fromValue];
+        return nil;
     }
     else {
         return [self timingWithParams:aniParams
@@ -40,7 +39,7 @@
                            toValue:(id)toValue {
     POPBasicAnimation *animation = [POPBasicAnimation animationWithPropertyNamed:aniProperty];
     if (aniParams[@"duration"] != nil && [aniParams[@"duration"] isKindOfClass:[NSNumber class]]) {
-        animation.duration = [aniParams[@"duration"] floatValue];
+        animation.duration = [aniParams[@"duration"] floatValue] / 1000.0;
     }
     animation.fromValue = fromValue;
     animation.toValue = toValue;
@@ -75,11 +74,10 @@
     POPDecayAnimation *animation = [POPDecayAnimation animationWithPropertyNamed:aniProperty];
     if (aniParams[@"props"] != nil && [aniParams[@"props"] isKindOfClass:[NSString class]]) {
         if ([aniParams[@"props"] isEqualToString:@"frame"]) {
-            
+            if (aniParams[@"velocity"] != nil && [aniParams[@"velocity"] isKindOfClass:[NSString class]]) {
+                [animation setVelocity:[NSValue valueWithCGRect:[UXKProps toRectWithRect:aniParams[@"velocity"]]]];
+            }
         }
-    }
-    if (aniParams[@"velocity"] != nil && [aniParams[@"velocity"] isKindOfClass:[NSNumber class]]) {
-        [animation setVelocity:aniParams[@"velocity"]];
     }
     if (aniParams[@"deceleration"] != nil && [aniParams[@"deceleration"] isKindOfClass:[NSNumber class]]) {
         [animation setDeceleration:[aniParams[@"deceleration"] floatValue]];

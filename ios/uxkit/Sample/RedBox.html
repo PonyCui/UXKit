@@ -5,16 +5,22 @@
 </head>
 
 <body margin="auto">
-    <ScrollView id="sss" frame="|-0-[]-0-|,!-0-[]-0-!" contentSize="-1,1000" contentOffset="0,0">
+    <View id="nn" backgroundColor="#ffff00" frame="0,64,88,88"></View>
+    <!--<ScrollView id="sss" frame="|-0-[]-0-|,!-0-[]-0-!" contentSize="-1,1000" contentOffset="0,0">
         <View id="g" frame="0,0,20,20" backgroundColor="#ff0000"></View>
-    </ScrollView>
+    </ScrollView>-->
 </body>
 
 </html>
 
 <script>
 setTimeout(function(){
-    $('#sss').html('<View frame="0,0,40,40" backgroundColor="#ffffff"></View>');
-    $('#sss').update();
+    // $('#sss').html('<View frame="0,0,40,40" backgroundColor="#ffffff"></View>');
+    // $('#sss').update();
+    $('#nn').attr('frame', '0,64,200,200');
+    $('#nn').animate(10000);
+    setTimeout(function(){
+        $('#nn').stop();
+    }, 3000);
 }, 1000)
 </script>
