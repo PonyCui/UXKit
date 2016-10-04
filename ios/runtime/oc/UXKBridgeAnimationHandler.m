@@ -80,7 +80,9 @@
                 aniProps = kPOPViewFrame;
             }
             self.animationParams = aniParams;
+            self.animationEnabled = YES;
             [self addAnimationWithView:view props:aniProps newValue:nil];
+            self.animationEnabled = NO;
         }
     }
     else if ([message.name isEqualToString:@"UXK_AnimationHandler_Stop"]) {
@@ -110,7 +112,7 @@
     }
     POPAnimation *animation = [UXKAnimation animationWithParams:self.animationParams
                                                     aniProperty:props
-                                                      fromValue:nil
+                                                      fromValue:[self fromValueWithProps:props view:view]
                                                         toValue:newValue];
     if (animation == nil) {
         return NO;
@@ -127,6 +129,13 @@
 - (void)removeAnimationsWithView:(UIView *)view {
     [view pop_removeAllAnimations];
     [view.layer pop_removeAllAnimations];
+}
+
+- (NSValue *)fromValueWithProps:(NSString *)props view:(UIView *)view {
+    if ([props isEqualToString:kPOPViewFrame]) {
+        return [NSValue valueWithCGRect:view.frame];
+    }
+    return nil;
 }
 
 @end

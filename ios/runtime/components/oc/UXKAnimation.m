@@ -23,7 +23,9 @@
                               toValue:toValue];
     }
     else if ([aniParams[@"aniType"] isKindOfClass:[NSString class]] && [aniParams[@"aniType"] isEqualToString:@"decay"]) {
-        return nil;
+        return [self decayWithParams:aniParams
+                         aniProperty:aniProperty
+                           fromValue:fromValue];
     }
     else {
         return [self timingWithParams:aniParams
@@ -72,11 +74,9 @@
                       aniProperty:(NSString *)aniProperty
                         fromValue:(id)fromValue {
     POPDecayAnimation *animation = [POPDecayAnimation animationWithPropertyNamed:aniProperty];
-    if (aniParams[@"props"] != nil && [aniParams[@"props"] isKindOfClass:[NSString class]]) {
-        if ([aniParams[@"props"] isEqualToString:@"frame"]) {
-            if (aniParams[@"velocity"] != nil && [aniParams[@"velocity"] isKindOfClass:[NSString class]]) {
-                [animation setVelocity:[NSValue valueWithCGRect:[UXKProps toRectWithRect:aniParams[@"velocity"]]]];
-            }
+    if ([aniProperty isEqualToString:kPOPViewFrame]) {
+        if (aniParams[@"velocity"] != nil && [aniParams[@"velocity"] isKindOfClass:[NSString class]]) {
+            [animation setVelocity:[NSValue valueWithCGRect:[UXKProps toRectWithRect:aniParams[@"velocity"]]]];
         }
     }
     if (aniParams[@"deceleration"] != nil && [aniParams[@"deceleration"] isKindOfClass:[NSNumber class]]) {
