@@ -58,7 +58,7 @@
     else if ([message.name isEqualToString:@"UXK_AnimationHandler_Disable"]) {
         self.animationEnabled = NO;
     }
-    else if ([message.name isEqualToString:@"UXK_AnimationHandler_DecayStart"]) {
+    else if ([message.name isEqualToString:@"UXK_AnimationHandler_Decay"]) {
         if ([[message body] isKindOfClass:[NSString class]]) {
             NSData *aniData = [[message body] dataUsingEncoding:NSUTF8StringEncoding];
             if (aniData == nil) {

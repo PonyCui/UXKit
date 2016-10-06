@@ -1,5 +1,38 @@
 window._UXK_Components.SCROLLVIEW = {
     scroller: {
+        isOutOfBounds: function (dom, newOffset) {
+            if (dom._tmp_scroll_start.size.height < dom._tmp_scroll_start.bounds.height) {
+                return false;
+            }
+            var absY = 0 - newOffset.y;
+            if (absY < 0.0) {
+                return true;
+            }
+            else if (absY > dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        nearestBoundsPoint: function (dom, endOffset) {
+            if (dom._tmp_scroll_start.size.height < dom._tmp_scroll_start.bounds.height) {
+                endOffset.y = 0.0;
+                return endOffset;
+            }
+            var absY = 0 - endOffset.y;
+            if (absY < 0.0) {
+                endOffset.y = 0.0;
+                return endOffset;
+            }
+            else if (absY > dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height) {
+                endOffset.y = 0 - (dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height);
+                return endOffset;
+            }
+            else {
+                return endOffset;
+            }
+        },
         onDragStart: function (dom, sender) {
             dom._tmp_scroll_start = {
                 offset: {
@@ -23,56 +56,43 @@ window._UXK_Components.SCROLLVIEW = {
                 dom._tmp_scroll_start.size.width = parseFloat($(dom).attr('contentsize').split(',')[0]);
                 dom._tmp_scroll_start.size.height = parseFloat($(dom).attr('contentsize').split(',')[1]);
             }
-            $(dom).value('frame', function(frame){
+            $(dom).value('frame', function (frame) {
                 dom._tmp_scroll_start.bounds.width = frame.width;
                 dom._tmp_scroll_start.bounds.height = frame.height;
-            }) ;
+            });
         },
         onBeingDrag: function (dom, sender) {
             var newOffset = {
                 x: dom._tmp_scroll_start.offset.x,
                 y: dom._tmp_scroll_start.offset.y + parseFloat(sender.translateY),
             }
-            var bottomBounds = dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height;
-            if (newOffset.y > 0.0) {
-                newOffset.y = newOffset.y / 3.0;
-            }
-            else if (newOffset.y < (0 - bottomBounds)) {
-                var delta = (0 - bottomBounds) - newOffset.y;
-                newOffset.y = (0 - bottomBounds) - delta / 3.0;
+            if (this.isOutOfBounds(dom, newOffset)) {
+                if (newOffset.y > 0.0) {
+                    newOffset.y = newOffset.y / 3.0;
+                }
+                else {
+                    var bottomBounds = dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height;
+                    var delta = (0 - bottomBounds) - newOffset.y;
+                    newOffset.y = (0 - bottomBounds) - delta / 3.0;
+                }
             }
             dom.setAttribute('contentoffset', newOffset.x + ',' + newOffset.y);
             $(dom).update();
         },
         onDragEnd: function (dom, sender) {
-            var newOffset = {
+            var endOffset = {
                 x: dom._tmp_scroll_start.offset.x,
                 y: dom._tmp_scroll_start.offset.y + parseFloat(sender.translateY),
             }
-            var bottomBounds = dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height;
-            if (newOffset.y > 0.0) {
-                newOffset.y = 0;
-                dom.setAttribute('contentoffset', newOffset.x + ',' + newOffset.y);
-                $(dom).spring({
-                    bounciness: 1.0
-                });
-            }
-            else if (newOffset.y < (0 - bottomBounds)) {
-                newOffset.y = (0 - bottomBounds);
-                dom.setAttribute('contentoffset', newOffset.x + ',' + newOffset.y);
-                $(dom).spring({
-                    bounciness: 1.0
-                });
-            }
-            else {
-                $(dom).find("[vKey='contentView']").decay({
+            $(dom).find("[vKey='contentView']").decay({
                     aniProps: 'frame',
+                    bounce: true,
+                    bounceRect: '0,0,414,' + (dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height),
                     velocity: '0,' + sender.velocityY + ',0,0',
                     onChange: function (frame) {
                         $(dom).attr('contentoffset', frame.x + ',' + frame.y);
                     }
                 });
-            }
         }
     },
     onLoad: function (dom) {

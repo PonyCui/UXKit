@@ -17,11 +17,12 @@ window._UXK_Animation = {
     },
     decay: function (options) {
         return Object.assign(this.base(options), {
-            'aniType': 'decay',
+            'aniType': options && options.bounce === true ? 'decayBounce' : 'decay',
             'aniProps': options ? options.aniProps : undefined,
             'vKey': options ? options.vKey : undefined,
             'velocity': options ? options.velocity : undefined,
             'deceleration': options ? options.deceleration : undefined,
+            'bounceRect': options ? options.bounceRect : undefined,
         });
     },
     timing: function (options) {
@@ -73,7 +74,7 @@ window._UXK_Animation = {
         var animation = window._UXK_Animation.decay(options);
         callbackHelper.register(animation);
         animation.vKey = this.get(0).getAttribute("_UXK_vKey");
-        webkit.messageHandlers.UXK_AnimationHandler_DecayStart.postMessage(JSON.stringify(animation));
+        webkit.messageHandlers.UXK_AnimationHandler_Decay.postMessage(JSON.stringify(animation));
     };
     $.fn.stop = function (callback) {
         var vKey = this.get(0).getAttribute("_UXK_vKey");
