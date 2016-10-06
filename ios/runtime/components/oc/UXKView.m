@@ -74,15 +74,15 @@
         }
     }
     if (hasNewRect) {
+        if (newRect.size.width == -1) {
+            newRect.size.width = self.superview.bounds.size.width;
+        }
+        if (newRect.size.height == -1) {
+            newRect.size.height = self.superview.bounds.size.height;
+        }
         if (animationHandler == nil || ![animationHandler addAnimationWithView:self
                                                                          props:kPOPViewFrame
                                                                       newValue:[NSValue valueWithCGRect:newRect]]) {
-            if (newRect.size.width == -1) {
-                newRect.size.width = self.superview.bounds.size.width;
-            }
-            if (newRect.size.height == -1) {
-                newRect.size.height = self.superview.bounds.size.height;
-            }
             self.willChangeToFrame = [NSValue valueWithCGRect:newRect];
             self.frame = newRect;
         }

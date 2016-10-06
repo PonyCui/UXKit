@@ -1,4 +1,11 @@
 window._UXK_Components.SCROLLVIEW = {
+    math: {
+        resistance: function (value) {
+            var originValue = value;
+            var resistanceValue = Math.log(value * value * value * value * value * value) / Math.log(1.20) - 1;
+            return resistanceValue > originValue ? originValue : resistanceValue
+        },
+    },
     scroller: {
         onDragStart: function (dom, sender) {
             dom._tmp_scroll_start = {
@@ -17,17 +24,36 @@ window._UXK_Components.SCROLLVIEW = {
                 x: dom._tmp_scroll_start.x,
                 y: dom._tmp_scroll_start.y + parseFloat(sender.translateY),
             }
-            dom.setAttribute('contentOffset', contentOffset.x + ',' + contentOffset.y);
+            if (contentOffset.y > 0.0) {
+                contentOffset.y = contentOffset.y / 3.0;
+            }
+            dom.setAttribute('contentoffset', contentOffset.x + ',' + contentOffset.y);
             $(dom).update();
         },
         onDragEnd: function (dom, sender) {
-            $(dom).find("[vKey='contentView']").decay({
-                aniProps: 'frame',
-                velocity: '0,' + sender.velocityY + ',0,0',
-                onChange: function (frame) {
-                    $(dom).attr('contentoffset', frame.x + ',' + frame.y);
-                }
-            });
+            var contentOffset = {
+                x: dom._tmp_scroll_start.x,
+                y: dom._tmp_scroll_start.y + parseFloat(sender.translateY),
+            }
+            if (contentOffset.y > 0.0) {
+                contentOffset.y = contentOffset.y / 3.0;
+            }
+            if (contentOffset.y > 0) {
+                contentOffset.y = 0;
+                dom.setAttribute('contentoffset', contentOffset.x + ',' + contentOffset.y);
+                $(dom).spring({
+                    bounciness: 1.0
+                });
+            }
+            else {
+                $(dom).find("[vKey='contentView']").decay({
+                    aniProps: 'frame',
+                    velocity: '0,' + sender.velocityY + ',0,0',
+                    onChange: function (frame) {
+                        $(dom).attr('contentoffset', frame.x + ',' + frame.y);
+                    }
+                });
+            }
         }
     },
     onLoad: function (dom) {
