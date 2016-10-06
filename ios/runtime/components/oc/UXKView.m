@@ -80,11 +80,13 @@
         if (newRect.size.height == -1) {
             newRect.size.height = self.superview.bounds.size.height;
         }
-        if (animationHandler == nil || ![animationHandler addAnimationWithView:self
-                                                                         props:kPOPViewFrame
-                                                                      newValue:[NSValue valueWithCGRect:newRect]]) {
-            self.willChangeToFrame = [NSValue valueWithCGRect:newRect];
-            self.frame = newRect;
+        if (!CGRectEqualToRect(self.frame, newRect)) {
+            if (animationHandler == nil || ![animationHandler addAnimationWithView:self
+                                                                             props:kPOPViewFrame
+                                                                          newValue:[NSValue valueWithCGRect:newRect]]) {
+                self.willChangeToFrame = [NSValue valueWithCGRect:newRect];
+                self.frame = newRect;
+            }
         }
     }
     if (self.superview != nil && ![excepts containsObject:(id)self.superview]) {

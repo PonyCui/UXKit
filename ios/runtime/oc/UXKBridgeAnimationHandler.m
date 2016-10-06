@@ -104,6 +104,11 @@
                 return;
             }
             [self removeAnimationsWithView:view];
+            if ([aniParams[@"callbackID"] isKindOfClass:[NSString class]]) {
+                NSString * script = [NSString stringWithFormat:@"window._UXK_Animation.callbacks['%@'].call(this)",
+                          aniParams[@"callbackID"]];
+                [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+            }
         }
     }
 }

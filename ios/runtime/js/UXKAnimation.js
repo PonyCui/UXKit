@@ -1,6 +1,6 @@
 window._UXK_Animation = {
     callbacks: {},
-    base: function(options) {
+    base: function (options) {
         return {
             'onChange': options ? options.onChange : undefined,
             'onComplete': options ? options.onComplete : undefined,
@@ -40,7 +40,7 @@ window._UXK_Animation = {
             }
             return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
         },
-        register: function(animation) {
+        register: function (animation) {
             if (typeof animation.onChange === "function") {
                 var guid = this.guid();
                 window._UXK_Animation.callbacks[guid] = animation.onChange;
@@ -54,7 +54,7 @@ window._UXK_Animation = {
         },
     };
     $.fn.animate = function (duration, options) {
-        var animation = window._UXK_Animation.timing(Object.assign({duration: duration}, (options ? options : {})));
+        var animation = window._UXK_Animation.timing(Object.assign({ duration: duration }, (options ? options : {})));
         callbackHelper.register(animation);
         webkit.messageHandlers.UXK_AnimationHandler_Commit.postMessage(JSON.stringify(animation));
         webkit.messageHandlers.UXK_AnimationHandler_Enable.postMessage("");
@@ -75,10 +75,16 @@ window._UXK_Animation = {
         animation.vKey = this.get(0).getAttribute("_UXK_vKey");
         webkit.messageHandlers.UXK_AnimationHandler_DecayStart.postMessage(JSON.stringify(animation));
     };
-    $.fn.stop = function() {
+    $.fn.stop = function (callback) {
         var vKey = this.get(0).getAttribute("_UXK_vKey");
+        var callbackID = undefined;
+        if (typeof callback === "function") {
+            callbackID = callbackHelper.guid();
+            window._UXK_Animation.callbacks[callbackID] = callback;
+        }
         webkit.messageHandlers.UXK_AnimationHandler_Stop.postMessage(JSON.stringify({
             vKey: vKey,
+            callbackID: callbackID,
         }));
     };
 })(jQuery)

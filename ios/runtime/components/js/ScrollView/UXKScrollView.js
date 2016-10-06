@@ -1,46 +1,65 @@
 window._UXK_Components.SCROLLVIEW = {
-    math: {
-        resistance: function (value) {
-            var originValue = value;
-            var resistanceValue = Math.log(value * value * value * value * value * value) / Math.log(1.20) - 1;
-            return resistanceValue > originValue ? originValue : resistanceValue
-        },
-    },
     scroller: {
         onDragStart: function (dom, sender) {
             dom._tmp_scroll_start = {
-                x: 0,
-                y: 0,
+                offset: {
+                    x: 0,
+                    y: 0,
+                },
+                size: {
+                    width: 0,
+                    height: 0,
+                },
+                bounds: {
+                    width: 0,
+                    height: 0,
+                },
             };
             if (typeof $(dom).attr('contentoffset') === "string") {
-                dom._tmp_scroll_start = {
-                    x: parseFloat($(dom).attr('contentoffset').split(',')[0]),
-                    y: parseFloat($(dom).attr('contentoffset').split(',')[1]),
-                }
+                dom._tmp_scroll_start.offset.x = parseFloat($(dom).attr('contentoffset').split(',')[0]);
+                dom._tmp_scroll_start.offset.y = parseFloat($(dom).attr('contentoffset').split(',')[1]);
             }
+            if (typeof $(dom).attr('contentsize') === "string") {
+                dom._tmp_scroll_start.size.width = parseFloat($(dom).attr('contentsize').split(',')[0]);
+                dom._tmp_scroll_start.size.height = parseFloat($(dom).attr('contentsize').split(',')[1]);
+            }
+            $(dom).value('frame', function(frame){
+                dom._tmp_scroll_start.bounds.width = frame.width;
+                dom._tmp_scroll_start.bounds.height = frame.height;
+            }) ;
         },
         onBeingDrag: function (dom, sender) {
-            var contentOffset = {
-                x: dom._tmp_scroll_start.x,
-                y: dom._tmp_scroll_start.y + parseFloat(sender.translateY),
+            var newOffset = {
+                x: dom._tmp_scroll_start.offset.x,
+                y: dom._tmp_scroll_start.offset.y + parseFloat(sender.translateY),
             }
-            if (contentOffset.y > 0.0) {
-                contentOffset.y = contentOffset.y / 3.0;
+            var bottomBounds = dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height;
+            if (newOffset.y > 0.0) {
+                newOffset.y = newOffset.y / 3.0;
             }
-            dom.setAttribute('contentoffset', contentOffset.x + ',' + contentOffset.y);
+            else if (newOffset.y < (0 - bottomBounds)) {
+                var delta = (0 - bottomBounds) - newOffset.y;
+                newOffset.y = (0 - bottomBounds) - delta / 3.0;
+            }
+            dom.setAttribute('contentoffset', newOffset.x + ',' + newOffset.y);
             $(dom).update();
         },
         onDragEnd: function (dom, sender) {
-            var contentOffset = {
-                x: dom._tmp_scroll_start.x,
-                y: dom._tmp_scroll_start.y + parseFloat(sender.translateY),
+            var newOffset = {
+                x: dom._tmp_scroll_start.offset.x,
+                y: dom._tmp_scroll_start.offset.y + parseFloat(sender.translateY),
             }
-            if (contentOffset.y > 0.0) {
-                contentOffset.y = contentOffset.y / 3.0;
+            var bottomBounds = dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height;
+            if (newOffset.y > 0.0) {
+                newOffset.y = 0;
+                dom.setAttribute('contentoffset', newOffset.x + ',' + newOffset.y);
+                $(dom).spring({
+                    bounciness: 1.0
+                });
             }
-            if (contentOffset.y > 0) {
-                contentOffset.y = 0;
-                dom.setAttribute('contentoffset', contentOffset.x + ',' + contentOffset.y);
+            else if (newOffset.y < (0 - bottomBounds)) {
+                newOffset.y = (0 - bottomBounds);
+                dom.setAttribute('contentoffset', newOffset.x + ',' + newOffset.y);
                 $(dom).spring({
                     bounciness: 1.0
                 });
@@ -60,7 +79,12 @@ window._UXK_Components.SCROLLVIEW = {
         var obj = this;
         $(dom).onTouch(function (sender) {
             if (sender.state == "Began") {
-                $(dom).find("[vKey='contentView']").stop();
+                $(dom).find("[vKey='contentView']").stop(function () {
+                    $(dom).find("[vKey='contentView']").value('frame', function (frame) {
+                        var contentOffset = frame.x + "," + frame.y;
+                        $(dom).attr('contentoffset', contentOffset);
+                    })
+                });
             }
         });
         $(dom).onPan(function (sender) {
