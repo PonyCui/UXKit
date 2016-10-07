@@ -7,7 +7,7 @@ window._UXK_Components.SCROLLVIEW = {
                     height: 0,
                 };
                 if (typeof $(dom).attr('contentsize') === "string") {
-                    if ($(dom).attr('contentsize') === "*") {
+                    if ($(dom).attr('contentsize') === "auto") {
                         var scrollDirection = typeof $(dom).attr('scrolldirection') === "string" ? $(dom).attr('scrolldirection') : "V";
                         if (scrollDirection === "V") {
                             size.width = -1;
@@ -53,11 +53,11 @@ window._UXK_Components.SCROLLVIEW = {
             scrollDirection: typeof $(dom).attr('scrolldirection') === "string" ? $(dom).attr('scrolldirection') : "V",
             scrollEnabled: $(dom).attr('scrollEnabled') === "false" ? false : true,
             bounce: $(dom).attr('bounce') === "false" ? false : true,
+            pageEnabled: $(dom).attr('pageEnabled') === "true" ? true : false,
         }
     },
     setProps: function (dom, props) {
         var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
-        console.log(scrollProps);
         dom.querySelector("[vKey='contentView']").setAttribute(
             'frame',
             scrollProps.contentOffset.x + ',' +
@@ -183,6 +183,9 @@ window._UXK_Components.SCROLLVIEW = {
             if (dom._tmp_scroll_waiting) {
                 return;
             }
+            if (scrollProps.pageEnabled && this.onPageScroll(dom, sender) === true) {
+                return;
+            }
             var bottomBounds = (dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height);
             if (dom._tmp_scroll_start.size.height < dom._tmp_scroll_start.bounds.height) {
                 bottomBounds = 0.0;
@@ -207,6 +210,70 @@ window._UXK_Components.SCROLLVIEW = {
                     $(dom).attr('contentoffset', frame.x + ',' + frame.y);
                 }
             });
+        },
+        onPageScroll: function(dom, sender) {
+            var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
+            var newOffset = {
+                x: dom._tmp_scroll_start.offset.x + parseFloat(sender.translateX),
+                y: dom._tmp_scroll_start.offset.y + parseFloat(sender.translateY),
+            }
+            if (scrollProps.scrollDirection === "VH" || scrollProps.scrollDirection === "HV") {
+                return false;
+            }
+            else if (scrollProps.scrollDirection === "H") {
+                newOffset.y = dom._tmp_scroll_start.offset.y;
+                if (sender.velocityX < 0.0) {
+                    // scroll right
+                    newOffset.x = dom._tmp_scroll_start.bounds.width * Math.floor(newOffset.x / dom._tmp_scroll_start.bounds.width);
+                    if (-newOffset.x >= dom._tmp_scroll_start.size.width) {
+                        return false;
+                    }
+                    $(dom).attr('contentoffset', newOffset.x + ',' + newOffset.y);
+                    $(dom).spring({
+                        bounciness: 1.0,
+                    });
+                    return true;
+                }
+                else {
+                    // scroll left
+                    newOffset.x = dom._tmp_scroll_start.bounds.width * Math.ceil(newOffset.x / dom._tmp_scroll_start.bounds.width);
+                    if (-newOffset.x < 0.0) {
+                        return false;
+                    }
+                    $(dom).attr('contentoffset', newOffset.x + ',' + newOffset.y);
+                    $(dom).spring({
+                        bounciness: 1.0,
+                    });
+                    return true;
+                }
+            }
+            else {
+                newOffset.x = dom._tmp_scroll_start.offset.x;
+                if (sender.velocityY < 0.0) {
+                    // scroll down
+                    newOffset.y = dom._tmp_scroll_start.bounds.height * Math.floor(newOffset.y / dom._tmp_scroll_start.bounds.height);
+                    if (-newOffset.y >= dom._tmp_scroll_start.size.height) {
+                        return false;
+                    }
+                    $(dom).attr('contentoffset', newOffset.x + ',' + newOffset.y);
+                    $(dom).spring({
+                        bounciness: 1.0,
+                    });
+                    return true;
+                }
+                else {
+                    // scroll up
+                    newOffset.y = dom._tmp_scroll_start.bounds.height * Math.ceil(newOffset.y / dom._tmp_scroll_start.bounds.height);
+                    if (-newOffset.y < 0.0) {
+                        return false;
+                    }
+                    $(dom).attr('contentoffset', newOffset.x + ',' + newOffset.y);
+                    $(dom).spring({
+                        bounciness: 1.0,
+                    });
+                    return true;
+                }
+            }
         }
     },
     onLoad: function (dom) {
@@ -256,5 +323,7 @@ window._UXK_Components.SCROLLVIEW = {
                 obj.scroller.onDragEnd(dom, sender);
             }
         });
+        $(dom).attr('clipsToBounds', 'true');
+        $(dom).update();
     },
 }
