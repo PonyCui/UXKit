@@ -41,9 +41,8 @@ static BOOL debugMode;
         [(UXKBridgeController *)_webView.configuration.userContentController setWebView:_webView];
         _view = view;
         if (debugMode) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [[[UIApplication sharedApplication] keyWindow] addSubview:self.webView];
-            });
+            [[view superview] addSubview:self.webView];
+            self.webView.alpha = 0.0;
         }
     }
     return self;

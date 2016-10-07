@@ -118,6 +118,7 @@
 + (void)runAnimation:(void (^)(CGFloat value, BOOL finished))valueBlock
             velocity:(CGFloat)velocity
         deceleration:(CGFloat)deceleration
+              bounce:(BOOL)bounce
          bouncePoint:(CGPoint)bouncePoint
            fromValue:(CGFloat)fromValue {
     UXKAnimationObject *animationObject = [UXKAnimationObject new];
@@ -191,6 +192,12 @@
         else if (-(newValue) < bouncePoint.x) {
             // top bounce start
             newValue = -(bouncePoint.x - (bouncePoint.x - (-(newValue))) / 3.0);
+            if (!bounce) {
+                newValue = -bouncePoint.x;
+                [animationObject pop_removeAllAnimations];
+                valueBlock(newValue, YES);
+                return;
+            }
         }
         else if (-(newValue) > bouncePoint.x + bouncePoint.y + delta / 6.0) {
             // bottom bounce limited
@@ -202,6 +209,12 @@
             // bottom bounce start
             CGFloat dy = -(newValue) - (bouncePoint.x + bouncePoint.y);
             newValue = -((bouncePoint.x + bouncePoint.y) + dy / 3.0);
+            if (!bounce) {
+                newValue = -((bouncePoint.x + bouncePoint.y));
+                [animationObject pop_removeAllAnimations];
+                valueBlock(newValue, YES);
+                return;
+            }
         }
         valueBlock(newValue, NO);
         if (limited) {
@@ -229,6 +242,7 @@
     CGFloat deceleration = 0.998;
     CGRect bounceRect = CGRectZero;
     CGRect fromRect = [fromValue CGRectValue];
+    BOOL bounce = YES;
     if (aniParams[@"velocity"] != nil && [aniParams[@"velocity"] isKindOfClass:[NSString class]]) {
         velocity = [UXKProps toRectWithRect:aniParams[@"velocity"]];
     }
@@ -237,6 +251,9 @@
     }
     if (aniParams[@"deceleration"] != nil && [aniParams[@"deceleration"] isKindOfClass:[NSNumber class]]) {
         deceleration = [aniParams[@"deceleration"] floatValue];
+    }
+    if (aniParams[@"bounce"] != nil && [aniParams[@"bounce"] isKindOfClass:[NSNumber class]]) {
+        bounce = [aniParams[@"bounce"] boolValue];
     }
     __block CGFloat x = 0.0;
     __block CGFloat y = 0.0;
@@ -247,6 +264,7 @@
         xEnd = finished;
     } velocity:velocity.origin.x
           deceleration:deceleration
+                bounce:bounce
            bouncePoint:CGPointMake(bounceRect.origin.x, bounceRect.size.width)
              fromValue:fromRect.origin.x];
     [self runAnimation:^(CGFloat value, BOOL finished) {
@@ -254,10 +272,11 @@
         yEnd = finished;
     } velocity:velocity.origin.y
           deceleration:deceleration
+                bounce:bounce
            bouncePoint:CGPointMake(bounceRect.origin.y, bounceRect.size.height)
              fromValue:fromRect.origin.y];
     POPCustomAnimation *customAnimation = [POPCustomAnimation animationWithBlock:^BOOL(id target, POPCustomAnimation *animation) {
-        NSLog(@"%f, %f", x, y);
+//        NSLog(@"%f, %f", x, y);
         [target setFrame:CGRectMake(x, y, fromRect.size.width, fromRect.size.height)];
         return !(xEnd && yEnd);
     }];
