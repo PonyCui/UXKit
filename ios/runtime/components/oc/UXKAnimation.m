@@ -220,7 +220,9 @@
         if (limited) {
             springAnimation.fromValue = @(newValue);
             [animationObject pop_removeAllAnimations];
-            [animationObject pop_addAnimation:springAnimation forKey:@"_"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.032 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [animationObject pop_addAnimation:springAnimation forKey:@"_"];
+            });
         }
     }];
     [springAnimation setAnimationDidApplyBlock:^(POPAnimation *_) {

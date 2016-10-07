@@ -1,9 +1,69 @@
 window._UXK_Components.SCROLLVIEW = {
     props: function (dom) {
         return {
+            contentSize: (function (dom) {
+                var size = {
+                    width: 0,
+                    height: 0,
+                };
+                if (typeof $(dom).attr('contentsize') === "string") {
+                    if ($(dom).attr('contentsize') === "*") {
+                        var scrollDirection = typeof $(dom).attr('scrolldirection') === "string" ? $(dom).attr('scrolldirection') : "V";
+                        if (scrollDirection === "V") {
+                            size.width = -1;
+                            $(dom).find(".auto").each(function () {
+                                if (typeof $(this).attr('frame') === "string") {
+                                    var frameComponent = $(this).attr('frame').split(',');
+                                    if (frameComponent.length == 4) {
+                                        size.height = Math.max(parseFloat(frameComponent[1]) + parseFloat(frameComponent[3]), size.height);
+                                    }
+                                }
+                            })
+                        }
+                        else if (scrollDirection === "H") {
+                            size.height = -1;
+                            $(dom).find(".auto").each(function () {
+                                if (typeof $(this).attr('frame') === "string") {
+                                    var frameComponent = $(this).attr('frame').split(',');
+                                    if (frameComponent.length == 4) {
+                                        size.width = Math.max(parseFloat(frameComponent[0]) + parseFloat(frameComponent[2]), size.width);
+                                    }
+                                }
+                            })
+                        }
+                    }
+                    else {
+                        size.width = parseFloat($(dom).attr('contentsize').split(',')[0]);
+                        size.height = parseFloat($(dom).attr('contentsize').split(',')[1]);
+                    }
+                }
+                return size;
+            })(dom),
+            contentOffset: (function (dom) {
+                var offset = {
+                    x: 0,
+                    y: 0,
+                };
+                if (typeof $(dom).attr('contentoffset') === "string") {
+                    offset.x = parseFloat($(dom).attr('contentoffset').split(',')[0]);
+                    offset.y = parseFloat($(dom).attr('contentoffset').split(',')[1]);
+                }
+                return offset;
+            })(dom),
             scrollDirection: typeof $(dom).attr('scrolldirection') === "string" ? $(dom).attr('scrolldirection') : "V",
+            scrollEnabled: $(dom).attr('scrollEnabled') === "false" ? false : true,
             bounce: $(dom).attr('bounce') === "false" ? false : true,
         }
+    },
+    setProps: function (dom, props) {
+        var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
+        console.log(scrollProps);
+        dom.querySelector("[vKey='contentView']").setAttribute(
+            'frame',
+            scrollProps.contentOffset.x + ',' +
+            scrollProps.contentOffset.y + ',' +
+            scrollProps.contentSize.width + ',' +
+            scrollProps.contentSize.height);
     },
     scroller: {
         isOutOfXBounds: function (dom, newOffset) {
@@ -34,29 +94,20 @@ window._UXK_Components.SCROLLVIEW = {
             }
         },
         onDragStart: function (dom, sender) {
+            var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
+            if (!scrollProps.scrollEnabled) {
+                dom._tmp_scroll_waiting = true;
+                return;
+            }
             dom._tmp_scroll_waiting = true;
             dom._tmp_scroll_start = {
-                offset: {
-                    x: 0,
-                    y: 0,
-                },
-                size: {
-                    width: 0,
-                    height: 0,
-                },
+                offset: scrollProps.contentOffset,
+                size: scrollProps.contentSize,
                 bounds: {
                     width: 0,
                     height: 0,
                 },
             };
-            if (typeof $(dom).attr('contentoffset') === "string") {
-                dom._tmp_scroll_start.offset.x = parseFloat($(dom).attr('contentoffset').split(',')[0]);
-                dom._tmp_scroll_start.offset.y = parseFloat($(dom).attr('contentoffset').split(',')[1]);
-            }
-            if (typeof $(dom).attr('contentsize') === "string") {
-                dom._tmp_scroll_start.size.width = parseFloat($(dom).attr('contentsize').split(',')[0]);
-                dom._tmp_scroll_start.size.height = parseFloat($(dom).attr('contentsize').split(',')[1]);
-            }
             $(dom).value('frame', function (frame) {
                 dom._tmp_scroll_waiting = false;
                 dom._tmp_scroll_start.bounds.width = frame.width;
@@ -205,33 +256,5 @@ window._UXK_Components.SCROLLVIEW = {
                 obj.scroller.onDragEnd(dom, sender);
             }
         });
-    },
-    setProps: function (dom, props) {
-        var contentSize = {
-            width: -1,
-            height: 0,
-        }
-        var contentOffset = {
-            x: 0,
-            y: 0,
-        }
-        if (typeof props.contentsize === "string") {
-            contentSize = {
-                width: parseFloat(props.contentsize.split(',')[0]),
-                height: parseFloat(props.contentsize.split(',')[1]),
-            }
-        }
-        if (typeof props.contentoffset === "string") {
-            contentOffset = {
-                x: parseFloat(props.contentoffset.split(',')[0]),
-                y: parseFloat(props.contentoffset.split(',')[1]),
-            }
-        }
-        dom.querySelector("[vKey='contentView']").setAttribute(
-            'frame',
-            contentOffset.x + ',' +
-            contentOffset.y + ',' +
-            contentSize.width + ',' +
-            contentSize.height);
     },
 }
