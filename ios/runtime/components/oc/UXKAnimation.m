@@ -10,6 +10,30 @@
 #import "UXKProps.h"
 #import <pop/POP.h>
 
+@interface UXKAnimationObject : NSObject
+
+@property (nonatomic, assign) CGFloat val;
+
++ (POPAnimatableProperty *)aniProps;
+
+@end
+
+@implementation UXKAnimationObject
+
++ (POPAnimatableProperty *)aniProps {
+    POPAnimatableProperty *aniProps = [POPAnimatableProperty propertyWithName:@"com.UXKanimationObject.val" initializer:^(POPMutableAnimatableProperty *prop) {
+        prop.writeBlock = ^(id obj, const CGFloat values[]) {
+            [obj setVal:values[0]];
+        };
+        prop.readBlock = ^(id obj, CGFloat values[]) {
+            values[0] = [obj val];
+        };
+    }];
+    return aniProps;
+}
+
+@end
+
 @implementation UXKAnimation
 
 + (POPAnimation *)animationWithParams:(NSDictionary *)aniParams
@@ -91,6 +115,110 @@
     return animation;
 }
 
++ (void)runAnimation:(void (^)(CGFloat value, BOOL finished))valueBlock
+            velocity:(CGFloat)velocity
+        deceleration:(CGFloat)deceleration
+         bouncePoint:(CGPoint)bouncePoint
+           fromValue:(CGFloat)fromValue {
+    UXKAnimationObject *animationObject = [UXKAnimationObject new];
+    CGFloat maxValue = fromValue + ((velocity / 1000.0) / (1 - deceleration)) * (1 - exp(-(1 - deceleration) * 16000));
+    CGFloat delta = 0.0;
+    if (-fromValue < bouncePoint.x) {
+        POPSpringAnimation *animation = [POPSpringAnimation animation];
+        animation.property = [UXKAnimationObject aniProps];
+        animation.fromValue = @(fromValue);
+        animation.toValue = @(-bouncePoint.x);
+        [animation setAnimationDidApplyBlock:^(POPAnimation *_) {
+            valueBlock(animationObject.val, NO);
+        }];
+        [animation setCompletionBlock:^(POPAnimation *_, BOOL __) {
+            valueBlock(animationObject.val, YES);
+        }];
+        [animationObject pop_addAnimation:animation forKey:@"_"];
+        return;
+    }
+    else if (-fromValue > bouncePoint.x + bouncePoint.y) {
+        POPSpringAnimation *animation = [POPSpringAnimation animation];
+        animation.property = [UXKAnimationObject aniProps];
+        animation.fromValue = @(fromValue);
+        animation.toValue = @(-(bouncePoint.x + bouncePoint.y));
+        [animation setAnimationDidApplyBlock:^(POPAnimation *_) {
+            valueBlock(animationObject.val, NO);
+        }];
+        [animation setCompletionBlock:^(POPAnimation *_, BOOL __) {
+            valueBlock(animationObject.val, YES);
+        }];
+        [animationObject pop_addAnimation:animation forKey:@"_"];
+        return;
+    }
+    else if (-maxValue < bouncePoint.x) {
+        delta = bouncePoint.x - (-maxValue);
+    }
+    else if (-maxValue > bouncePoint.x + bouncePoint.y) {
+        delta = (-maxValue) - (bouncePoint.x + bouncePoint.y);
+    }
+    else {
+        POPDecayAnimation *animation = [POPDecayAnimation animation];
+        animation.property = [UXKAnimationObject aniProps];
+        animation.velocity = @(velocity);
+        animation.fromValue = @(fromValue);
+        [animation setAnimationDidApplyBlock:^(POPAnimation *_) {
+            valueBlock(animationObject.val, NO);
+        }];
+        [animation setCompletionBlock:^(POPAnimation *_, BOOL __) {
+            valueBlock(animationObject.val, YES);
+        }];
+        [animationObject pop_addAnimation:animation forKey:@"_"];
+        return;
+    }
+    POPDecayAnimation *decayAnimation = [POPDecayAnimation animation];
+    decayAnimation.property = [UXKAnimationObject aniProps];
+    [decayAnimation setVelocity:@(velocity)];
+    [decayAnimation setDeceleration:deceleration];
+    decayAnimation.fromValue = @(fromValue);
+    POPSpringAnimation *springAnimation = [POPSpringAnimation animation];
+    springAnimation.property = [UXKAnimationObject aniProps];
+    springAnimation.springBounciness = 1.0;
+    [decayAnimation setAnimationDidApplyBlock:^(POPAnimation *_) {
+        CGFloat newValue = animationObject.val;
+        BOOL limited = NO;
+        if (-(newValue) < bouncePoint.x - delta / 6.0) {
+            // top bounce limited
+            newValue = -((bouncePoint.x - delta / 6.0) / 3.0);
+            springAnimation.toValue = @(-bouncePoint.x);
+            limited = YES;
+        }
+        else if (-(newValue) < bouncePoint.x) {
+            // top bounce start
+            newValue = -(bouncePoint.x - (bouncePoint.x - (-(newValue))) / 3.0);
+        }
+        else if (-(newValue) > bouncePoint.x + bouncePoint.y + delta / 6.0) {
+            // bottom bounce limited
+            newValue = -(bouncePoint.x + bouncePoint.y + delta / 6.0 / 3.0);
+            springAnimation.toValue = @(-(bouncePoint.x + bouncePoint.y));
+            limited = YES;
+        }
+        else if (-(newValue) > bouncePoint.x + bouncePoint.y) {
+            // bottom bounce start
+            CGFloat dy = -(newValue) - (bouncePoint.x + bouncePoint.y);
+            newValue = -((bouncePoint.x + bouncePoint.y) + dy / 3.0);
+        }
+        valueBlock(newValue, NO);
+        if (limited) {
+            springAnimation.fromValue = @(newValue);
+            [animationObject pop_removeAllAnimations];
+            [animationObject pop_addAnimation:springAnimation forKey:@"_"];
+        }
+    }];
+    [springAnimation setAnimationDidApplyBlock:^(POPAnimation *_) {
+        valueBlock(animationObject.val, NO);
+    }];
+    [springAnimation setCompletionBlock:^(POPAnimation *_, BOOL __) {
+        valueBlock(animationObject.val, YES);
+    }];
+    [animationObject pop_addAnimation:decayAnimation forKey:@"_"];
+}
+
 + (POPAnimation *)decayBounceWithParams:(NSDictionary *)aniParams
                             aniProperty:(NSString *)aniProperty
                               fromValue:(id)fromValue {
@@ -100,6 +228,7 @@
     CGRect velocity = CGRectZero;
     CGFloat deceleration = 0.998;
     CGRect bounceRect = CGRectZero;
+    CGRect fromRect = [fromValue CGRectValue];
     if (aniParams[@"velocity"] != nil && [aniParams[@"velocity"] isKindOfClass:[NSString class]]) {
         velocity = [UXKProps toRectWithRect:aniParams[@"velocity"]];
     }
@@ -109,98 +238,28 @@
     if (aniParams[@"deceleration"] != nil && [aniParams[@"deceleration"] isKindOfClass:[NSNumber class]]) {
         deceleration = [aniParams[@"deceleration"] floatValue];
     }
-    CGRect fromRect = [fromValue CGRectValue];
-    CGRect finalRect = CGRectMake(fromRect.origin.x + ((velocity.origin.x / 1000.0) / (1 - deceleration)) * (1 - exp(-(1 - deceleration) * 16000)),
-                                  fromRect.origin.y + ((velocity.origin.y / 1000.0) / (1 - deceleration)) * (1 - exp(-(1 - deceleration) * 16000)),
-                                  fromRect.size.width + ((velocity.size.width / 1000.0) / (1 - deceleration)) * (1 - exp(-(1 - deceleration) * 16000)),
-                                  fromRect.size.height + ((velocity.size.height / 1000.0) / (1 - deceleration)) * (1 - exp(-(1 - deceleration) * 16000)));
-    CGFloat delta = 0.0;
-    if (-(fromRect.origin.y) < bounceRect.origin.y) {
-        fromRect.origin.y = -(bounceRect.origin.y);
-        return [self springWithParams:@{@"bounciness": @(1.0)}
-                          aniProperty:kPOPViewFrame
-                            fromValue:nil
-                              toValue:[NSValue valueWithCGRect:fromRect]];
-    }
-    else if (-(fromRect.origin.y) > bounceRect.origin.y + bounceRect.size.height) {
-        fromRect.origin.y = -(bounceRect.origin.y + bounceRect.size.height);
-        return [self springWithParams:@{@"bounciness": @(1.0)}
-                          aniProperty:kPOPViewFrame
-                            fromValue:nil
-                              toValue:[NSValue valueWithCGRect:fromRect]];
-    }
-    else if (-(finalRect.origin.y) < bounceRect.origin.y) {
-        delta = bounceRect.origin.y - (-(finalRect.origin.y));
-    }
-    else if (-(finalRect.origin.y) > bounceRect.origin.y + bounceRect.size.height) {
-        delta = (-(finalRect.origin.y)) - (bounceRect.origin.y + bounceRect.size.height);
-    }
-    else {
-        return [self decayWithParams:aniParams aniProperty:aniProperty fromValue:fromValue];
-    }
-    
-    UIView *animationView = [[UIView alloc] initWithFrame:CGRectZero];
-    POPDecayAnimation *decayAnimation = [POPDecayAnimation animationWithPropertyNamed:aniProperty];
-    [decayAnimation setVelocity:[NSValue valueWithCGRect:velocity]];
-    [decayAnimation setDeceleration:deceleration];
-    decayAnimation.fromValue = fromValue;
-    POPSpringAnimation *springAnimation = [POPSpringAnimation animationWithPropertyNamed:aniProperty];
-    springAnimation.springBounciness = 1.0;
-    __block BOOL springed = NO;
-    [animationView pop_addAnimation:decayAnimation forKey:@"_"];
+    __block CGFloat x = 0.0;
+    __block CGFloat y = 0.0;
+    __block BOOL xEnd = NO;
+    __block BOOL yEnd = NO;
+    [self runAnimation:^(CGFloat value, BOOL finished) {
+        x = value;
+        xEnd = finished;
+    } velocity:velocity.origin.x
+          deceleration:deceleration
+           bouncePoint:CGPointMake(bounceRect.origin.x, bounceRect.size.width)
+             fromValue:fromRect.origin.x];
+    [self runAnimation:^(CGFloat value, BOOL finished) {
+        y = value;
+        yEnd = finished;
+    } velocity:velocity.origin.y
+          deceleration:deceleration
+           bouncePoint:CGPointMake(bounceRect.origin.y, bounceRect.size.height)
+             fromValue:fromRect.origin.y];
     POPCustomAnimation *customAnimation = [POPCustomAnimation animationWithBlock:^BOOL(id target, POPCustomAnimation *animation) {
-        if ([target isKindOfClass:[UIView class]]) {
-            CGRect newFrame = animationView.frame;
-            if (springed) {
-                [target setFrame:newFrame];
-                return !springAnimation.isPaused;
-            }
-            else if (-(newFrame.origin.y) < bounceRect.origin.y - delta / 6.0) {
-                // bounce up limited
-                newFrame.origin.y = -((bounceRect.origin.y - delta / 6.0) / 3.0);
-                [target setFrame:newFrame];
-                if (!springed) {
-                    springed = YES;
-                    CGRect finalValue = [fromValue CGRectValue];
-                    finalValue.origin.y = -(bounceRect.origin.y);
-                    springAnimation.fromValue = [NSValue valueWithCGRect:newFrame];
-                    springAnimation.toValue = [NSValue valueWithCGRect:finalValue];
-                    [animationView pop_removeAllAnimations];
-                    [animationView pop_addAnimation:springAnimation forKey:@"_"];
-                    return YES;
-                }
-            }
-            else if (-(newFrame.origin.y) < bounceRect.origin.y){
-                // bounce up
-                newFrame.origin.y = -(bounceRect.origin.y - (bounceRect.origin.y - (-(newFrame.origin.y))) / 3.0);
-                [target setFrame:newFrame];
-            }
-            else if (-(newFrame.origin.y) > bounceRect.origin.y + bounceRect.size.height + delta / 6.0) {
-                // bounce down limited
-                newFrame.origin.y = -(bounceRect.origin.y + bounceRect.size.height + delta / 6.0 / 3.0);
-                [target setFrame:newFrame];
-                if (!springed) {
-                    springed = YES;
-                    CGRect finalValue = [fromValue CGRectValue];
-                    finalValue.origin.y = -(bounceRect.origin.y + bounceRect.size.height);
-                    springAnimation.fromValue = [NSValue valueWithCGRect:newFrame];
-                    springAnimation.toValue = [NSValue valueWithCGRect:finalValue];
-                    [animationView pop_removeAllAnimations];
-                    [animationView pop_addAnimation:springAnimation forKey:@"_"];
-                    return YES;
-                }
-            }
-            else if (-(newFrame.origin.y) > bounceRect.origin.y + bounceRect.size.height) {
-                // bounce down
-                CGFloat dy = -(newFrame.origin.y) - (bounceRect.origin.y + bounceRect.size.height);
-                newFrame.origin.y = -((bounceRect.origin.y + bounceRect.size.height) + dy / 3.0);
-                [target setFrame:newFrame];
-            }
-            else {
-                [target setFrame:newFrame];
-            }
-        }
-        return !decayAnimation.isPaused;
+        NSLog(@"%f, %f", x, y);
+        [target setFrame:CGRectMake(x, y, fromRect.size.width, fromRect.size.height)];
+        return !(xEnd && yEnd);
     }];
     return customAnimation;
 }
