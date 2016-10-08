@@ -65,6 +65,16 @@ window._UXK_Components.SCROLLVIEW = {
             scrollProps.contentSize.width + ',' +
             scrollProps.contentSize.height);
     },
+    indicator: {
+        update: function (dom) {
+            var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
+            var vHeight = (dom._tmp_scroll_start.bounds.height / scrollProps.contentSize.height) * dom._tmp_scroll_start.bounds.height;
+            var vProgress = (-dom._tmp_scroll_duration.offset.y) / (dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height);
+            var vOffset = vProgress * (dom._tmp_scroll_start.bounds.height - vHeight);
+            $(dom).find('[vKey="vIndicator"]').attr('frame', (dom._tmp_scroll_start.bounds.width - 3) + ',' + vOffset + ',2,' + vHeight);
+            $(dom).find('[vKey="vIndicator"]').update(true);
+        },
+    },
     scroller: {
         isOutOfXBounds: function (dom, newOffset) {
             if (dom._tmp_scroll_start.size.width < dom._tmp_scroll_start.bounds.width) {
@@ -176,7 +186,11 @@ window._UXK_Components.SCROLLVIEW = {
                 }
             }
             dom.setAttribute('contentoffset', newOffset.x + ',' + newOffset.y);
+            dom._tmp_scroll_duration = {
+                offset: newOffset
+            };
             $(dom).update();
+            window._UXK_Components.SCROLLVIEW.indicator.update(dom);
         },
         onDragEnd: function (dom, sender) {
             var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
@@ -208,10 +222,14 @@ window._UXK_Components.SCROLLVIEW = {
                 velocity: sender.velocityX + ',' + sender.velocityY + ',0,0',
                 onChange: function (frame) {
                     $(dom).attr('contentoffset', frame.x + ',' + frame.y);
+                    dom._tmp_scroll_duration = {
+                        offset: frame,
+                    };
+                    window._UXK_Components.SCROLLVIEW.indicator.update(dom);
                 }
             });
         },
-        onPageScroll: function(dom, sender) {
+        onPageScroll: function (dom, sender) {
             var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
             var newOffset = {
                 x: dom._tmp_scroll_start.offset.x + parseFloat(sender.translateX),

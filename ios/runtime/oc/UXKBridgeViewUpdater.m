@@ -104,6 +104,7 @@ static NSDictionary *kUXKViewTypes;
 
 - (UIView *)viewWithNode:(NSDictionary *)node {
     NSString *nodeName = node[@"name"];
+    BOOL updatePropsOnly = [node[@"updatePropsOnly"] isKindOfClass:[NSNumber class]] ? [node[@"updatePropsOnly"] boolValue] : NO;
     NSString *visualKey = node[@"vKey"];
     NSDictionary *props = node[@"props"];
     NSArray *subviews = node[@"subviews"];
@@ -140,7 +141,10 @@ static NSDictionary *kUXKViewTypes;
         [(UXKView *)currentView setAnimationHandler:self.bridgeController.animationHandler];
     }
     if (props != nil && [props isKindOfClass:[NSDictionary class]] && [currentView isKindOfClass:[UXKView class]]) {
-        [(UXKView *)currentView setProps:props];
+        [(UXKView *)currentView setProps:props updatePropsOnly:updatePropsOnly];
+    }
+    if (updatePropsOnly) {
+        return currentView;
     }
     BOOL staticLayouts = NO;
     if ([currentView isKindOfClass:[UXKView class]]) {

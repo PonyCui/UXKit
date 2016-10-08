@@ -24,7 +24,7 @@ typedef void(^UXKViewTouchBlock)(NSString *eventType);
 @property (nonatomic, copy) UXKViewTouchBlock touchCallback;
 
 - (BOOL)staticLayouts;
-- (void)setProps:(NSDictionary *)props;
+- (void)setProps:(NSDictionary *)props updatePropsOnly:(BOOL)updatePropsOnly;
 - (void)requestValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock;
 - (void)listenValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock;
 - (CGSize)intrinsicContentSizeWithProps:(NSDictionary *)props;

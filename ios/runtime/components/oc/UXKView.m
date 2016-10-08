@@ -109,7 +109,16 @@
     return NO;
 }
 
-- (void)setProps:(NSDictionary *)props {
+- (void)setProps:(NSDictionary *)props updatePropsOnly:(BOOL)updatePropsOnly {
+    NSArray *excepts = nil;
+    if (updatePropsOnly) {
+        if (self.superview != nil) {
+            excepts = [@[self.superview] arrayByAddingObjectsFromArray:self.subviews];
+        }
+        else {
+            excepts = self.subviews;
+        }
+    }
     if (props[@"name"] && [props[@"name"] isKindOfClass:[NSString class]]) {
         self.name = props[@"name"];
     }
@@ -122,7 +131,7 @@
                 [self setFormatFrame:
                  [[props[@"frame"] stringByReplacingOccurrencesOfString:@"(" withString:@""]
                   stringByReplacingOccurrencesOfString:@")" withString:@""]];
-                [self layoutUXKViews:self.animationHandler newRect:nil excepts:nil];
+                [self layoutUXKViews:self.animationHandler newRect:nil excepts:excepts];
             }
         }
         else {
@@ -131,13 +140,13 @@
                 newRect.size = [self intrinsicContentSizeWithProps:props];
                 [self layoutUXKViews:self.animationHandler
                              newRect:[NSValue valueWithCGRect:newRect]
-                              excepts:nil];
+                              excepts:excepts];
             }
             else {
                 [self setShouldChangeToFrame:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]];
                 [self layoutUXKViews:self.animationHandler
                              newRect:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]
-                              excepts:nil];
+                              excepts:excepts];
             }
         }
     }

@@ -32,8 +32,8 @@
     return YES;
 }
 
-- (void)setProps:(NSDictionary *)props {
-    [super setProps:props];
+- (void)setProps:(NSDictionary *)props updatePropsOnly:(BOOL)updatePropsOnly {
+    [super setProps:props updatePropsOnly:updatePropsOnly];
     if ([props[@"url"] isKindOfClass:[NSString class]]) {
         NSURL *URL = [NSURL URLWithString:props[@"url"]];
         [self.imageView sd_setImageWithURL:URL];

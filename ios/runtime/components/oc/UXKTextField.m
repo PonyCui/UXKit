@@ -67,8 +67,8 @@
     }
 }
 
-- (void)setProps:(NSDictionary *)props {
-    [super setProps:props];
+- (void)setProps:(NSDictionary *)props updatePropsOnly:(BOOL)updatePropsOnly {
+    [super setProps:props updatePropsOnly:updatePropsOnly];
     if ([props[@"text"] isKindOfClass:[NSString class]]) {
         self.textField.text = props[@"text"];
     }

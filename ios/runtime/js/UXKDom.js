@@ -28,6 +28,7 @@
             }
             var tree = {
                 name: window._UXK_Components.contents[node.nodeName] !== undefined ? "VIEW" : node.nodeName,
+                updatePropsOnly: updatePropsOnly,
                 vKey: node.getAttribute("_UXK_vKey"),
                 props: {},
                 subviews: [],

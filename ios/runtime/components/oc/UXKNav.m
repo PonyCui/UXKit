@@ -76,8 +76,8 @@
     [self.customView addGestureRecognizer:gestureRecognizer];
 }
 
-- (void)setProps:(NSDictionary *)props {
-    [super setProps:props];
+- (void)setProps:(NSDictionary *)props updatePropsOnly:(BOOL)updatePropsOnly {
+    [super setProps:props updatePropsOnly:updatePropsOnly];
     if ([props[@"type"] isKindOfClass:[NSString class]]) {
         self.navType = props[@"type"];
         [self attachBarButtonItem];
