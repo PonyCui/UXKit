@@ -99,7 +99,24 @@
             }
         },
     };
-    $.fn.update = function (updatePropsOnly) {
+    var _attachIMPs = {};
+    $._attach = function(funcName, nodeName, IMP) {
+        if (_attachIMPs[funcName] === undefined) {
+            _attachIMPs[funcName] = {};
+            $.fn[funcName] = function(arg0, arg1, arg2, arg3) {
+                if (this.get(0) !== undefined) {
+                    if (_attachIMPs[funcName][this.get(0).nodeName] !== undefined) {
+                        _attachIMPs[funcName][this.get(0).nodeName].call(this, arg0, arg1, arg2, arg3);
+                    }
+                    else if (_attachIMPs[funcName]['*'] !== undefined) {
+                        _attachIMPs[funcName]['*'].call(this, arg0, arg1, arg2, arg3);
+                    }
+                }
+            }
+        }
+        _attachIMPs[funcName][nodeName] = IMP;
+    };
+    $._attach('update', '*', function(updatePropsOnly){
         if (updatePropsOnly === true) {
             domHelper.commitTree(this.get(0), true);
         }
@@ -108,5 +125,5 @@
             domHelper.assignKeys(this.get(0));
             domHelper.commitTree(this.get(0));
         }
-    };
+    });
 })(jQuery);

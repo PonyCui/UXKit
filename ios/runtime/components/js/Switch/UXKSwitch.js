@@ -20,6 +20,26 @@ window._UXK_Components.SWITCH = {
             var switchProps = window._UXK_Components.SWITCH.props(dom);
             $(dom).attr('on', switchProps.on ? 'false' : 'true');
             $(dom).animate();
-        })
+            if (typeof dom._onchange === "function") {
+                dom._onchange.call(this, !switchProps.on);
+            }
+        });
     },
 }
+
+$._attach('setOn', 'SWITCH', function(on, animated){
+    if (animated === undefined) {
+        animated = true;
+    }
+    $(this).attr('on', on ? "true" : "false");
+    if (animated === true) {
+        $(this).animate();
+    }
+    else {
+        $(this).update();
+    }
+})
+
+$._attach('onChange', 'SWITCH', function(callback){
+    $(this).get(0)._onchange = callback; 
+})

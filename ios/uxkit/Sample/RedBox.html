@@ -1,18 +1,18 @@
 <html>
 
 <head>
-    <title>RedBox</title>
+	<title>RedBox</title>
 </head>
 
 <body margin="auto">
-    <Switch frame="0,100,50,44" on="false"></Switch>
+	<Switch frame="0,100,50,44" on="false"></Switch>
 </body>
 
 </html>
 
 <script>
-//setTimeout(function(){
-//    $('Switch').attr('on', 'true');
-//    $('Switch').animate();
-//}, 1000)
+$('Switch').onChange(function(isOn){
+    console.log(isOn);
+})
+
 </script>
