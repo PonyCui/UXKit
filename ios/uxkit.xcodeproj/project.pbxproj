@@ -44,6 +44,8 @@
 		63E017B51D97893500389045 /* UXKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B41D97893500389045 /* UXKImageView.m */; };
 		63E017B81D97984F00389045 /* UXKLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B71D97984F00389045 /* UXKLabel.m */; };
 		9063A3761D9E2C18002E9AB8 /* UXKNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 9063A3751D9E2C18002E9AB8 /* UXKNav.m */; };
+		90BD6CE71DBA1D0900259570 /* UXKSWITCH.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6CE51DBA1D0900259570 /* UXKSWITCH.html */; };
+		90BD6CE81DBA1D0900259570 /* UXKSWITCH.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +109,8 @@
 		63E017B71D97984F00389045 /* UXKLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKLabel.m; sourceTree = "<group>"; };
 		9063A3741D9E2C18002E9AB8 /* UXKNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKNav.h; sourceTree = "<group>"; };
 		9063A3751D9E2C18002E9AB8 /* UXKNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKNav.m; sourceTree = "<group>"; };
+		90BD6CE51DBA1D0900259570 /* UXKSWITCH.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSWITCH.html; sourceTree = "<group>"; };
+		90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSWITCH.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +247,7 @@
 		6396DB761D63598E001D9B6D /* js */ = {
 			isa = PBXGroup;
 			children = (
+				90BD6CE01DBA1CDC00259570 /* Switch */,
 				63CF27221DA1D5540048EF6F /* ScrollView */,
 				6396DB8F1D69693E001D9B6D /* TEST */,
 			);
@@ -288,6 +293,15 @@
 				63CF27281DA1D6EA0048EF6F /* UXKSCROLLVIEW.js */,
 			);
 			path = ScrollView;
+			sourceTree = "<group>";
+		};
+		90BD6CE01DBA1CDC00259570 /* Switch */ = {
+			isa = PBXGroup;
+			children = (
+				90BD6CE51DBA1D0900259570 /* UXKSWITCH.html */,
+				90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */,
+			);
+			path = Switch;
 			sourceTree = "<group>";
 		};
 		D2438D969DDB3FFA006B640B /* Pods */ = {
@@ -361,8 +375,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90BD6CE71DBA1D0900259570 /* UXKSWITCH.html in Resources */,
 				6396DB931D69693E001D9B6D /* UXKTEST.js in Resources */,
 				6396DB951D697598001D9B6D /* UXKComponents.js in Resources */,
+				90BD6CE81DBA1D0900259570 /* UXKSWITCH.js in Resources */,
 				6396DB8B1D64AF4E001D9B6D /* UXKAnimation.js in Resources */,
 				6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */,
 				63AE07321D97BFB5000E0A20 /* UXKValue.js in Resources */,

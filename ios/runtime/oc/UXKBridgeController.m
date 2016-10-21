@@ -114,7 +114,7 @@
     static NSArray *components;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        components = @[@"TEST", @"SCROLLVIEW"];
+        components = @[@"TEST", @"SCROLLVIEW", @"SWITCH"];
     });
     [self addUserScript:[[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:[[NSBundle mainBundle]
                                                                                                  pathForResource:@"UXKComponents" ofType:@"js"]
