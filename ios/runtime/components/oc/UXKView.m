@@ -23,6 +23,7 @@
     [super touchesBegan:touches withEvent:event];
     if (self.touchCallback) {
         self.touchCallback(@"Began");
+//        NSLog(@"Began");
     }
 }
 
@@ -30,6 +31,7 @@
     [super touchesEnded:touches withEvent:event];
     if (self.touchCallback) {
         self.touchCallback(@"Ended");
+//        NSLog(@"Ended");
     }
 }
 
@@ -37,6 +39,7 @@
     [super touchesCancelled:touches withEvent:event];
     if (self.touchCallback) {
         self.touchCallback(@"Cancelled");
+//        NSLog(@"Cancelled");
     }
 }
 
@@ -72,6 +75,7 @@
             newRect = shouldChangeRect;
             hasNewRect = YES;
         }
+        self.shouldChangeToFrame = nil;
     }
     if (hasNewRect) {
         if (newRect.size.width == -1) {

@@ -52,8 +52,9 @@ window._UXK_Components.SCROLLVIEW = {
             })(dom),
             scrollDirection: typeof $(dom).attr('scrolldirection') === "string" ? $(dom).attr('scrolldirection') : "V",
             scrollEnabled: $(dom).attr('scrollEnabled') === "false" ? false : true,
+            directionalLockEnabled: $(dom).attr('directionalLockEnabled') === "false" ? false : true,
             bounce: $(dom).attr('bounce') === "false" ? false : true,
-            pageEnabled: $(dom).attr('pageEnabled') === "true" ? true : false,
+            pagingEnabled: $(dom).attr('pagingEnabled') === "true" ? true : false,
         }
     },
     setProps: function (dom, props) {
@@ -68,11 +69,70 @@ window._UXK_Components.SCROLLVIEW = {
     indicator: {
         update: function (dom) {
             var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
+            // v
             var vHeight = (dom._tmp_scroll_start.bounds.height / scrollProps.contentSize.height) * dom._tmp_scroll_start.bounds.height;
             var vProgress = (-dom._tmp_scroll_duration.offset.y) / (dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height);
             var vOffset = vProgress * (dom._tmp_scroll_start.bounds.height - vHeight);
             $(dom).find('[vKey="vIndicator"]').attr('frame', (dom._tmp_scroll_start.bounds.width - 3) + ',' + vOffset + ',2,' + vHeight);
             $(dom).find('[vKey="vIndicator"]').update(true);
+            // h
+            var hWidth = (dom._tmp_scroll_start.bounds.width / scrollProps.contentSize.width) * dom._tmp_scroll_start.bounds.width;
+            var hProgress = (-dom._tmp_scroll_duration.offset.x) / (dom._tmp_scroll_start.size.width - dom._tmp_scroll_start.bounds.width);
+            var hOffset = hProgress * (dom._tmp_scroll_start.bounds.width - hWidth);
+            $(dom).find('[vKey="hIndicator"]').attr('frame', hOffset + ',' + (dom._tmp_scroll_start.bounds.height - 3) + ',' + hWidth + ',2');
+            $(dom).find('[vKey="hIndicator"]').update(true);
+        },
+        show: function (dom) {
+            (function (dom) {
+                var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
+                if ((scrollProps.scrollDirection === "VH" || scrollProps.scrollDirection === "HV") && scrollProps.directionalLockEnabled) {
+                    if (dom._tmp_scroll_start.direction === undefined) {
+                        sender.velocityY = 0.0;
+                        sender.velocityX = 0.0;
+                    }
+                    if (dom._tmp_scroll_start.direction === "H") {
+                        return;
+                    }
+                }
+                if ($(dom).find('[vKey="vIndicator"]').attr('alpha') === "1.0") {
+                    return;
+                }
+                $(dom).find('[vKey="vIndicator"]').attr('alpha', "1.0");
+                $(dom).find('[vKey="vIndicator"]').update(true);
+            })(dom);
+            (function (dom) {
+                var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
+                if ((scrollProps.scrollDirection === "VH" || scrollProps.scrollDirection === "HV") && scrollProps.directionalLockEnabled) {
+                    if (dom._tmp_scroll_start.direction === undefined) {
+                        sender.velocityY = 0.0;
+                        sender.velocityX = 0.0;
+                    }
+                    if (dom._tmp_scroll_start.direction === "V") {
+                        return;
+                    }
+                }
+                if ($(dom).find('[vKey="hIndicator"]').attr('alpha') === "1.0") {
+                    return;
+                }
+                $(dom).find('[vKey="hIndicator"]').attr('alpha', "1.0");
+                $(dom).find('[vKey="hIndicator"]').update(true);
+            })(dom);
+        },
+        hide: function (dom) {
+            (function (dom) {
+                if ($(dom).find('[vKey="vIndicator"]').attr('alpha') === "0.0") {
+                    return;
+                }
+                $(dom).find('[vKey="vIndicator"]').attr('alpha', "0.0");
+                $(dom).find('[vKey="vIndicator"]').animate();
+            })(dom);
+            (function (dom) {
+                if ($(dom).find('[vKey="hIndicator"]').attr('alpha') === "0.0") {
+                    return;
+                }
+                $(dom).find('[vKey="hIndicator"]').attr('alpha', "0.0");
+                $(dom).find('[vKey="hIndicator"]').animate();
+            })(dom);
         },
     },
     scroller: {
@@ -86,6 +146,9 @@ window._UXK_Components.SCROLLVIEW = {
             }
             else if (absX > dom._tmp_scroll_start.size.width - dom._tmp_scroll_start.bounds.width) {
                 return true;
+            }
+            else {
+                return false;
             }
         },
         isOutOfYBounds: function (dom, newOffset) {
@@ -111,6 +174,7 @@ window._UXK_Components.SCROLLVIEW = {
             }
             dom._tmp_scroll_waiting = true;
             dom._tmp_scroll_start = {
+                direction: undefined,
                 offset: scrollProps.contentOffset,
                 size: scrollProps.contentSize,
                 bounds: {
@@ -133,7 +197,27 @@ window._UXK_Components.SCROLLVIEW = {
                 x: dom._tmp_scroll_start.offset.x + parseFloat(sender.translateX),
                 y: dom._tmp_scroll_start.offset.y + parseFloat(sender.translateY),
             }
-            if (scrollProps.scrollDirection === "VH" || scrollProps.scrollDirection === "HV") { }
+            if (scrollProps.scrollDirection === "VH" || scrollProps.scrollDirection === "HV") {
+                if (dom._tmp_scroll_start.direction === undefined) {
+                    if (Math.abs(parseFloat(sender.translateX)) > Math.abs(parseFloat(sender.translateY))) {
+                        dom._tmp_scroll_start.direction = "H";
+                    }
+                    else if (Math.abs(parseFloat(sender.translateY)) > Math.abs(parseFloat(sender.translateX))) {
+                        dom._tmp_scroll_start.direction = "V";
+                    }
+                }
+                if (scrollProps.directionalLockEnabled) {
+                    if (dom._tmp_scroll_start.direction === undefined) {
+                        return; // prevent any touches.
+                    }
+                    if (dom._tmp_scroll_start.direction === "H") {
+                        newOffset.y = dom._tmp_scroll_start.offset.y;
+                    }
+                    else if (dom._tmp_scroll_start.direction === "V") {
+                        newOffset.x = dom._tmp_scroll_start.offset.x;
+                    }
+                }
+            }
             else if (scrollProps.scrollDirection === "H") {
                 newOffset.y = dom._tmp_scroll_start.offset.y;
             }
@@ -190,14 +274,18 @@ window._UXK_Components.SCROLLVIEW = {
                 offset: newOffset
             };
             $(dom).update();
-            window._UXK_Components.SCROLLVIEW.indicator.update(dom);
+            if (!scrollProps.pagingEnabled) {
+                window._UXK_Components.SCROLLVIEW.indicator.show(dom);
+                window._UXK_Components.SCROLLVIEW.indicator.update(dom);
+            }
         },
         onDragEnd: function (dom, sender) {
             var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
             if (dom._tmp_scroll_waiting) {
                 return;
             }
-            if (scrollProps.pageEnabled && this.onPageScroll(dom, sender) === true) {
+            if (scrollProps.pagingEnabled && this.onPageScroll(dom, sender) === true) {
+                window._UXK_Components.SCROLLVIEW.indicator.hide(dom);
                 return;
             }
             var bottomBounds = (dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height);
@@ -208,7 +296,20 @@ window._UXK_Components.SCROLLVIEW = {
             if (dom._tmp_scroll_start.size.width < dom._tmp_scroll_start.bounds.width) {
                 rightBounds = 0.0;
             }
-            if (scrollProps.scrollDirection === "VH" || scrollProps.scrollDirection === "HV") { }
+            if (scrollProps.scrollDirection === "VH" || scrollProps.scrollDirection === "HV") {
+                if (scrollProps.directionalLockEnabled) {
+                    if (dom._tmp_scroll_start.direction === undefined) {
+                        sender.velocityY = 0.0;
+                        sender.velocityX = 0.0;
+                    }
+                    if (dom._tmp_scroll_start.direction === "H") {
+                        sender.velocityY = 0.0;
+                    }
+                    else if (dom._tmp_scroll_start.direction === "V") {
+                        sender.velocityX = 0.0;
+                    }
+                }
+            }
             else if (scrollProps.scrollDirection === "H") {
                 sender.velocityY = 0.0;
             }
@@ -222,11 +323,26 @@ window._UXK_Components.SCROLLVIEW = {
                 velocity: sender.velocityX + ',' + sender.velocityY + ',0,0',
                 onChange: function (frame) {
                     $(dom).attr('contentoffset', frame.x + ',' + frame.y);
+                    dom.querySelector("[vKey='contentView']").setAttribute(
+                        'frame',
+                        frame.x + ',' +
+                        frame.y + ',' +
+                        scrollProps.contentSize.width + ',' +
+                        scrollProps.contentSize.height);
                     dom._tmp_scroll_duration = {
                         offset: frame,
                     };
+                    dom._hideAfterTouchEnded = false;
                     window._UXK_Components.SCROLLVIEW.indicator.update(dom);
-                }
+                },
+                onComplete: function (frame) {
+                    if (!dom._touching) {
+                        window._UXK_Components.SCROLLVIEW.indicator.hide(dom);
+                    }
+                    else {
+                        dom._hideAfterTouchEnded = true;
+                    }
+                },
             });
         },
         onPageScroll: function (dom, sender) {
@@ -296,42 +412,44 @@ window._UXK_Components.SCROLLVIEW = {
     },
     onLoad: function (dom) {
         var obj = this;
-        var stopOutOfBounds = false;
         $(dom).onTouch(function (sender) {
             if (sender.state == "Began") {
+                dom._touching = true;
+                dom._hideAfterTouchEnded = false;
                 $(dom).find("[vKey='contentView']").stop(function () {
                     $(dom).find("[vKey='contentView']").value('frame', function (frame) {
                         var contentOffset = frame.x + "," + frame.y;
-                        stopOutOfBounds = obj.scroller.isOutOfXBounds(dom, frame) || obj.scroller.isOutOfYBounds(dom, frame);
                         $(dom).attr('contentoffset', contentOffset);
                     })
                 });
             }
             else if (sender.state == "Ended") {
-                if (stopOutOfBounds) {
-                    var bottomBounds = (dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height);
-                    if (dom._tmp_scroll_start.size.height < dom._tmp_scroll_start.bounds.height) {
-                        bottomBounds = 0.0;
-                    }
-                    var rightBounds = (dom._tmp_scroll_start.size.width - dom._tmp_scroll_start.bounds.width);
-                    if (dom._tmp_scroll_start.size.width < dom._tmp_scroll_start.bounds.width) {
-                        rightBounds = 0.0;
-                    }
-                    $(dom).find("[vKey='contentView']").decay({
-                        aniProps: 'frame',
-                        bounce: true,
-                        bounceRect: '0,0,' + rightBounds + ',' + bottomBounds,
-                        velocity: '0,0,0,0',
-                        onChange: function (frame) {
-                            $(dom).attr('contentoffset', frame.x + ',' + frame.y);
-                        }
-                    });
+                dom._touching = false;
+                var bottomBounds = (dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height);
+                if (dom._tmp_scroll_start.size.height < dom._tmp_scroll_start.bounds.height) {
+                    bottomBounds = 0.0;
                 }
+                var rightBounds = (dom._tmp_scroll_start.size.width - dom._tmp_scroll_start.bounds.width);
+                if (dom._tmp_scroll_start.size.width < dom._tmp_scroll_start.bounds.width) {
+                    rightBounds = 0.0;
+                }
+                $(dom).find("[vKey='contentView']").decayBounce({
+                    aniProps: 'frame',
+                    bounce: true,
+                    bounceRect: '0,0,' + rightBounds + ',' + bottomBounds,
+                    velocity: '0,0,0,0',
+                    onChange: function (frame) {
+                        $(dom).attr('contentoffset', frame.x + ',' + frame.y);
+                    }
+                });
+                window._UXK_Components.SCROLLVIEW.indicator.hide(dom);
+            }
+            else if (sender.state == "Cancelled") {
+                dom._touching = false;
             }
         });
         $(dom).onPan(function (sender) {
             if (sender.state == "Began") {
-                $(dom).find("[vKey='contentView']").stop();
                 obj.scroller.onDragStart(dom, sender);
             }
             else if (sender.state == "Changed") {
