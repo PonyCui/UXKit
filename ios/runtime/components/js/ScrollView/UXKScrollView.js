@@ -73,13 +73,13 @@ window._UXK_Components.SCROLLVIEW = {
             var vHeight = (dom._tmp_scroll_start.bounds.height / scrollProps.contentSize.height) * dom._tmp_scroll_start.bounds.height;
             var vProgress = (-dom._tmp_scroll_duration.offset.y) / (dom._tmp_scroll_start.size.height - dom._tmp_scroll_start.bounds.height);
             var vOffset = vProgress * (dom._tmp_scroll_start.bounds.height - vHeight);
-            $(dom).find('[vKey="vIndicator"]').attr('frame', (dom._tmp_scroll_start.bounds.width - 3) + ',' + vOffset + ',2,' + vHeight);
+            $(dom).find('[vKey="vIndicator"]').attr('frame', (dom._tmp_scroll_start.bounds.width - 5) + ',' + vOffset + ',2.5,' + vHeight);
             $(dom).find('[vKey="vIndicator"]').update(true);
             // h
             var hWidth = (dom._tmp_scroll_start.bounds.width / scrollProps.contentSize.width) * dom._tmp_scroll_start.bounds.width;
             var hProgress = (-dom._tmp_scroll_duration.offset.x) / (dom._tmp_scroll_start.size.width - dom._tmp_scroll_start.bounds.width);
             var hOffset = hProgress * (dom._tmp_scroll_start.bounds.width - hWidth);
-            $(dom).find('[vKey="hIndicator"]').attr('frame', hOffset + ',' + (dom._tmp_scroll_start.bounds.height - 3) + ',' + hWidth + ',2');
+            $(dom).find('[vKey="hIndicator"]').attr('frame', hOffset + ',' + (dom._tmp_scroll_start.bounds.height - 5) + ',' + hWidth + ',2.5');
             $(dom).find('[vKey="hIndicator"]').update(true);
         },
         show: function (dom) {
@@ -87,10 +87,13 @@ window._UXK_Components.SCROLLVIEW = {
                 var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
                 if ((scrollProps.scrollDirection === "VH" || scrollProps.scrollDirection === "HV") && scrollProps.directionalLockEnabled) {
                     if (dom._tmp_scroll_start.direction === undefined) {
-                        sender.velocityY = 0.0;
-                        sender.velocityX = 0.0;
+                        return;
                     }
                     if (dom._tmp_scroll_start.direction === "H") {
+                        if ($(dom).find('[vKey="vIndicator"]').attr('alpha') === "1.0") {
+                            $(dom).find('[vKey="vIndicator"]').attr('alpha', "0.0");
+                            $(dom).find('[vKey="vIndicator"]').update(true);
+                        }
                         return;
                     }
                 }
@@ -104,10 +107,13 @@ window._UXK_Components.SCROLLVIEW = {
                 var scrollProps = window._UXK_Components.SCROLLVIEW.props(dom);
                 if ((scrollProps.scrollDirection === "VH" || scrollProps.scrollDirection === "HV") && scrollProps.directionalLockEnabled) {
                     if (dom._tmp_scroll_start.direction === undefined) {
-                        sender.velocityY = 0.0;
-                        sender.velocityX = 0.0;
+                        return;
                     }
                     if (dom._tmp_scroll_start.direction === "V") {
+                        if ($(dom).find('[vKey="hIndicator"]').attr('alpha') === "1.0") {
+                            $(dom).find('[vKey="hIndicator"]').attr('alpha', "0.0");
+                            $(dom).find('[vKey="hIndicator"]').update(true);
+                        }
                         return;
                     }
                 }
