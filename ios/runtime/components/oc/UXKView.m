@@ -57,6 +57,10 @@
     else {
         [self layoutUXKViews:nil newRect:nil excepts:nil];
     }
+}
+
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
     if (self.layoutCallbackID != nil && self.bridgeController != nil) {
         NSString *script = [NSString stringWithFormat:@"window.UXK_LayoutCallbacks['%@']({x: %f, y: %f, width: %f, height: %f})",
                             self.layoutCallbackID,
@@ -219,6 +223,22 @@
                                                                                 newValue:newValue]) {
             self.layer.borderColor = newValue.CGColor;
         }
+    }
+    if (props[@"shadowcolor"] && [props[@"shadowcolor"] isKindOfClass:[NSString class]]) {
+        UIColor *newValue = [UXKProps toColor:props[@"shadowcolor"]];
+        self.layer.shadowColor = newValue.CGColor;
+    }
+    if (props[@"shadowoffset"] && [props[@"shadowoffset"] isKindOfClass:[NSString class]]) {
+        CGSize newValue = [UXKProps toCGSize:props[@"shadowoffset"]];
+        self.layer.shadowOffset = newValue;
+    }
+    if (props[@"shadowradius"] && [props[@"shadowradius"] isKindOfClass:[NSString class]]) {
+        CGFloat newValue = [UXKProps toCGFloat:props[@"shadowradius"]];
+        self.layer.shadowRadius = newValue;
+    }
+    if (props[@"shadowopacity"] && [props[@"shadowopacity"] isKindOfClass:[NSString class]]) {
+        CGFloat newValue = [UXKProps toCGFloat:props[@"shadowopacity"]];
+        self.layer.shadowOpacity = newValue;
     }
 }
 

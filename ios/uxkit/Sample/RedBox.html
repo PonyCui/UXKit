@@ -5,11 +5,19 @@
 </head>
 
 <body margin="auto">
-	<Slider frame="0,100,-1,44"></Slider>
+	<Slider frame="|-44-[]-44-|,|-88-[44]"></Slider>
 </body>
 
 </html>
 
 <script>
+
+// setTimeout(function(){
+// 	$('slider').setProgress(1.0);
+// }, 5000)
+
+$('slider').onChange(function(progress){
+	console.log(progress);
+})
 
 </script>

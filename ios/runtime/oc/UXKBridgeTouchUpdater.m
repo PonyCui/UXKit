@@ -120,7 +120,7 @@
 - (void)onTouch:(UIGestureRecognizer *)sender {
     NSString *script;
     if ([sender isKindOfClass:[UIPanGestureRecognizer class]]) {
-        script = [NSString stringWithFormat:@"window.UXK_TouchCallback('%@', {state: '%@', windowX: %f, windowY: %f, locationX: %f, locationY: %f, translateX: %f, translateY: %f, velocityX: %f, velocityY: %f})",
+        script = [NSString stringWithFormat:@"window.UXK_TouchCallback('%@', {state: '%@', windowX: %f, windowY: %f, locationX: %f, locationY: %f, translateX: %f, translateY: %f, velocityX: %f, velocityY: %f, superX: %f, superY: %f})",
                   sender.uxk_callbackID,
                   [self state:sender],
                   [sender locationInView:nil].x,
@@ -130,7 +130,9 @@
                   [(UIPanGestureRecognizer *)sender translationInView:nil].x,
                   [(UIPanGestureRecognizer *)sender translationInView:nil].y,
                   [(UIPanGestureRecognizer *)sender velocityInView:nil].x,
-                  [(UIPanGestureRecognizer *)sender velocityInView:nil].y];
+                  [(UIPanGestureRecognizer *)sender velocityInView:nil].y,
+                  [sender locationInView:sender.view.superview].x,
+                  [sender locationInView:sender.view.superview].y];
     }
     else {
         script = [NSString stringWithFormat:@"window.UXK_TouchCallback('%@', {state: '%@', windowX: %f, windowY: %f, locationX: %f, locationY: %f})",

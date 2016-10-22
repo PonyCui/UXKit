@@ -14,6 +14,7 @@
 + (BOOL)toBool:(NSString *)stringValue;
 + (CGFloat)toCGFloat:(NSString *)stringValue;
 + (CGPoint)toCGPoint:(NSString *)stringValue;
++ (CGSize)toCGSize:(NSString *)stringValue;
 + (CGSize)toMaxSize:(NSString *)stringValue;
 + (CGRect)toRectWithRect:(NSString *)rectString;
 + (NSString *)stringWithRect:(CGRect)rect;

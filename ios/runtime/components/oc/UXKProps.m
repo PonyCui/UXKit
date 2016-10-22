@@ -35,6 +35,18 @@
     }
 }
 
++ (CGSize)toCGSize:(NSString *)stringValue {
+    stringValue = [stringValue stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSArray *components = [stringValue componentsSeparatedByString:@","];
+    if ([components count] == 2) {
+        return CGSizeMake([components[0] floatValue],
+                           [components[1] floatValue]);
+    }
+    else {
+        return CGSizeZero;
+    }
+}
+
 + (CGRect)toRectWithRect:(NSString *)rectString {
     rectString = [rectString stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSArray *components = [rectString componentsSeparatedByString:@","];
