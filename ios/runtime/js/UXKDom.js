@@ -99,6 +99,7 @@
             }
         },
     };
+
     var _attachIMPs = {};
     $._attach = function(funcName, nodeName, IMP) {
         if (_attachIMPs[funcName] === undefined) {
@@ -116,6 +117,7 @@
         }
         _attachIMPs[funcName][nodeName] = IMP;
     };
+
     $._attach('update', '*', function(updatePropsOnly){
         if (updatePropsOnly === true) {
             domHelper.commitTree(this.get(0), true);
@@ -126,4 +128,13 @@
             domHelper.commitTree(this.get(0));
         }
     });
+
+    window.UXK_LayoutCallbacks = {};
+    $._attach('onLayout', '*', function(callback){
+        var callbackID = domHelper.guid();
+        window.UXK_LayoutCallbacks[callbackID] = callback;
+        $(this).attr('_UXK_LayoutCallbackID', callbackID);
+        $(this).update(true);
+    })
+
 })(jQuery);

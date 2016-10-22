@@ -8,6 +8,7 @@
 
 #import "UXKView.h"
 #import "UXKProps.h"
+#import "UXKBridgeController.h"
 #import "UXKBridgeAnimationHandler.h"
 #import "UXKAnimation.h"
 #import <pop/POP.h>
@@ -55,6 +56,15 @@
     }
     else {
         [self layoutUXKViews:nil newRect:nil excepts:nil];
+    }
+    if (self.layoutCallbackID != nil && self.bridgeController != nil) {
+        NSString *script = [NSString stringWithFormat:@"window.UXK_LayoutCallbacks['%@']({x: %f, y: %f, width: %f, height: %f})",
+                            self.layoutCallbackID,
+                            self.frame.origin.x,
+                            self.frame.origin.y,
+                            self.frame.size.width,
+                            self.frame.size.height];
+        [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
     }
 }
     
@@ -125,6 +135,9 @@
     }
     if (props[@"name"] && [props[@"name"] isKindOfClass:[NSString class]]) {
         self.name = props[@"name"];
+    }
+    if ([props[@"_uxk_layoutcallbackid"] isKindOfClass:[NSString class]]) {
+        self.layoutCallbackID = props[@"_uxk_layoutcallbackid"];
     }
     if (props[@"_uxk_vkey"] && [props[@"_uxk_vkey"] isKindOfClass:[NSString class]]) {
         self.vKey = props[@"_uxk_vkey"];
