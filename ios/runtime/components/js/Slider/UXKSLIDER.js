@@ -11,6 +11,13 @@ window._UXK_Components.SLIDER = {
     render: function (dom) {
         var sliderProps = window._UXK_Components.SLIDER.props(dom);
         var width = dom.frame != undefined ? dom.frame.width : 0.0;
+        if (width == 0.0) {
+            dom.setAttribute("hidden", 'true');
+            return;
+        }
+        else {
+            dom.setAttribute("hidden", 'false');
+        }
         dom.querySelector("[vKey='trackView']").setAttribute("backgroundColor", sliderProps.tintColor);
         dom.querySelector("[vKey='trackView']").setAttribute("frame", '10,20,' + ((width - 20) * sliderProps.progress) + ',4');
         dom.querySelector("[vKey='blurView']").setAttribute("frame", '10,20,' + (width - 20) + ',4');
@@ -26,10 +33,16 @@ window._UXK_Components.SLIDER = {
             if (sender.state == "Began") {
                 var progress = Math.max(0.0, Math.min(1.0, sender.superX / width));
                 $(dom).setProgress(progress, false);
+                if (typeof dom._onchange === "function") {
+                    dom._onchange.call(this, progress);
+                }
             }
             else if (sender.state == "Changed") {
                 var progress = Math.max(0.0, Math.min(1.0, sender.superX / width));
                 $(dom).setProgress(progress, false);
+                if (typeof dom._onchange === "function") {
+                    dom._onchange.call(this, progress);
+                }
             }
             else if (sender.state == "Ended") {
                 var progress = Math.max(0.0, Math.min(1.0, sender.superX / width));
