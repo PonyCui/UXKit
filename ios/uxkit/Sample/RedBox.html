@@ -5,19 +5,39 @@
 </head>
 
 <body margin="auto">
-	<Slider frame="|-44-[]-44-|,|-88-[44]"></Slider>
+	<button frame="|-44-[]-44-|,|-88-[44]" title="Hello"></button>
 </body>
 
 </html>
 
 <script>
 
-// setTimeout(function(){
-// 	$('slider').setProgress(1.0);
-// }, 5000)
+$('button').onTouchDown(function(){
+	console.log('onTouchDown');
+})
 
-$('slider').onChange(function(progress){
-	console.log(progress);
+$('button').onTouchUpInside(function(){
+	console.log('onTouchUpInside');
+})
+
+$('button').onTouchUpOutside(function(){
+	console.log('onTouchUpOutside');
+})
+
+$('button').onDragInside(function(){
+	console.log('onDragInside');
+})
+
+$('button').onDragOutside(function(){
+	console.log('onDragOutside');
+})
+
+$('button').onDragEnter(function(){
+	console.log('onDragEnter');
+})
+
+$('button').onDragExit(function(){
+	console.log('onDragExit');
 })
 
 </script>

@@ -36,31 +36,40 @@ window.UXK_TouchCallback = function () { };
         touchHelper.commit(this.get(0), args, callback);
         return args;
     };
-    $.fn.onTap = function (callback) {
+    $.fn.onTap = function (callback, anArgs) {
         var args = {
             touchType: 'tap',
             touches: 1,
             taps: 1,
         }
+        if (anArgs !== undefined) {
+            Object.assign(args, anArgs)
+        }
         touchHelper.commit(this.get(0), args, callback);
         return args;
     };
-    $.fn.onDoubleTap = function (callback) {
+    $.fn.onDoubleTap = function (callback, anArgs) {
         var args = {
             touchType: 'tap',
             touches: 1,
             taps: 2,
         }
+        if (anArgs !== undefined) {
+            Object.assign(args, anArgs)
+        }
         touchHelper.commit(this.get(0), args, callback);
         return args;
     };
-    $.fn.onLongPress = function (callback) {
+    $.fn.onLongPress = function (callback, anArgs) {
         var args = {
             touchType: 'longPress',
             touches: 1,
             taps: 0,
             duration: 0.5,
             allowMovement: 10,
+        }
+        if (anArgs !== undefined) {
+            Object.assign(args, anArgs)
         }
         touchHelper.commit(this.get(0), args, callback);
         return args;

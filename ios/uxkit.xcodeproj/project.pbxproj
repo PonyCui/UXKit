@@ -48,6 +48,8 @@
 		90BD6CE81DBA1D0900259570 /* UXKSWITCH.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */; };
 		F0F3DCDC1DBB623100D04B12 /* UXKSLIDER.html in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDA1DBB623100D04B12 /* UXKSLIDER.html */; };
 		F0F3DCDD1DBB623100D04B12 /* UXKSLIDER.js in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDB1DBB623100D04B12 /* UXKSLIDER.js */; };
+		F0F3DCE11DBC600200D04B12 /* UXKBUTTON.html in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */; };
+		F0F3DCE21DBC600200D04B12 /* UXKBUTTON.js in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCE01DBC600200D04B12 /* UXKBUTTON.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +117,8 @@
 		90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSWITCH.js; sourceTree = "<group>"; };
 		F0F3DCDA1DBB623100D04B12 /* UXKSLIDER.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSLIDER.html; sourceTree = "<group>"; };
 		F0F3DCDB1DBB623100D04B12 /* UXKSLIDER.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSLIDER.js; sourceTree = "<group>"; };
+		F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKBUTTON.html; sourceTree = "<group>"; };
+		F0F3DCE01DBC600200D04B12 /* UXKBUTTON.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKBUTTON.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +255,7 @@
 		6396DB761D63598E001D9B6D /* js */ = {
 			isa = PBXGroup;
 			children = (
+				F0F3DCDE1DBC600200D04B12 /* Button */,
 				F0F3DCD91DBB623100D04B12 /* Slider */,
 				90BD6CE01DBA1CDC00259570 /* Switch */,
 				63CF27221DA1D5540048EF6F /* ScrollView */,
@@ -327,6 +332,15 @@
 			path = Slider;
 			sourceTree = "<group>";
 		};
+		F0F3DCDE1DBC600200D04B12 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */,
+				F0F3DCE01DBC600200D04B12 /* UXKBUTTON.js */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -397,8 +411,10 @@
 				6396DB8B1D64AF4E001D9B6D /* UXKAnimation.js in Resources */,
 				6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */,
 				63AE07321D97BFB5000E0A20 /* UXKValue.js in Resources */,
+				F0F3DCE11DBC600200D04B12 /* UXKBUTTON.html in Resources */,
 				6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */,
 				63CF27291DA1D6EA0048EF6F /* UXKSCROLLVIEW.html in Resources */,
+				F0F3DCE21DBC600200D04B12 /* UXKBUTTON.js in Resources */,
 				F0F3DCDD1DBB623100D04B12 /* UXKSLIDER.js in Resources */,
 				634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */,
 				630AC5501D6F30E600314FA3 /* UXKjQuery.min.js in Resources */,

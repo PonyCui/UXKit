@@ -161,7 +161,7 @@
                 newRect.size = [self intrinsicContentSizeWithProps:props];
                 [self layoutUXKViews:self.animationHandler
                              newRect:[NSValue valueWithCGRect:newRect]
-                              excepts:excepts];
+                             excepts:excepts];
             }
             else {
                 [self setShouldChangeToFrame:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]];

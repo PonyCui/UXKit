@@ -56,10 +56,10 @@
                                                                                       NSFontAttributeName: font,
                                                                                       }];
     CGSize contentSize = [attributedText boundingRectWithSize:([props[@"frame"] isKindOfClass:[NSString class]] ? [UXKProps toMaxSize:props[@"frame"]] : CGSizeZero)
-                                                      options:NSStringDrawingUsesDeviceMetrics | NSStringDrawingUsesLineFragmentOrigin
+                                                      options:NSStringDrawingUsesLineFragmentOrigin
                                                       context:NULL].size;
-    contentSize.width = ceilf(contentSize.width) + 2.0;
-    contentSize.height = ceilf(contentSize.height) + 2.0;
+    contentSize.width = ceilf(contentSize.width) + 1.0;
+    contentSize.height = ceilf(contentSize.height) + 1.0;
     return contentSize;
 }
 
