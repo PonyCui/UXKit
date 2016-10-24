@@ -9,6 +9,23 @@ window._UXK_Components.BUTTON = {
     },
     props: function (dom) {
         var tintColor = $(dom).attr('tintColor') || "#209b53";
+        var backgroundColor = {
+            normal: $(dom).attr('backgroundColorNormal') || $(dom).attr('backgroundColor'),
+            highlighted: $(dom).attr('backgroundColorHighlighted') || $(dom).attr('backgroundColor'),
+            selected: $(dom).attr('backgroundColorSelected') || $(dom).attr('backgroundColor'),
+            disabled: $(dom).attr('backgroundColorDisabled') || $(dom).attr('backgroundColor'),
+        };
+        var textColor = {
+            normal: $(dom).attr('textColorNormal') || $(dom).attr('textColor') || tintColor,
+            highlighted: $(dom).attr('textColorHighlighted') || $(dom).attr('textColor') || this.colorWithAlpha(tintColor, 0.3),
+            selected: $(dom).attr('textColorSelected') || $(dom).attr('textColor') || tintColor,
+            disabled: $(dom).attr('textColorDisabled') || $(dom).attr('textColor') || tintColor,
+        };
+        if ($(dom).attr('reverseOnTouch') === "true" && backgroundColor.normal === undefined) {
+            backgroundColor.normal = this.colorWithAlpha(tintColor, 0.0);
+            backgroundColor.highlighted = tintColor;
+            textColor.highlighted = "#ffffff";
+        }
         return {
             status: dom._status || window._UXK_Components.BUTTON.Enum.Status.Normal,
             title: {
@@ -17,12 +34,8 @@ window._UXK_Components.BUTTON = {
                 selected: $(dom).attr('titleSelected') || $(dom).attr('title'),
                 disabled: $(dom).attr('titleDisabled') || $(dom).attr('title'),
             },
-            textColor: {
-                normal: $(dom).attr('textColorNormal') || $(dom).attr('textColor') || tintColor,
-                highlighted: $(dom).attr('textColorHighlighted') || $(dom).attr('textColor') || this.colorWithAlpha(tintColor, 0.3),
-                selected: $(dom).attr('textColorSelected') || $(dom).attr('textColor') || tintColor,
-                disabled: $(dom).attr('textColorDisabled') || $(dom).attr('textColor') || tintColor,
-            },
+            textColor: textColor,
+            backgroundColor: backgroundColor,
             textFont: $(dom).attr('textFont'),
             tintColor: tintColor,
         }
@@ -54,6 +67,8 @@ window._UXK_Components.BUTTON = {
         }
         $(dom).find("[vKey='textLabel']").attr('textColor', buttonProps.textColor[statusKey]);
         $(dom).find("[vKey='textLabel']").text(buttonProps.title[statusKey]);
+        $(dom).find("[vKey='controlView']").attr('backgroundColor', buttonProps.backgroundColor[statusKey]);
+        $(dom).find("[vKey='controlView']").attr('cornerRadius', $(dom).attr('cornerRadius'));
     },
     onLoad: function (dom) {
         $(dom).onLayout(function (frame) {
@@ -80,6 +95,12 @@ window._UXK_Components.BUTTON = {
                 if (typeof dom._ontouchupinside === "function") {
                     dom._ontouchupinside.call(this);
                 }
+                dom._status = window._UXK_Components.BUTTON.Enum.Status.Highlighted;
+                $(dom).update();
+                setTimeout(function(){
+                    dom._status = window._UXK_Components.BUTTON.Enum.Status.Normal;
+                    $(dom).update();
+                }, 150)
             }
         })
         $(dom).onLongPress(function (sender) {
@@ -135,7 +156,7 @@ window._UXK_Components.BUTTON = {
             $(dom).update();
         }, { duration: 0.10 })
     },
-    colorWithAlpha: function(color, alpha) {
+    colorWithAlpha: function (color, alpha) {
         if (color.indexOf('#') === 0) {
             var hex = color.replace('#', '');
             if (hex.length === 6) {

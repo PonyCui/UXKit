@@ -209,7 +209,7 @@
         }
     }
     if (props[@"borderwidth"] && [props[@"borderwidth"] isKindOfClass:[NSString class]]) {
-        CGFloat newValue  = [UXKProps toCGFloat:props[@"borderWidth"]];
+        CGFloat newValue  = [UXKProps toCGFloat:props[@"borderwidth"]];
         if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
                                                                                    props:kPOPLayerBorderWidth
                                                                                 newValue:@(newValue)]) {
