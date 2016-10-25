@@ -33,7 +33,7 @@ window._UXK_Components.BUTTON = {
             selected: $(dom).attr('imageBase64Selected') || $(dom).attr('imageBase64'),
             disabled: $(dom).attr('imageBase64Disabled') || $(dom).attr('imageBase64'),
         };
-        var imageRenderingMode = $(dom).attr('imageRenderingMode') || "template"; 
+        var imageRenderingMode = $(dom).attr('imageRenderingMode') || "template";
         var imageColor = {
             normal: $(dom).attr('imageColorNormal') || $(dom).attr('imageColor') || tintColor,
             highlighted: $(dom).attr('imageColorHighlighted') || $(dom).attr('imageColor') || this.colorWithAlpha(tintColor, 0.3),
@@ -83,6 +83,7 @@ window._UXK_Components.BUTTON = {
             tintColor: tintColor,
             imageInset: imageInset,
             titleInset: titleInset,
+            align: $(dom).attr('align') || "center,center",
         }
     },
     setProps: function (dom, props) {
@@ -114,11 +115,34 @@ window._UXK_Components.BUTTON = {
             imageWidth = parseFloat(buttonProps.imageSize[statusKey].split(',')[0]);
             imageHeight = parseFloat(buttonProps.imageSize[statusKey].split(',')[1]);
         }
-        var contentWidth = textWidth + imageWidth + buttonProps.imageInset.right + buttonProps.titleInset.left;
-        var textX = (width - contentWidth) / 2.0 + imageWidth + buttonProps.imageInset.right + buttonProps.titleInset.left;
-        var textY = (height - textHeight) / 2.0;
-        var imageX = (width - contentWidth) / 2.0;
-        var imageY = (height - imageHeight) / 2.0;
+        var contentWidth = textWidth + imageWidth + buttonProps.imageInset.left + buttonProps.imageInset.right + buttonProps.titleInset.left + buttonProps.titleInset.right;
+        var textX, textY, imageX, imageY;
+        var horizalAlignment = buttonProps.align.split(',')[0];
+        var verticalAlignment = buttonProps.align.split(',')[1];
+        if (horizalAlignment === "left") {
+            textX = buttonProps.imageInset.left + imageWidth + buttonProps.imageInset.right + buttonProps.titleInset.left;
+            imageX = buttonProps.imageInset.left;
+        }
+        else if (horizalAlignment === "right") {
+            textX = (width - contentWidth) + buttonProps.imageInset.left + imageWidth + buttonProps.imageInset.right + buttonProps.titleInset.left;
+            imageX = (width - contentWidth) + buttonProps.imageInset.left;
+        }
+        else {
+            textX = (width - contentWidth) / 2.0 + buttonProps.imageInset.left + imageWidth + buttonProps.imageInset.right + buttonProps.titleInset.left;
+            imageX = (width - contentWidth) / 2.0 + buttonProps.imageInset.left;
+        }
+        if (verticalAlignment === "top") {
+            textY = buttonProps.titleInset.top;
+            imageY = buttonProps.imageInset.top;
+        }
+        else if (verticalAlignment === "bottom") {
+            textY = height - textHeight - buttonProps.titleInset.bottom;
+            imageY = height - imageHeight - buttonProps.imageInset.bottom;
+        }
+        else {
+            textY = (height - textHeight) / 2.0 + buttonProps.titleInset.top - buttonProps.titleInset.bottom;
+            imageY = (height - imageHeight) / 2.0 + buttonProps.imageInset.top - buttonProps.imageInset.bottom;
+        }
         $(dom).find("[vKey='textWrapper']").attr('frame', textX + ',' + textY + ',' + textWidth + ',' + textHeight);
         $(dom).find("[vKey='textLabel']").attr('font', buttonProps.textFont);
         $(dom).find("[vKey='textLabel']").attr('textColor', buttonProps.textColor[statusKey]);
