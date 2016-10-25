@@ -7,11 +7,18 @@
 //
 
 #import "UXKImageView.h"
+#import "UXKProps.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+
+@interface _UXKImageView : UIImageView
+
+@property (nonatomic, assign) UIImageRenderingMode renderingMode;
+
+@end
 
 @interface UXKImageView ()
 
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) _UXKImageView *imageView;
 
 @end
 
@@ -21,7 +28,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        self.imageView = [[_UXKImageView alloc] initWithFrame:self.bounds];
         self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:self.imageView];
     }
@@ -54,6 +61,26 @@
             });
         });
     }
+    if ([props[@"renderingmode"] isKindOfClass:[NSString class]]) {
+        if ([props[@"renderingmode"] isEqualToString:@"template"]) {
+            self.imageView.renderingMode = UIImageRenderingModeAlwaysTemplate;
+        }
+        else {
+            self.imageView.renderingMode = UIImageRenderingModeAlwaysOriginal;
+        }
+    }
+    if ([props[@"color"] isKindOfClass:[NSString class]]) {
+        self.imageView.tintColor = [UXKProps toColor:props[@"color"]];
+    }
+}
+
+@end
+
+@implementation _UXKImageView
+
+- (void)setImage:(UIImage *)image {
+    image = [image imageWithRenderingMode:self.renderingMode];
+    [super setImage:image];
 }
 
 @end

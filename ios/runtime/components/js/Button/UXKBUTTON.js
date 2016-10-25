@@ -21,10 +21,48 @@ window._UXK_Components.BUTTON = {
             selected: $(dom).attr('textColorSelected') || $(dom).attr('textColor') || tintColor,
             disabled: $(dom).attr('textColorDisabled') || $(dom).attr('textColor') || tintColor,
         };
+        var imageUrl = {
+            normal: $(dom).attr('imageUrlNormal') || $(dom).attr('imageUrl'),
+            highlighted: $(dom).attr('imageUrlHighlighted') || $(dom).attr('imageUrl'),
+            selected: $(dom).attr('imageUrlSelected') || $(dom).attr('imageUrl'),
+            disabled: $(dom).attr('imageUrlDisabled') || $(dom).attr('imageUrl'),
+        };
+        var imageBase64 = {
+            normal: $(dom).attr('imageBase64Normal') || $(dom).attr('imageBase64'),
+            highlighted: $(dom).attr('imageBase64Highlighted') || $(dom).attr('imageBase64'),
+            selected: $(dom).attr('imageBase64Selected') || $(dom).attr('imageBase64'),
+            disabled: $(dom).attr('imageBase64Disabled') || $(dom).attr('imageBase64'),
+        };
+        var imageRenderingMode = $(dom).attr('imageRenderingMode') || "template"; 
+        var imageColor = {
+            normal: $(dom).attr('imageColorNormal') || $(dom).attr('imageColor') || tintColor,
+            highlighted: $(dom).attr('imageColorHighlighted') || $(dom).attr('imageColor') || this.colorWithAlpha(tintColor, 0.3),
+            selected: $(dom).attr('imageColorSelected') || $(dom).attr('imageColor') || tintColor,
+            disabled: $(dom).attr('imageColorDisabled') || $(dom).attr('imageColor') || tintColor,
+        };
+        var imageSize = {
+            normal: $(dom).attr('imageSizeNormal') || $(dom).attr('imageSize'),
+            highlighted: $(dom).attr('imageSizeHighlighted') || $(dom).attr('imageSize'),
+            selected: $(dom).attr('imageSizeSelected') || $(dom).attr('imageSize'),
+            disabled: $(dom).attr('imageSizeDisabled') || $(dom).attr('imageSize'),
+        };
+        var imageInset = {
+            top: $(dom).attr('imageInset') !== undefined ? parseFloat($(dom).attr('imageInset').split(',')[0]) : 0,
+            left: $(dom).attr('imageInset') !== undefined ? parseFloat($(dom).attr('imageInset').split(',')[1]) : 0,
+            bottom: $(dom).attr('imageInset') !== undefined ? parseFloat($(dom).attr('imageInset').split(',')[2]) : 0,
+            right: $(dom).attr('imageInset') !== undefined ? parseFloat($(dom).attr('imageInset').split(',')[3]) : 0,
+        }
+        var titleInset = {
+            top: $(dom).attr('titleInset') !== undefined ? parseFloat($(dom).attr('titleInset').split(',')[0]) : 0,
+            left: $(dom).attr('titleInset') !== undefined ? parseFloat($(dom).attr('titleInset').split(',')[1]) : 0,
+            bottom: $(dom).attr('titleInset') !== undefined ? parseFloat($(dom).attr('titleInset').split(',')[2]) : 0,
+            right: $(dom).attr('titleInset') !== undefined ? parseFloat($(dom).attr('titleInset').split(',')[3]) : 0,
+        }
         if ($(dom).attr('reverseOnTouch') === "true" && backgroundColor.normal === undefined) {
             backgroundColor.normal = this.colorWithAlpha(tintColor, 0.0);
             backgroundColor.highlighted = tintColor;
             textColor.highlighted = "#ffffff";
+            imageColor.highlighted = "#ffffff";
         }
         return {
             status: dom._status || window._UXK_Components.BUTTON.Enum.Status.Normal,
@@ -36,20 +74,20 @@ window._UXK_Components.BUTTON = {
             },
             textColor: textColor,
             backgroundColor: backgroundColor,
+            imageUrl: imageUrl,
+            imageBase64: imageBase64,
+            imageSize: imageSize,
+            imageRenderingMode: imageRenderingMode,
+            imageColor: imageColor,
             textFont: $(dom).attr('textFont'),
             tintColor: tintColor,
+            imageInset: imageInset,
+            titleInset: titleInset,
         }
     },
     setProps: function (dom, props) {
         var buttonProps = window._UXK_Components.BUTTON.props(dom);
-        var width = dom.frame != undefined ? dom.frame.width : 0.0;
-        var height = dom.frame != undefined ? dom.frame.height : 0.0;
-        var textWidth = dom.textFrame != undefined ? dom.textFrame.width : 0.0;
-        var textHeight = dom.textFrame != undefined ? dom.textFrame.height : 0.0;
-        var textX = (width - textWidth) / 2.0;
-        var textY = (height - textHeight) / 2.0;
-        $(dom).find("[vKey='textWrapper']").attr('frame', textX + ',' + textY + ',' + textWidth + ',' + textHeight);
-        $(dom).find("[vKey='textLabel']").attr('font', buttonProps.textFont);
+        // request status key.
         var statusKey = 'normal';
         switch (buttonProps.status) {
             case window._UXK_Components.BUTTON.Enum.Status.Normal:
@@ -65,10 +103,35 @@ window._UXK_Components.BUTTON = {
                 statusKey = 'disabled';
                 break;
         }
+        // set props.
+        var width = dom.frame != undefined ? dom.frame.width : 0.0;
+        var height = dom.frame != undefined ? dom.frame.height : 0.0;
+        var textWidth = dom.textFrame != undefined ? dom.textFrame.width : 0.0;
+        var textHeight = dom.textFrame != undefined ? dom.textFrame.height : 0.0;
+        var imageWidth = 0;
+        var imageHeight = 0;
+        if (buttonProps.imageUrl[statusKey] !== undefined && buttonProps.imageSize[statusKey] !== undefined) {
+            imageWidth = parseFloat(buttonProps.imageSize[statusKey].split(',')[0]);
+            imageHeight = parseFloat(buttonProps.imageSize[statusKey].split(',')[1]);
+        }
+        var contentWidth = textWidth + imageWidth + buttonProps.imageInset.right + buttonProps.titleInset.left;
+        var textX = (width - contentWidth) / 2.0 + imageWidth + buttonProps.imageInset.right + buttonProps.titleInset.left;
+        var textY = (height - textHeight) / 2.0;
+        var imageX = (width - contentWidth) / 2.0;
+        var imageY = (height - imageHeight) / 2.0;
+        $(dom).find("[vKey='textWrapper']").attr('frame', textX + ',' + textY + ',' + textWidth + ',' + textHeight);
+        $(dom).find("[vKey='textLabel']").attr('font', buttonProps.textFont);
         $(dom).find("[vKey='textLabel']").attr('textColor', buttonProps.textColor[statusKey]);
         $(dom).find("[vKey='textLabel']").text(buttonProps.title[statusKey]);
         $(dom).find("[vKey='controlView']").attr('backgroundColor', buttonProps.backgroundColor[statusKey]);
         $(dom).find("[vKey='controlView']").attr('cornerRadius', $(dom).attr('cornerRadius'));
+        if (buttonProps.imageUrl[statusKey] !== undefined && buttonProps.imageSize[statusKey] !== undefined) {
+            $(dom).find("[vKey='imageWrapper']").attr('frame', imageX + ',' + imageY + ',' + buttonProps.imageSize[statusKey]);
+            $(dom).find("[vKey='image']").attr('frame', '0,0,' + buttonProps.imageSize[statusKey]);
+            $(dom).find("[vKey='image']").attr('url', buttonProps.imageUrl[statusKey]);
+            $(dom).find("[vKey='image']").attr('renderingMode', buttonProps.imageRenderingMode);
+            $(dom).find("[vKey='image']").attr('color', buttonProps.imageColor[statusKey]);
+        }
     },
     onLoad: function (dom) {
         $(dom).onLayout(function (frame) {
@@ -97,7 +160,7 @@ window._UXK_Components.BUTTON = {
                 }
                 dom._status = window._UXK_Components.BUTTON.Enum.Status.Highlighted;
                 $(dom).update();
-                setTimeout(function(){
+                setTimeout(function () {
                     dom._status = window._UXK_Components.BUTTON.Enum.Status.Normal;
                     $(dom).update();
                 }, 150)
