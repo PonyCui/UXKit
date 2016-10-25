@@ -178,7 +178,7 @@ window._UXK_Components.BUTTON = {
                 dom._status = window._UXK_Components.BUTTON.Enum.Status.Highlighted;
             }
             else if (sender.state == "Changed") {
-                if (sender.locationX > dom.frame.width || sender.locationY > dom.frame.height) {
+                if (sender.locationX < 0 || sender.locationY < 0 || sender.locationX > dom.frame.width || sender.locationY > dom.frame.height) {
                     if (typeof dom._ondragoutside === "function") {
                         dom._ondragoutside.call(this);
                     }
@@ -204,7 +204,7 @@ window._UXK_Components.BUTTON = {
                 }
             }
             else if (sender.state == "Ended") {
-                if (sender.locationX > dom.frame.width || sender.locationY > dom.frame.height) {
+                if (sender.locationX < 0 || sender.locationY < 0 || sender.locationX > dom.frame.width || sender.locationY > dom.frame.height) {
                     if (typeof dom._ontouchupoutside === "function") {
                         dom._ontouchupoutside.call(this);
                     }
