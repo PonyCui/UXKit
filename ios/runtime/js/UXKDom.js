@@ -141,11 +141,11 @@
     });
 
     // Modal
-    $._attach('show', 'MODAL', function(){
-        $(this).value('show', function(){});
+    $._attach('show', 'MODAL', function(callback){
+        $(this).value('show', callback);
     });
-    $._attach('hide', 'MODAL', function(){
-        $(this).value('hide', function(){});
+    $._attach('hide', 'MODAL', function(callback){
+        $(this).value('hide', callback);
     });
 
 })(jQuery);

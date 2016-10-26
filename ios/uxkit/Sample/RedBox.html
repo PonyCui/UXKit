@@ -6,9 +6,7 @@
 
 <body margin="auto">
 	<SegmentedControl frame="|-@-[300]-@-|,|-88-[28]" title="直播,录播,回看"></SegmentedControl>
-	<Modal>
-		<view id="mask" frame="|-0-[]-0-|,|-0-[]-0-|" backgroundColor="#80000000" alpha="0"></view>
-	</Modal>
+	<ActionSheet title="推荐给朋友,举报内容,不再关注" dangerIndex="2"></ActionSheet>
 </body>
 
 </html>
@@ -16,13 +14,12 @@
 <script>
 
 $('SegmentedControl').onChange(function(){
-	$('modal').show();
-	$('modal').find('#mask').fadeIn();
-	$('modal').find('#mask').onTap(function(){
-		$('modal').find('#mask').fadeOut();
-		setTimeout(function(){
-			$('modal').hide();
-		}, 300)
+	$('ActionSheet').show();
+	$('ActionSheet').onSelect(function(idx){
+		console.log(idx);
+	});
+	$('ActionSheet').onCancel(function(){
+		console.log('cancel');
 	});
 })
 

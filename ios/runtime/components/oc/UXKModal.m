@@ -20,8 +20,6 @@ static UIWindow *modalWindow;
     [self createModalWindow];
     [super willMoveToWindow:newWindow];
     if (newWindow == modalWindow) {
-        self.frame = modalWindow.bounds;
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.hidden = NO;
     }
     else {
@@ -42,9 +40,13 @@ static UIWindow *modalWindow;
         [modalWindow.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         [modalWindow addSubview:self];
         modalWindow.hidden = NO;
+        self.frame = modalWindow.bounds;
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        valueBlock(nil);
     }
     else if ([aKey isEqualToString:@"hide"]) {
         modalWindow.hidden = YES;
+        valueBlock(nil);
     }
 }
 
