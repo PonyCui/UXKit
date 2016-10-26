@@ -114,7 +114,7 @@
     static NSArray *components;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        components = @[@"TEST", @"SCROLLVIEW", @"SWITCH", @"SLIDER", @"BUTTON", @"PROGRESSVIEW", @"SEGMENTEDCONTROL", @"ACTIONSHEET"];
+        components = @[@"TEST", @"SCROLLVIEW", @"SWITCH", @"SLIDER", @"BUTTON", @"PROGRESSVIEW", @"SEGMENTEDCONTROL", @"ACTIONSHEET", @"PIXELLINE"];
     });
     [self addUserScript:[[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:[[NSBundle mainBundle]
                                                                                                  pathForResource:@"UXKComponents" ofType:@"js"]
@@ -140,6 +140,10 @@
                                                    injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                 forMainFrameOnly:YES]];
     }];
+    [self addUserScript:[[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window._UXK_Components.PIXELLINE.scale = %f",
+                                                              [UIScreen mainScreen].scale]
+                                               injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                            forMainFrameOnly:YES]];
 }
 
 @end

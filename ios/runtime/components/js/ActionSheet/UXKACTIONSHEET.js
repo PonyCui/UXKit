@@ -12,7 +12,7 @@ window._UXK_Components.ACTIONSHEET = {
         // Option Button
         for (var index = 0; index < actionSheetProps.title.length; index++) {
             if (index > 0) {
-                buttonDOM.push('<view frame="0,' + (55.0 * index) + ',-1,1" backgroundColor="#dcdcdc"></view>');
+                buttonDOM.push('<pixelline frame="0,' + (55.0 * index) + ',-1,_" backgroundColor="#dcdcdc"></pixelline>');
             }
             var element = actionSheetProps.title[index];
             var tintColor = index == actionSheetProps.dangerIndex ? "#e04d2c" : '#333333';
@@ -58,7 +58,8 @@ $._attach('show', 'ACTIONSHEET', function () {
             setTimeout(function () {
                 $(dom).find('modal').find("[vKey='buttonView']").attr('frame', '0,' + (frame.height - ((actionSheetProps.title.length + 1) * 55.0)) + ',-1,' + ((actionSheetProps.title.length + 1) * 55.0));
                 $(dom).find('modal').find("[vKey='buttonView']").spring({
-                    speed: 20.0
+                    speed: 20.0,
+                    bounciness: 1.0,
                 });
             }, 100)
         });

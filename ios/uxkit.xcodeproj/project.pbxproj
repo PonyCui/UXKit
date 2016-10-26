@@ -53,6 +53,8 @@
 		90BD6D521DC091D600259570 /* UXKModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD6D511DC091D600259570 /* UXKModal.m */; };
 		90BD6D561DC0A09500259570 /* UXKACTIONSHEET.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D541DC0A09500259570 /* UXKACTIONSHEET.html */; };
 		90BD6D571DC0A09500259570 /* UXKACTIONSHEET.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D551DC0A09500259570 /* UXKACTIONSHEET.js */; };
+		90BD6D5B1DC0BDE200259570 /* UXKPIXELLINE.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D591DC0BDE200259570 /* UXKPIXELLINE.html */; };
+		90BD6D5C1DC0BDE200259570 /* UXKPIXELLINE.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D5A1DC0BDE200259570 /* UXKPIXELLINE.js */; };
 		F0F3DCDC1DBB623100D04B12 /* UXKSLIDER.html in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDA1DBB623100D04B12 /* UXKSLIDER.html */; };
 		F0F3DCDD1DBB623100D04B12 /* UXKSLIDER.js in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDB1DBB623100D04B12 /* UXKSLIDER.js */; };
 		F0F3DCE11DBC600200D04B12 /* UXKBUTTON.html in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */; };
@@ -130,6 +132,8 @@
 		90BD6D511DC091D600259570 /* UXKModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKModal.m; sourceTree = "<group>"; };
 		90BD6D541DC0A09500259570 /* UXKACTIONSHEET.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKACTIONSHEET.html; sourceTree = "<group>"; };
 		90BD6D551DC0A09500259570 /* UXKACTIONSHEET.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKACTIONSHEET.js; sourceTree = "<group>"; };
+		90BD6D591DC0BDE200259570 /* UXKPIXELLINE.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKPIXELLINE.html; sourceTree = "<group>"; };
+		90BD6D5A1DC0BDE200259570 /* UXKPIXELLINE.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKPIXELLINE.js; sourceTree = "<group>"; };
 		F0F3DCDA1DBB623100D04B12 /* UXKSLIDER.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSLIDER.html; sourceTree = "<group>"; };
 		F0F3DCDB1DBB623100D04B12 /* UXKSLIDER.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSLIDER.js; sourceTree = "<group>"; };
 		F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKBUTTON.html; sourceTree = "<group>"; };
@@ -270,6 +274,7 @@
 		6396DB761D63598E001D9B6D /* js */ = {
 			isa = PBXGroup;
 			children = (
+				90BD6D581DC0BDE200259570 /* PixelLine */,
 				90BD6D531DC0A09500259570 /* ActionSheet */,
 				90BD6D2D1DC0611B00259570 /* SegmentedControl */,
 				90BD6D281DC059C500259570 /* ProgressView */,
@@ -359,6 +364,15 @@
 				90BD6D551DC0A09500259570 /* UXKACTIONSHEET.js */,
 			);
 			path = ActionSheet;
+			sourceTree = "<group>";
+		};
+		90BD6D581DC0BDE200259570 /* PixelLine */ = {
+			isa = PBXGroup;
+			children = (
+				90BD6D591DC0BDE200259570 /* UXKPIXELLINE.html */,
+				90BD6D5A1DC0BDE200259570 /* UXKPIXELLINE.js */,
+			);
+			path = PixelLine;
 			sourceTree = "<group>";
 		};
 		D2438D969DDB3FFA006B640B /* Pods */ = {
@@ -474,9 +488,11 @@
 				6396DB921D69693E001D9B6D /* UXKTEST.html in Resources */,
 				634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */,
 				63E017AF1D963CD900389045 /* UXKTouch.js in Resources */,
+				90BD6D5B1DC0BDE200259570 /* UXKPIXELLINE.html in Resources */,
 				63CF272A1DA1D6EA0048EF6F /* UXKSCROLLVIEW.js in Resources */,
 				90BD6D2C1DC059C500259570 /* UXKPROGRESSVIEW.js in Resources */,
 				6396DB681D606DB2001D9B6D /* UXKDom.js in Resources */,
+				90BD6D5C1DC0BDE200259570 /* UXKPIXELLINE.js in Resources */,
 				634A88781D5F5FF70022AC22 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
