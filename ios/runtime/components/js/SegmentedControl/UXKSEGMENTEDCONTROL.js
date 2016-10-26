@@ -2,6 +2,7 @@ window._UXK_Components.SEGMENTEDCONTROL = {
     props: function (dom) {
         return {
             tintColor: $(dom).attr('tintColor') || "#209b53",
+            backColor: $(dom).attr('backColor') || "#ffffff",
             selectedIndex: $(dom).attr('selectedIndex') ? parseInt($(dom).attr('selectedIndex')) : 0,
             title: $(dom).attr('title') ? $(dom).attr('title').split(',') : [],
         }
@@ -39,7 +40,8 @@ window._UXK_Components.SEGMENTEDCONTROL = {
             "backgroundColorSelected='" + segmentedControlProps.tintColor + "' " +
             "backgroundColorNormal='#00ffffff" + "' " +
             "textColorHighlighted='" + segmentedControlProps.tintColor + "' " +
-            "textColorSelected='#ffffff'";
+            "textColorSelected='" + segmentedControlProps.backColor + "' " + 
+            "textColorNormal='" + segmentedControlProps.tintColor + "'";
         for (var index = 0; index < segmentedControlProps.title.length; index++) {
             if (index > 0) {
                 buttonDOM.push('<view frame="' + ((width / segmentedControlProps.title.length) * index) + ',0,1,-1" backgroundColor="' + segmentedControlProps.tintColor + '"></view>');
