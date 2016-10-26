@@ -19,8 +19,8 @@ window._UXK_Components.SLIDER = {
             dom.setAttribute("hidden", 'false');
         }
         dom.querySelector("[vKey='trackView']").setAttribute("backgroundColor", sliderProps.tintColor);
-        dom.querySelector("[vKey='trackView']").setAttribute("frame", '10,20,' + ((width - 20) * sliderProps.progress) + ',4');
-        dom.querySelector("[vKey='blurView']").setAttribute("frame", '10,20,' + (width - 20) + ',4');
+        dom.querySelector("[vKey='trackView']").setAttribute("frame", '10,18,' + ((width - 20) * sliderProps.progress) + ',9');
+        dom.querySelector("[vKey='blurView']").setAttribute("frame", '10,18,' + (width - 20) + ',9');
         dom.querySelector("[vKey='controlView']").setAttribute("frame", ((width - 22) * sliderProps.progress - 11) + ',0,44,44');
     },
     onLoad: function (dom) {

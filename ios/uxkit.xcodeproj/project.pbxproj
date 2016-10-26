@@ -46,6 +46,8 @@
 		9063A3761D9E2C18002E9AB8 /* UXKNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 9063A3751D9E2C18002E9AB8 /* UXKNav.m */; };
 		90BD6CE71DBA1D0900259570 /* UXKSWITCH.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6CE51DBA1D0900259570 /* UXKSWITCH.html */; };
 		90BD6CE81DBA1D0900259570 /* UXKSWITCH.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */; };
+		90BD6D2B1DC059C500259570 /* UXKPROGRESSVIEW.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D291DC059C500259570 /* UXKPROGRESSVIEW.html */; };
+		90BD6D2C1DC059C500259570 /* UXKPROGRESSVIEW.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D2A1DC059C500259570 /* UXKPROGRESSVIEW.js */; };
 		F0F3DCDC1DBB623100D04B12 /* UXKSLIDER.html in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDA1DBB623100D04B12 /* UXKSLIDER.html */; };
 		F0F3DCDD1DBB623100D04B12 /* UXKSLIDER.js in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDB1DBB623100D04B12 /* UXKSLIDER.js */; };
 		F0F3DCE11DBC600200D04B12 /* UXKBUTTON.html in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */; };
@@ -115,6 +117,8 @@
 		9063A3751D9E2C18002E9AB8 /* UXKNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKNav.m; sourceTree = "<group>"; };
 		90BD6CE51DBA1D0900259570 /* UXKSWITCH.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSWITCH.html; sourceTree = "<group>"; };
 		90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSWITCH.js; sourceTree = "<group>"; };
+		90BD6D291DC059C500259570 /* UXKPROGRESSVIEW.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKPROGRESSVIEW.html; sourceTree = "<group>"; };
+		90BD6D2A1DC059C500259570 /* UXKPROGRESSVIEW.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKPROGRESSVIEW.js; sourceTree = "<group>"; };
 		F0F3DCDA1DBB623100D04B12 /* UXKSLIDER.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSLIDER.html; sourceTree = "<group>"; };
 		F0F3DCDB1DBB623100D04B12 /* UXKSLIDER.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSLIDER.js; sourceTree = "<group>"; };
 		F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKBUTTON.html; sourceTree = "<group>"; };
@@ -255,6 +259,7 @@
 		6396DB761D63598E001D9B6D /* js */ = {
 			isa = PBXGroup;
 			children = (
+				90BD6D281DC059C500259570 /* ProgressView */,
 				F0F3DCDE1DBC600200D04B12 /* Button */,
 				F0F3DCD91DBB623100D04B12 /* Slider */,
 				90BD6CE01DBA1CDC00259570 /* Switch */,
@@ -312,6 +317,15 @@
 				90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */,
 			);
 			path = Switch;
+			sourceTree = "<group>";
+		};
+		90BD6D281DC059C500259570 /* ProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				90BD6D291DC059C500259570 /* UXKPROGRESSVIEW.html */,
+				90BD6D2A1DC059C500259570 /* UXKPROGRESSVIEW.js */,
+			);
+			path = ProgressView;
 			sourceTree = "<group>";
 		};
 		D2438D969DDB3FFA006B640B /* Pods */ = {
@@ -413,6 +427,7 @@
 				63AE07321D97BFB5000E0A20 /* UXKValue.js in Resources */,
 				F0F3DCE11DBC600200D04B12 /* UXKBUTTON.html in Resources */,
 				6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */,
+				90BD6D2B1DC059C500259570 /* UXKPROGRESSVIEW.html in Resources */,
 				63CF27291DA1D6EA0048EF6F /* UXKSCROLLVIEW.html in Resources */,
 				F0F3DCE21DBC600200D04B12 /* UXKBUTTON.js in Resources */,
 				F0F3DCDD1DBB623100D04B12 /* UXKSLIDER.js in Resources */,
@@ -423,6 +438,7 @@
 				634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */,
 				63E017AF1D963CD900389045 /* UXKTouch.js in Resources */,
 				63CF272A1DA1D6EA0048EF6F /* UXKSCROLLVIEW.js in Resources */,
+				90BD6D2C1DC059C500259570 /* UXKPROGRESSVIEW.js in Resources */,
 				6396DB681D606DB2001D9B6D /* UXKDom.js in Resources */,
 				634A88781D5F5FF70022AC22 /* Main.storyboard in Resources */,
 			);
