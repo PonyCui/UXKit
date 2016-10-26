@@ -111,34 +111,37 @@
 }
 
 - (void)configureComponents {
-    static NSArray *components;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        components = @[@"TEST", @"SCROLLVIEW", @"SWITCH", @"SLIDER", @"BUTTON", @"PROGRESSVIEW", @"SEGMENTEDCONTROL", @"ACTIONSHEET", @"PIXELLINE"];
-    });
     [self addUserScript:[[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:[[NSBundle mainBundle]
                                                                                                  pathForResource:@"UXKComponents" ofType:@"js"]
                                                                                        encoding:NSUTF8StringEncoding error:nil]
                                                injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
-    [components enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *contents = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"UXK%@", obj]
-                                                                                                ofType:@"html"] 
-                                                       encoding:NSUTF8StringEncoding
-                                                          error:nil];
-        NSString *html = [NSString stringWithFormat:@"window._UXK_Components.createJSComponent('%@', '%@');",
-                          obj, [[[contents stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                                 dataUsingEncoding:NSUTF8StringEncoding]
-                                base64EncodedStringWithOptions:kNilOptions]];
-        [self addUserScript:[[WKUserScript alloc] initWithSource:html
-                                                   injectionTime:WKUserScriptInjectionTimeAtDocumentStart
-                                                forMainFrameOnly:YES]];
-        NSString *js = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"UXK%@", obj]
-                                                                                          ofType:@"js"]
-                                                 encoding:NSUTF8StringEncoding
-                                                    error:nil];
-        [self addUserScript:[[WKUserScript alloc] initWithSource:js
-                                                   injectionTime:WKUserScriptInjectionTimeAtDocumentStart
-                                                forMainFrameOnly:YES]];
+    
+    NSBundle *components = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"UXKJSComponents" ofType:@"bundle"]];
+    NSArray *dirs = [components pathsForResourcesOfType:@"" inDirectory:@"./"];
+    [dirs enumerateObjectsUsingBlock:^(id  _Nonnull dir, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray *html = [components pathsForResourcesOfType:@"html" inDirectory:[[dir componentsSeparatedByString:@"/"] lastObject] forLocalization:nil];
+        [html enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *nodeName = [[[[obj componentsSeparatedByString:@"/"] lastObject]
+                                   stringByReplacingOccurrencesOfString:@"UXK" withString:@""] stringByReplacingOccurrencesOfString:@".html" withString:@""];
+            NSString *contents = [NSString stringWithContentsOfFile:obj
+                                                           encoding:NSUTF8StringEncoding
+                                                              error:nil];
+            NSString *html = [NSString stringWithFormat:@"window._UXK_Components.createJSComponent('%@', '%@');",
+                              [nodeName uppercaseString], [[[contents stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                                                            dataUsingEncoding:NSUTF8StringEncoding]
+                                                           base64EncodedStringWithOptions:kNilOptions]];
+            [self addUserScript:[[WKUserScript alloc] initWithSource:html
+                                                       injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                    forMainFrameOnly:YES]];
+            NSString *js = [NSString stringWithContentsOfFile:[components pathForResource:[NSString stringWithFormat:@"UXK%@", nodeName]
+                                                                                   ofType:@"js"
+                                                                              inDirectory:[[dir componentsSeparatedByString:@"/"] lastObject]]
+                                                     encoding:NSUTF8StringEncoding
+                                                        error:nil];
+            [self addUserScript:[[WKUserScript alloc] initWithSource:js
+                                                       injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                    forMainFrameOnly:YES]];
+        }];
     }];
     [self addUserScript:[[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window._UXK_Components.PIXELLINE.scale = %f",
                                                               [UIScreen mainScreen].scale]

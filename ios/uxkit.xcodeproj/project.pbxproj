@@ -28,37 +28,20 @@
 		6396DB891D64AF03001D9B6D /* UXKBridgeAnimationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB881D64AF03001D9B6D /* UXKBridgeAnimationHandler.m */; };
 		6396DB8B1D64AF4E001D9B6D /* UXKAnimation.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */; };
 		6396DB8E1D674CC5001D9B6D /* UXKProps+LayoutFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 6396DB8D1D674CC5001D9B6D /* UXKProps+LayoutFormat.m */; };
-		6396DB921D69693E001D9B6D /* UXKTEST.html in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB901D69693E001D9B6D /* UXKTEST.html */; };
-		6396DB931D69693E001D9B6D /* UXKTEST.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB911D69693E001D9B6D /* UXKTEST.js */; };
 		6396DB951D697598001D9B6D /* UXKComponents.js in Resources */ = {isa = PBXBuildFile; fileRef = 6396DB941D697598001D9B6D /* UXKComponents.js */; };
 		63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */; };
 		63ADA2B01D5F71AC00C13191 /* UXKBridgeViewUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */; };
 		63AE072D1D97BCA7000E0A20 /* UXKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE072C1D97BCA7000E0A20 /* UXKTextField.m */; };
 		63AE07301D97BF3B000E0A20 /* UXKBridgeValueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE072F1D97BF3B000E0A20 /* UXKBridgeValueManager.m */; };
 		63AE07321D97BFB5000E0A20 /* UXKValue.js in Resources */ = {isa = PBXBuildFile; fileRef = 63AE07311D97BFB5000E0A20 /* UXKValue.js */; };
-		63CF27291DA1D6EA0048EF6F /* UXKSCROLLVIEW.html in Resources */ = {isa = PBXBuildFile; fileRef = 63CF27271DA1D6EA0048EF6F /* UXKSCROLLVIEW.html */; };
-		63CF272A1DA1D6EA0048EF6F /* UXKSCROLLVIEW.js in Resources */ = {isa = PBXBuildFile; fileRef = 63CF27281DA1D6EA0048EF6F /* UXKSCROLLVIEW.js */; };
 		63DEA7571D996F61007265EA /* UIViewController+UXKBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DEA7561D996F61007265EA /* UIViewController+UXKBridge.m */; };
 		63E017AF1D963CD900389045 /* UXKTouch.js in Resources */ = {isa = PBXBuildFile; fileRef = 63E017AE1D963CD900389045 /* UXKTouch.js */; };
 		63E017B21D96B05200389045 /* UXKBridgeTouchUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B11D96B05200389045 /* UXKBridgeTouchUpdater.m */; };
 		63E017B51D97893500389045 /* UXKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B41D97893500389045 /* UXKImageView.m */; };
 		63E017B81D97984F00389045 /* UXKLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B71D97984F00389045 /* UXKLabel.m */; };
 		9063A3761D9E2C18002E9AB8 /* UXKNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 9063A3751D9E2C18002E9AB8 /* UXKNav.m */; };
-		90BD6CE71DBA1D0900259570 /* UXKSWITCH.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6CE51DBA1D0900259570 /* UXKSWITCH.html */; };
-		90BD6CE81DBA1D0900259570 /* UXKSWITCH.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */; };
-		90BD6D2B1DC059C500259570 /* UXKPROGRESSVIEW.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D291DC059C500259570 /* UXKPROGRESSVIEW.html */; };
-		90BD6D2C1DC059C500259570 /* UXKPROGRESSVIEW.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D2A1DC059C500259570 /* UXKPROGRESSVIEW.js */; };
-		90BD6D301DC0611B00259570 /* UXKSEGMENTEDCONTROL.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D2E1DC0611B00259570 /* UXKSEGMENTEDCONTROL.html */; };
-		90BD6D311DC0611B00259570 /* UXKSEGMENTEDCONTROL.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D2F1DC0611B00259570 /* UXKSEGMENTEDCONTROL.js */; };
 		90BD6D521DC091D600259570 /* UXKModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD6D511DC091D600259570 /* UXKModal.m */; };
-		90BD6D561DC0A09500259570 /* UXKACTIONSHEET.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D541DC0A09500259570 /* UXKACTIONSHEET.html */; };
-		90BD6D571DC0A09500259570 /* UXKACTIONSHEET.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D551DC0A09500259570 /* UXKACTIONSHEET.js */; };
-		90BD6D5B1DC0BDE200259570 /* UXKPIXELLINE.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D591DC0BDE200259570 /* UXKPIXELLINE.html */; };
-		90BD6D5C1DC0BDE200259570 /* UXKPIXELLINE.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D5A1DC0BDE200259570 /* UXKPIXELLINE.js */; };
-		F0F3DCDC1DBB623100D04B12 /* UXKSLIDER.html in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDA1DBB623100D04B12 /* UXKSLIDER.html */; };
-		F0F3DCDD1DBB623100D04B12 /* UXKSLIDER.js in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDB1DBB623100D04B12 /* UXKSLIDER.js */; };
-		F0F3DCE11DBC600200D04B12 /* UXKBUTTON.html in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */; };
-		F0F3DCE21DBC600200D04B12 /* UXKBUTTON.js in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCE01DBC600200D04B12 /* UXKBUTTON.js */; };
+		F0B5DA051DC0F96A005EBE91 /* UXKJSComponents.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F0B5DA041DC0F96A005EBE91 /* UXKJSComponents.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,8 +80,6 @@
 		6396DB8A1D64AF4E001D9B6D /* UXKAnimation.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKAnimation.js; sourceTree = "<group>"; };
 		6396DB8C1D674CC4001D9B6D /* UXKProps+LayoutFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UXKProps+LayoutFormat.h"; sourceTree = "<group>"; };
 		6396DB8D1D674CC5001D9B6D /* UXKProps+LayoutFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UXKProps+LayoutFormat.m"; sourceTree = "<group>"; };
-		6396DB901D69693E001D9B6D /* UXKTEST.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKTEST.html; sourceTree = "<group>"; };
-		6396DB911D69693E001D9B6D /* UXKTEST.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKTEST.js; sourceTree = "<group>"; };
 		6396DB941D697598001D9B6D /* UXKComponents.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKComponents.js; sourceTree = "<group>"; };
 		63ADA2AB1D5F6F3A00C13191 /* UXKBridgeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeController.h; sourceTree = "<group>"; };
 		63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeController.m; sourceTree = "<group>"; };
@@ -109,8 +90,6 @@
 		63AE072E1D97BF3B000E0A20 /* UXKBridgeValueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeValueManager.h; sourceTree = "<group>"; };
 		63AE072F1D97BF3B000E0A20 /* UXKBridgeValueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeValueManager.m; sourceTree = "<group>"; };
 		63AE07311D97BFB5000E0A20 /* UXKValue.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKValue.js; sourceTree = "<group>"; };
-		63CF27271DA1D6EA0048EF6F /* UXKSCROLLVIEW.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSCROLLVIEW.html; sourceTree = "<group>"; };
-		63CF27281DA1D6EA0048EF6F /* UXKSCROLLVIEW.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSCROLLVIEW.js; sourceTree = "<group>"; };
 		63DEA7551D996F61007265EA /* UIViewController+UXKBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+UXKBridge.h"; sourceTree = "<group>"; };
 		63DEA7561D996F61007265EA /* UIViewController+UXKBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+UXKBridge.m"; sourceTree = "<group>"; };
 		63E017AE1D963CD900389045 /* UXKTouch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKTouch.js; sourceTree = "<group>"; };
@@ -122,22 +101,9 @@
 		63E017B71D97984F00389045 /* UXKLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKLabel.m; sourceTree = "<group>"; };
 		9063A3741D9E2C18002E9AB8 /* UXKNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKNav.h; sourceTree = "<group>"; };
 		9063A3751D9E2C18002E9AB8 /* UXKNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKNav.m; sourceTree = "<group>"; };
-		90BD6CE51DBA1D0900259570 /* UXKSWITCH.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSWITCH.html; sourceTree = "<group>"; };
-		90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSWITCH.js; sourceTree = "<group>"; };
-		90BD6D291DC059C500259570 /* UXKPROGRESSVIEW.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKPROGRESSVIEW.html; sourceTree = "<group>"; };
-		90BD6D2A1DC059C500259570 /* UXKPROGRESSVIEW.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKPROGRESSVIEW.js; sourceTree = "<group>"; };
-		90BD6D2E1DC0611B00259570 /* UXKSEGMENTEDCONTROL.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSEGMENTEDCONTROL.html; sourceTree = "<group>"; };
-		90BD6D2F1DC0611B00259570 /* UXKSEGMENTEDCONTROL.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSEGMENTEDCONTROL.js; sourceTree = "<group>"; };
 		90BD6D501DC091D600259570 /* UXKModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKModal.h; sourceTree = "<group>"; };
 		90BD6D511DC091D600259570 /* UXKModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKModal.m; sourceTree = "<group>"; };
-		90BD6D541DC0A09500259570 /* UXKACTIONSHEET.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKACTIONSHEET.html; sourceTree = "<group>"; };
-		90BD6D551DC0A09500259570 /* UXKACTIONSHEET.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKACTIONSHEET.js; sourceTree = "<group>"; };
-		90BD6D591DC0BDE200259570 /* UXKPIXELLINE.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKPIXELLINE.html; sourceTree = "<group>"; };
-		90BD6D5A1DC0BDE200259570 /* UXKPIXELLINE.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKPIXELLINE.js; sourceTree = "<group>"; };
-		F0F3DCDA1DBB623100D04B12 /* UXKSLIDER.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSLIDER.html; sourceTree = "<group>"; };
-		F0F3DCDB1DBB623100D04B12 /* UXKSLIDER.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSLIDER.js; sourceTree = "<group>"; };
-		F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKBUTTON.html; sourceTree = "<group>"; };
-		F0F3DCE01DBC600200D04B12 /* UXKBUTTON.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKBUTTON.js; sourceTree = "<group>"; };
+		F0B5DA041DC0F96A005EBE91 /* UXKJSComponents.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UXKJSComponents.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,26 +231,10 @@
 		6396DB751D63598E001D9B6D /* components */ = {
 			isa = PBXGroup;
 			children = (
-				6396DB761D63598E001D9B6D /* js */,
+				F0B5DA041DC0F96A005EBE91 /* UXKJSComponents.bundle */,
 				6396DB771D63598E001D9B6D /* oc */,
 			);
 			path = components;
-			sourceTree = "<group>";
-		};
-		6396DB761D63598E001D9B6D /* js */ = {
-			isa = PBXGroup;
-			children = (
-				90BD6D581DC0BDE200259570 /* PixelLine */,
-				90BD6D531DC0A09500259570 /* ActionSheet */,
-				90BD6D2D1DC0611B00259570 /* SegmentedControl */,
-				90BD6D281DC059C500259570 /* ProgressView */,
-				F0F3DCDE1DBC600200D04B12 /* Button */,
-				F0F3DCD91DBB623100D04B12 /* Slider */,
-				90BD6CE01DBA1CDC00259570 /* Switch */,
-				63CF27221DA1D5540048EF6F /* ScrollView */,
-				6396DB8F1D69693E001D9B6D /* TEST */,
-			);
-			path = js;
 			sourceTree = "<group>";
 		};
 		6396DB771D63598E001D9B6D /* oc */ = {
@@ -312,69 +262,6 @@
 			path = oc;
 			sourceTree = "<group>";
 		};
-		6396DB8F1D69693E001D9B6D /* TEST */ = {
-			isa = PBXGroup;
-			children = (
-				6396DB901D69693E001D9B6D /* UXKTEST.html */,
-				6396DB911D69693E001D9B6D /* UXKTEST.js */,
-			);
-			path = TEST;
-			sourceTree = "<group>";
-		};
-		63CF27221DA1D5540048EF6F /* ScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				63CF27271DA1D6EA0048EF6F /* UXKSCROLLVIEW.html */,
-				63CF27281DA1D6EA0048EF6F /* UXKSCROLLVIEW.js */,
-			);
-			path = ScrollView;
-			sourceTree = "<group>";
-		};
-		90BD6CE01DBA1CDC00259570 /* Switch */ = {
-			isa = PBXGroup;
-			children = (
-				90BD6CE51DBA1D0900259570 /* UXKSWITCH.html */,
-				90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */,
-			);
-			path = Switch;
-			sourceTree = "<group>";
-		};
-		90BD6D281DC059C500259570 /* ProgressView */ = {
-			isa = PBXGroup;
-			children = (
-				90BD6D291DC059C500259570 /* UXKPROGRESSVIEW.html */,
-				90BD6D2A1DC059C500259570 /* UXKPROGRESSVIEW.js */,
-			);
-			path = ProgressView;
-			sourceTree = "<group>";
-		};
-		90BD6D2D1DC0611B00259570 /* SegmentedControl */ = {
-			isa = PBXGroup;
-			children = (
-				90BD6D2E1DC0611B00259570 /* UXKSEGMENTEDCONTROL.html */,
-				90BD6D2F1DC0611B00259570 /* UXKSEGMENTEDCONTROL.js */,
-			);
-			path = SegmentedControl;
-			sourceTree = "<group>";
-		};
-		90BD6D531DC0A09500259570 /* ActionSheet */ = {
-			isa = PBXGroup;
-			children = (
-				90BD6D541DC0A09500259570 /* UXKACTIONSHEET.html */,
-				90BD6D551DC0A09500259570 /* UXKACTIONSHEET.js */,
-			);
-			path = ActionSheet;
-			sourceTree = "<group>";
-		};
-		90BD6D581DC0BDE200259570 /* PixelLine */ = {
-			isa = PBXGroup;
-			children = (
-				90BD6D591DC0BDE200259570 /* UXKPIXELLINE.html */,
-				90BD6D5A1DC0BDE200259570 /* UXKPIXELLINE.js */,
-			);
-			path = PixelLine;
-			sourceTree = "<group>";
-		};
 		D2438D969DDB3FFA006B640B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,24 +269,6 @@
 				477B02DF9F211418DAFB426A /* Pods-uxkit.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		F0F3DCD91DBB623100D04B12 /* Slider */ = {
-			isa = PBXGroup;
-			children = (
-				F0F3DCDA1DBB623100D04B12 /* UXKSLIDER.html */,
-				F0F3DCDB1DBB623100D04B12 /* UXKSLIDER.js */,
-			);
-			path = Slider;
-			sourceTree = "<group>";
-		};
-		F0F3DCDE1DBC600200D04B12 /* Button */ = {
-			isa = PBXGroup;
-			children = (
-				F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */,
-				F0F3DCE01DBC600200D04B12 /* UXKBUTTON.js */,
-			);
-			path = Button;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -464,35 +333,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90BD6CE71DBA1D0900259570 /* UXKSWITCH.html in Resources */,
-				6396DB931D69693E001D9B6D /* UXKTEST.js in Resources */,
 				6396DB951D697598001D9B6D /* UXKComponents.js in Resources */,
-				90BD6CE81DBA1D0900259570 /* UXKSWITCH.js in Resources */,
-				F0F3DCDC1DBB623100D04B12 /* UXKSLIDER.html in Resources */,
 				6396DB8B1D64AF4E001D9B6D /* UXKAnimation.js in Resources */,
 				6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */,
 				63AE07321D97BFB5000E0A20 /* UXKValue.js in Resources */,
-				90BD6D301DC0611B00259570 /* UXKSEGMENTEDCONTROL.html in Resources */,
-				F0F3DCE11DBC600200D04B12 /* UXKBUTTON.html in Resources */,
-				90BD6D311DC0611B00259570 /* UXKSEGMENTEDCONTROL.js in Resources */,
-				90BD6D561DC0A09500259570 /* UXKACTIONSHEET.html in Resources */,
 				6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */,
-				90BD6D2B1DC059C500259570 /* UXKPROGRESSVIEW.html in Resources */,
-				63CF27291DA1D6EA0048EF6F /* UXKSCROLLVIEW.html in Resources */,
-				F0F3DCE21DBC600200D04B12 /* UXKBUTTON.js in Resources */,
-				F0F3DCDD1DBB623100D04B12 /* UXKSLIDER.js in Resources */,
 				634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */,
 				630AC5501D6F30E600314FA3 /* UXKjQuery.min.js in Resources */,
-				90BD6D571DC0A09500259570 /* UXKACTIONSHEET.js in Resources */,
 				6339AD2A1D9D644A0022B605 /* UXKRouter.js in Resources */,
-				6396DB921D69693E001D9B6D /* UXKTEST.html in Resources */,
+				F0B5DA051DC0F96A005EBE91 /* UXKJSComponents.bundle in Resources */,
 				634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */,
 				63E017AF1D963CD900389045 /* UXKTouch.js in Resources */,
-				90BD6D5B1DC0BDE200259570 /* UXKPIXELLINE.html in Resources */,
-				63CF272A1DA1D6EA0048EF6F /* UXKSCROLLVIEW.js in Resources */,
-				90BD6D2C1DC059C500259570 /* UXKPROGRESSVIEW.js in Resources */,
 				6396DB681D606DB2001D9B6D /* UXKDom.js in Resources */,
-				90BD6D5C1DC0BDE200259570 /* UXKPIXELLINE.js in Resources */,
 				634A88781D5F5FF70022AC22 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
