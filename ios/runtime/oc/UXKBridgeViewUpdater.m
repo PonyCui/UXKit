@@ -32,6 +32,7 @@ static NSDictionary *kUXKViewTypes;
                           @"LABEL": @"UXKLabel",
                           @"TEXTFIELD": @"UXKTextField",
                           @"NAV": @"UXKNav",
+                          @"MODAL": @"UXKModal",
                           };
     });
 }

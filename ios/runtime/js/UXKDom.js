@@ -1,6 +1,6 @@
 (function ($) {
     var domHelper = {
-        kVisualDOMNames: ["BODY", "NAV", "VIEW", "IMAGEVIEW", "LABEL", "TEXTFIELD"],
+        kVisualDOMNames: ["BODY", "NAV", "VIEW", "IMAGEVIEW", "LABEL", "TEXTFIELD", "MODAL"],
         guid: function () {
             function s4() {
                 return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -100,6 +100,7 @@
         },
     };
 
+    // Attach
     var _attachIMPs = {};
     $._attach = function(funcName, nodeName, IMP) {
         if (_attachIMPs[funcName] === undefined) {
@@ -118,6 +119,7 @@
         _attachIMPs[funcName][nodeName] = IMP;
     };
 
+    // Update
     $._attach('update', '*', function(updatePropsOnly){
         if (updatePropsOnly === true) {
             domHelper.commitTree(this.get(0), true);
@@ -129,12 +131,21 @@
         }
     });
 
+    // Layout
     window.UXK_LayoutCallbacks = {};
     $._attach('onLayout', '*', function(callback){
         var callbackID = domHelper.guid();
         window.UXK_LayoutCallbacks[callbackID] = callback;
         $(this).attr('_UXK_LayoutCallbackID', callbackID);
         $(this).update(true);
-    })
+    });
+
+    // Modal
+    $._attach('show', 'MODAL', function(){
+        $(this).value('show', function(){});
+    });
+    $._attach('hide', 'MODAL', function(){
+        $(this).value('hide', function(){});
+    });
 
 })(jQuery);
