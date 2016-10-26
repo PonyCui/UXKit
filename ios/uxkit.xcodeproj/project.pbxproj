@@ -48,6 +48,8 @@
 		90BD6CE81DBA1D0900259570 /* UXKSWITCH.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */; };
 		90BD6D2B1DC059C500259570 /* UXKPROGRESSVIEW.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D291DC059C500259570 /* UXKPROGRESSVIEW.html */; };
 		90BD6D2C1DC059C500259570 /* UXKPROGRESSVIEW.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D2A1DC059C500259570 /* UXKPROGRESSVIEW.js */; };
+		90BD6D301DC0611B00259570 /* UXKSEGMENTEDCONTROL.html in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D2E1DC0611B00259570 /* UXKSEGMENTEDCONTROL.html */; };
+		90BD6D311DC0611B00259570 /* UXKSEGMENTEDCONTROL.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D2F1DC0611B00259570 /* UXKSEGMENTEDCONTROL.js */; };
 		F0F3DCDC1DBB623100D04B12 /* UXKSLIDER.html in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDA1DBB623100D04B12 /* UXKSLIDER.html */; };
 		F0F3DCDD1DBB623100D04B12 /* UXKSLIDER.js in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDB1DBB623100D04B12 /* UXKSLIDER.js */; };
 		F0F3DCE11DBC600200D04B12 /* UXKBUTTON.html in Resources */ = {isa = PBXBuildFile; fileRef = F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */; };
@@ -119,6 +121,8 @@
 		90BD6CE61DBA1D0900259570 /* UXKSWITCH.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSWITCH.js; sourceTree = "<group>"; };
 		90BD6D291DC059C500259570 /* UXKPROGRESSVIEW.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKPROGRESSVIEW.html; sourceTree = "<group>"; };
 		90BD6D2A1DC059C500259570 /* UXKPROGRESSVIEW.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKPROGRESSVIEW.js; sourceTree = "<group>"; };
+		90BD6D2E1DC0611B00259570 /* UXKSEGMENTEDCONTROL.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSEGMENTEDCONTROL.html; sourceTree = "<group>"; };
+		90BD6D2F1DC0611B00259570 /* UXKSEGMENTEDCONTROL.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSEGMENTEDCONTROL.js; sourceTree = "<group>"; };
 		F0F3DCDA1DBB623100D04B12 /* UXKSLIDER.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKSLIDER.html; sourceTree = "<group>"; };
 		F0F3DCDB1DBB623100D04B12 /* UXKSLIDER.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKSLIDER.js; sourceTree = "<group>"; };
 		F0F3DCDF1DBC600200D04B12 /* UXKBUTTON.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = UXKBUTTON.html; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 		6396DB761D63598E001D9B6D /* js */ = {
 			isa = PBXGroup;
 			children = (
+				90BD6D2D1DC0611B00259570 /* SegmentedControl */,
 				90BD6D281DC059C500259570 /* ProgressView */,
 				F0F3DCDE1DBC600200D04B12 /* Button */,
 				F0F3DCD91DBB623100D04B12 /* Slider */,
@@ -326,6 +331,15 @@
 				90BD6D2A1DC059C500259570 /* UXKPROGRESSVIEW.js */,
 			);
 			path = ProgressView;
+			sourceTree = "<group>";
+		};
+		90BD6D2D1DC0611B00259570 /* SegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				90BD6D2E1DC0611B00259570 /* UXKSEGMENTEDCONTROL.html */,
+				90BD6D2F1DC0611B00259570 /* UXKSEGMENTEDCONTROL.js */,
+			);
+			path = SegmentedControl;
 			sourceTree = "<group>";
 		};
 		D2438D969DDB3FFA006B640B /* Pods */ = {
@@ -425,7 +439,9 @@
 				6396DB8B1D64AF4E001D9B6D /* UXKAnimation.js in Resources */,
 				6396DB711D60A0BF001D9B6D /* UXKTasks.js in Resources */,
 				63AE07321D97BFB5000E0A20 /* UXKValue.js in Resources */,
+				90BD6D301DC0611B00259570 /* UXKSEGMENTEDCONTROL.html in Resources */,
 				F0F3DCE11DBC600200D04B12 /* UXKBUTTON.html in Resources */,
+				90BD6D311DC0611B00259570 /* UXKSEGMENTEDCONTROL.js in Resources */,
 				6396DB6B1D606E59001D9B6D /* RedBox.html in Resources */,
 				90BD6D2B1DC059C500259570 /* UXKPROGRESSVIEW.html in Resources */,
 				63CF27291DA1D6EA0048EF6F /* UXKSCROLLVIEW.html in Resources */,

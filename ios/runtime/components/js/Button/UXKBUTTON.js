@@ -84,6 +84,8 @@ window._UXK_Components.BUTTON = {
             imageInset: imageInset,
             titleInset: titleInset,
             align: $(dom).attr('align') || "center,center",
+            selected: $(dom).attr('selected') === "true" || $(dom).attr('selected') === "selected",
+            disabled: $(dom).attr('disabled') === "true",
         }
     },
     setProps: function (dom, props) {
@@ -103,6 +105,12 @@ window._UXK_Components.BUTTON = {
             case window._UXK_Components.BUTTON.Enum.Status.Disabled:
                 statusKey = 'disabled';
                 break;
+        }
+        if (buttonProps.selected === true) {
+            statusKey = "selected";
+        }
+        else if (buttonProps.disabled === true) {
+            statusKey = "disabled";
         }
         // set props.
         var width = dom.frame != undefined ? dom.frame.width : 0.0;
