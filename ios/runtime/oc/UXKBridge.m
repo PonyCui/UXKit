@@ -9,6 +9,9 @@
 #import <WebKit/WebKit.h>
 #import "UXKBridge.h"
 #import "UXKBridgeController.h"
+#import "UXKView.h"
+
+static NSDictionary *kUXKViewTypes;
 
 @interface UXKBridge ()<WKNavigationDelegate>
 
@@ -21,6 +24,25 @@
 @implementation UXKBridge
 
 static BOOL debugMode;
+
++ (void)addClass:(Class)clz nodeName:(NSString *)nodeName {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        kUXKViewTypes = @{};
+    });
+    NSMutableDictionary *objs = [kUXKViewTypes mutableCopy];
+    if ([clz isSubclassOfClass:[UXKView class]]) {
+        [objs setObject:NSStringFromClass(clz) forKey:[nodeName uppercaseString]];
+    }
+    kUXKViewTypes = [objs copy];
+}
+
++ (Class)classWithNodeName:(NSString *)nodeName {
+    if (kUXKViewTypes[[nodeName uppercaseString]] != nil) {
+        return NSClassFromString(kUXKViewTypes[[nodeName uppercaseString]]);
+    }
+    return NULL;
+}
 
 + (void)setDebugMode:(BOOL)isOn {
     debugMode = isOn;

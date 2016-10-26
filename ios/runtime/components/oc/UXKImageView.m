@@ -7,6 +7,7 @@
 //
 
 #import "UXKImageView.h"
+#import "UXKBridge.h"
 #import "UXKProps.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -23,6 +24,10 @@
 @end
 
 @implementation UXKImageView
+
++ (void)load {
+    [UXKBridge addClass:[self class] nodeName:@"ImageView"];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

@@ -8,6 +8,7 @@
 
 #import "UXKTextField.h"
 #import "UXKProps.h"
+#import "UXKBridge.h"
 
 @interface UXKTextField ()<UITextFieldDelegate, UITextInputDelegate>
 
@@ -20,6 +21,10 @@
 @end
 
 @implementation UXKTextField
+
++ (void)load {
+    [UXKBridge addClass:[self class] nodeName:@"TextField"];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

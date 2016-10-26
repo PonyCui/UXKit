@@ -8,6 +8,7 @@
 
 #import "UXKLabel.h"
 #import "UXKProps.h"
+#import "UXKBridge.h"
 
 @interface UXKLabel ()
 
@@ -16,6 +17,10 @@
 @end
 
 @implementation UXKLabel
+
++ (void)load {
+    [UXKBridge addClass:[self class] nodeName:@"Label"];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

@@ -9,9 +9,8 @@
 #import "UXKBridgeViewUpdater.h"
 #import "UXKView.h"
 #import "UXKBridgeController.h"
+#import "UXKBridge.h"
 #import "UIViewController+UXKBridge.h"
-
-static NSDictionary *kUXKViewTypes;
 
 @interface UXKBridgeViewUpdater()
 
@@ -22,26 +21,6 @@ static NSDictionary *kUXKViewTypes;
 @end
 
 @implementation UXKBridgeViewUpdater
-
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        kUXKViewTypes = @{
-                          @"VIEW": @"UXKView",
-                          @"IMAGEVIEW": @"UXKImageView",
-                          @"LABEL": @"UXKLabel",
-                          @"TEXTFIELD": @"UXKTextField",
-                          @"NAV": @"UXKNav",
-                          @"MODAL": @"UXKModal",
-                          };
-    });
-}
-
-+ (void)createTagWithName:(NSString *)tagName viewClass:(Class)viewClass {
-    NSMutableDictionary *dict = [kUXKViewTypes mutableCopy];
-    [dict setObject:NSStringFromClass(viewClass) forKey:tagName];
-    kUXKViewTypes = [dict copy];
-}
 
 + (NSString *)bridgeScript {
     return [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UXKDom" ofType:@"js"]
@@ -128,8 +107,8 @@ static NSDictionary *kUXKViewTypes;
     else if (self.mirrorViews[visualKey] != nil) {
         currentView = self.mirrorViews[visualKey];
     }
-    else if (kUXKViewTypes[nodeName] != nil) {
-        currentView = [NSClassFromString(kUXKViewTypes[nodeName]) new];
+    else if ([UXKBridge classWithNodeName:nodeName] != NULL) {
+        currentView = [[UXKBridge classWithNodeName:nodeName] new];
         if (visualKey != nil && [visualKey isKindOfClass:[NSString class]]) {
             [self.mirrorViews setObject:currentView forKey:visualKey];
         }

@@ -7,6 +7,7 @@
 //
 
 #import "UXKNav.h"
+#import "UXKBridge.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface UXKNav ()
@@ -18,6 +19,10 @@
 @end
 
 @implementation UXKNav
+
++ (void)load {
+    [UXKBridge addClass:[self class] nodeName:@"Nav"];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

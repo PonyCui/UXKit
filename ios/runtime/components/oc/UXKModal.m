@@ -7,6 +7,7 @@
 //
 
 #import "UXKModal.h"
+#import "UXKBridge.h"
 
 static UIWindow *modalWindow;
 
@@ -15,6 +16,10 @@ static UIWindow *modalWindow;
 @end
 
 @implementation UXKModal
+
++ (void)load {
+    [UXKBridge addClass:[self class] nodeName:@"Modal"];
+}
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {
     [self createModalWindow];

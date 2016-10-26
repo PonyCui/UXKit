@@ -19,8 +19,6 @@
 
 + (NSString *)bridgeScript;
 
-+ (void)createTagWithName:(NSString *)tagName viewClass:(Class)viewClass;
-
 - (instancetype)initWithView:(UIView *)view;
 
 - (void)updateView:(UXKView *)view aKey:(NSString *)aKey aValue:(NSString *)aValue;

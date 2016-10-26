@@ -7,6 +7,7 @@
 //
 
 #import "UXKView.h"
+#import "UXKBridge.h"
 #import "UXKProps.h"
 #import "UXKBridgeController.h"
 #import "UXKBridgeAnimationHandler.h"
@@ -19,6 +20,10 @@
 @end
 
 @implementation UXKView
+
++ (void)load {
+    [UXKBridge addClass:[self class] nodeName:@"View"];
+}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
