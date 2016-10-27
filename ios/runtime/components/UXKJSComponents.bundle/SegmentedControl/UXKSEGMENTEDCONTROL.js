@@ -83,6 +83,6 @@ window._UXK_Components.SEGMENTEDCONTROL = {
     },
 }
 
-$._attach('onChange', 'SEGMENTEDCONTROL', function (callback) {
+$.createIMP('onChange', 'SEGMENTEDCONTROL', function (callback) {
     $(this).get(0)._onchange = callback;
 })

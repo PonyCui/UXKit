@@ -53,6 +53,11 @@
                                                                                           error:nil]
                                                injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                             forMainFrameOnly:YES]];
+    [self addUserScript:[[WKUserScript alloc] initWithSource:[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UXKProps" ofType:@"js"]
+                                                                                       encoding:NSUTF8StringEncoding
+                                                                                          error:nil]
+                                               injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                            forMainFrameOnly:YES]];
 }
 
 - (void)configureRouter {

@@ -105,12 +105,4 @@ window._UXK_Animation = {
             callbackID: callbackID,
         }));
     };
-    $.fn.fadeIn = function () {
-        $(this).attr('alpha', '1');
-        $(this).animate();
-    };
-    $.fn.fadeOut = function () {
-        $(this).attr('alpha', '0');
-        $(this).animate();
-    };
 })(jQuery)

@@ -47,7 +47,7 @@ window._UXK_Components.ACTIONSHEET = {
     },
 };
 
-$._attach('show', 'ACTIONSHEET', function () {
+$.createIMP('show', 'ACTIONSHEET', function () {
     var dom = $(this).get(0);
     var actionSheetProps = window._UXK_Components.ACTIONSHEET.props($(this).get(0));
     $(dom).find('modal').show(function () {
@@ -66,7 +66,7 @@ $._attach('show', 'ACTIONSHEET', function () {
     });
 });
 
-$._attach('hide', 'ACTIONSHEET', function () {
+$.createIMP('hide', 'ACTIONSHEET', function () {
     var dom = $(this).get(0);
     var actionSheetProps = window._UXK_Components.ACTIONSHEET.props($(this).get(0));
     $(dom).find('modal').find("[vKey='maskView']").fadeOut();
@@ -81,10 +81,10 @@ $._attach('hide', 'ACTIONSHEET', function () {
     });
 });
 
-$._attach('onSelect', 'ACTIONSHEET', function (callback) {
+$.createIMP('onSelect', 'ACTIONSHEET', function (callback) {
     $(this).get(0)._onselect = callback;
 })
 
-$._attach('onCancel', 'ACTIONSHEET', function (callback) {
+$.createIMP('onCancel', 'ACTIONSHEET', function (callback) {
     $(this).get(0)._oncancel = callback;
 })

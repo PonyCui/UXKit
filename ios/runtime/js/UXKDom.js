@@ -107,27 +107,8 @@
         },
     };
 
-    // Attach
-    var _attachIMPs = {};
-    $._attach = function(funcName, nodeName, IMP) {
-        if (_attachIMPs[funcName] === undefined) {
-            _attachIMPs[funcName] = {};
-            $.fn[funcName] = function(arg0, arg1, arg2, arg3) {
-                if (this.get(0) !== undefined) {
-                    if (_attachIMPs[funcName][this.get(0).nodeName] !== undefined) {
-                        _attachIMPs[funcName][this.get(0).nodeName].call(this, arg0, arg1, arg2, arg3);
-                    }
-                    else if (_attachIMPs[funcName]['*'] !== undefined) {
-                        _attachIMPs[funcName]['*'].call(this, arg0, arg1, arg2, arg3);
-                    }
-                }
-            }
-        }
-        _attachIMPs[funcName][nodeName] = IMP;
-    };
-
     // Update
-    $._attach('update', '*', function(updatePropsOnly_Callback, callback){
+    $.createIMP('update', '*', function(updatePropsOnly_Callback, callback){
         if (typeof updatePropsOnly_Callback === "function") {
             callback = updatePropsOnly_Callback;
             updatePropsOnly_Callback = false;
@@ -144,7 +125,7 @@
 
     // Layout
     window.UXK_LayoutCallbacks = {};
-    $._attach('onLayout', '*', function(callback){
+    $.createIMP('onLayout', '*', function(callback){
         var callbackID = domHelper.guid();
         window.UXK_LayoutCallbacks[callbackID] = callback;
         $(this).attr('_UXK_LayoutCallbackID', callbackID);
@@ -152,10 +133,10 @@
     });
 
     // Modal
-    $._attach('show', 'MODAL', function(callback){
+    $.createIMP('show', 'MODAL', function(callback){
         $(this).value('show', callback);
     });
-    $._attach('hide', 'MODAL', function(callback){
+    $.createIMP('hide', 'MODAL', function(callback){
         $(this).value('hide', callback);
     });
 

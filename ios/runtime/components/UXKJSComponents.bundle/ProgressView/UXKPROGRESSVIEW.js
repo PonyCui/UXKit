@@ -31,7 +31,7 @@ window._UXK_Components.PROGRESSVIEW = {
     },
 }
 
-$._attach('setProgress', 'PROGRESSVIEW', function (progress, animated) {
+$.createIMP('setProgress', 'PROGRESSVIEW', function (progress, animated) {
     if (animated === undefined) {
         animated = true;
     }

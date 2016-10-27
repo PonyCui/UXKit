@@ -59,7 +59,7 @@ window._UXK_Components.SLIDER = {
     },
 }
 
-$._attach('setProgress', 'SLIDER', function (progress, animated) {
+$.createIMP('setProgress', 'SLIDER', function (progress, animated) {
     if (animated === undefined) {
         animated = true;
     }
@@ -72,6 +72,6 @@ $._attach('setProgress', 'SLIDER', function (progress, animated) {
     }
 })
 
-$._attach('onChange', 'SLIDER', function (callback) {
+$.createIMP('onChange', 'SLIDER', function (callback) {
     $(this).get(0)._onchange = callback;
 })

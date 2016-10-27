@@ -28,7 +28,7 @@ window._UXK_Components.SWITCH = {
     },
 }
 
-$._attach('setOn', 'SWITCH', function(on, animated){
+$.createIMP('setOn', 'SWITCH', function(on, animated){
     if (animated === undefined) {
         animated = true;
     }
@@ -41,6 +41,6 @@ $._attach('setOn', 'SWITCH', function(on, animated){
     }
 })
 
-$._attach('onChange', 'SWITCH', function(callback){
+$.createIMP('onChange', 'SWITCH', function(callback){
     $(this).get(0)._onchange = callback; 
 })

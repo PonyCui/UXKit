@@ -262,31 +262,31 @@ window._UXK_Components.BUTTON = {
     },
 }
 
-$._attach('onTouchDown', 'BUTTON', function (callback) {
+$.createIMP('onTouchDown', 'BUTTON', function (callback) {
     $(this).get(0)._ontouchdown = callback;
 })
 
-$._attach('onDragInside', 'BUTTON', function (callback) {
+$.createIMP('onDragInside', 'BUTTON', function (callback) {
     $(this).get(0)._ondraginside = callback;
 })
 
-$._attach('onDragOutside', 'BUTTON', function (callback) {
+$.createIMP('onDragOutside', 'BUTTON', function (callback) {
     $(this).get(0)._ondragoutside = callback;
 })
 
-$._attach('onDragEnter', 'BUTTON', function (callback) {
+$.createIMP('onDragEnter', 'BUTTON', function (callback) {
     $(this).get(0)._ondragenter = callback;
 })
 
-$._attach('onDragExit', 'BUTTON', function (callback) {
+$.createIMP('onDragExit', 'BUTTON', function (callback) {
     $(this).get(0)._ondragexit = callback;
 })
 
-$._attach('onTouchUpInside', 'BUTTON', function (callback) {
+$.createIMP('onTouchUpInside', 'BUTTON', function (callback) {
     $(this).get(0)._ontouchupinside = callback;
 })
 
-$._attach('onTouchUpOutside', 'BUTTON', function (callback) {
+$.createIMP('onTouchUpOutside', 'BUTTON', function (callback) {
     $(this).get(0)._ontouchupoutside = callback;
 })
 

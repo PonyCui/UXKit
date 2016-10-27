@@ -41,6 +41,7 @@
 		63E017B81D97984F00389045 /* UXKLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E017B71D97984F00389045 /* UXKLabel.m */; };
 		9063A3761D9E2C18002E9AB8 /* UXKNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 9063A3751D9E2C18002E9AB8 /* UXKNav.m */; };
 		90BD6D521DC091D600259570 /* UXKModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD6D511DC091D600259570 /* UXKModal.m */; };
+		90BD6D9F1DC1F70C00259570 /* UXKProps.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D9E1DC1F70C00259570 /* UXKProps.js */; };
 		F0B5DA051DC0F96A005EBE91 /* UXKJSComponents.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F0B5DA041DC0F96A005EBE91 /* UXKJSComponents.bundle */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,7 @@
 		9063A3751D9E2C18002E9AB8 /* UXKNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKNav.m; sourceTree = "<group>"; };
 		90BD6D501DC091D600259570 /* UXKModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKModal.h; sourceTree = "<group>"; };
 		90BD6D511DC091D600259570 /* UXKModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKModal.m; sourceTree = "<group>"; };
+		90BD6D9E1DC1F70C00259570 /* UXKProps.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKProps.js; sourceTree = "<group>"; };
 		F0B5DA041DC0F96A005EBE91 /* UXKJSComponents.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UXKJSComponents.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,6 +185,7 @@
 		634A88851D5F60550022AC22 /* js */ = {
 			isa = PBXGroup;
 			children = (
+				90BD6D9E1DC1F70C00259570 /* UXKProps.js */,
 				630AC54F1D6F30E600314FA3 /* UXKjQuery.min.js */,
 				6396DB941D697598001D9B6D /* UXKComponents.js */,
 				6396DB701D60A0BF001D9B6D /* UXKTasks.js */,
@@ -341,6 +344,7 @@
 				634A887D1D5F5FF70022AC22 /* LaunchScreen.storyboard in Resources */,
 				630AC5501D6F30E600314FA3 /* UXKjQuery.min.js in Resources */,
 				6339AD2A1D9D644A0022B605 /* UXKRouter.js in Resources */,
+				90BD6D9F1DC1F70C00259570 /* UXKProps.js in Resources */,
 				F0B5DA051DC0F96A005EBE91 /* UXKJSComponents.bundle in Resources */,
 				634A887A1D5F5FF70022AC22 /* Assets.xcassets in Resources */,
 				63E017AF1D963CD900389045 /* UXKTouch.js in Resources */,

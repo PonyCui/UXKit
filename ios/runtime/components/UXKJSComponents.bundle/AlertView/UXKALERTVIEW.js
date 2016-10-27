@@ -75,7 +75,7 @@ window._UXK_Components.ALERTVIEW = {
     },
 };
 
-$._attach('show', 'ALERTVIEW', function () {
+$.createIMP('show', 'ALERTVIEW', function () {
     var dom = $(this).get(0);
     var alertViewProps = window._UXK_Components.ALERTVIEW.props(dom);
     $(dom).find('modal').show(function () {
@@ -99,7 +99,7 @@ $._attach('show', 'ALERTVIEW', function () {
     });
 });
 
-$._attach('hide', 'ALERTVIEW', function () {
+$.createIMP('hide', 'ALERTVIEW', function () {
     var dom = $(this).get(0);
     $(dom).find('modal').fadeOut();
     setTimeout(function () {
