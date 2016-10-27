@@ -51,6 +51,82 @@ $.createIMP('frame', '*', function (value) {
     }
 });
 
+$.createIMP('x', '*', function(value) {
+    if (typeof value === "string") {
+        var frame = this.frame();
+        frame.x = parseFloat(value);
+        return this.frame(frame);
+    }
+    else if (typeof value === "number") {
+        var frame = this.frame();
+        frame.x = value;
+        return this.frame(frame);
+    }
+    else {
+        var frame = this.frame();
+        if (typeof frame === "object") {
+            return frame.x;
+        }
+    }
+});
+
+$.createIMP('y', '*', function(value) {
+    if (typeof value === "string") {
+        var frame = this.frame();
+        frame.y = parseFloat(value);
+        return this.frame(frame);
+    }
+    else if (typeof value === "number") {
+        var frame = this.frame();
+        frame.y = value;
+        return this.frame(frame);
+    }
+    else {
+        var frame = this.frame();
+        if (typeof frame === "object") {
+            return frame.y;
+        }
+    }
+});
+
+$.createIMP('width', '*', function(value) {
+    if (typeof value === "string") {
+        var frame = this.frame();
+        frame.width = parseFloat(value);
+        return this.frame(frame);
+    }
+    else if (typeof value === "number") {
+        var frame = this.frame();
+        frame.width = value;
+        return this.frame(frame);
+    }
+    else {
+        var frame = this.frame();
+        if (typeof frame === "object") {
+            return frame.width;
+        }
+    }
+});
+
+$.createIMP('height', '*', function(value) {
+    if (typeof value === "string") {
+        var frame = this.frame();
+        frame.height = parseFloat(value);
+        return this.frame(frame);
+    }
+    else if (typeof value === "number") {
+        var frame = this.frame();
+        frame.height = value;
+        return this.frame(frame);
+    }
+    else {
+        var frame = this.frame();
+        if (typeof frame === "object") {
+            return frame.height;
+        }
+    }
+});
+
 // Opacity
 
 $.createIMP('alpha', '*', function (value) {
@@ -70,6 +146,14 @@ $.createIMP('alpha', '*', function (value) {
             return parseFloat(this.attr('alpha'));
         }
     }
+});
+
+$.createIMP('hide', '*', function (speed, callback) {
+    return this.fadeOut(speed, callback);
+});
+
+$.createIMP('show', '*', function (speed, callback) {
+    return this.fadeIn(speed, callback);
 });
 
 $.createIMP('fadeIn', '*', function (speed, callback) {
