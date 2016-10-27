@@ -11,6 +11,7 @@
 
 @interface UXKProps : NSObject
 
++ (CGAffineTransform)toTransform:(NSString *)stringValue;
 + (BOOL)toBool:(NSString *)stringValue;
 + (CGFloat)toCGFloat:(NSString *)stringValue;
 + (CGPoint)toCGPoint:(NSString *)stringValue;
@@ -23,5 +24,6 @@
 + (UIReturnKeyType)toReturnKeyType:(NSString *)stringValue;
 + (UITextFieldViewMode)toTextFieldViewMode:(NSString *)stringValue;
 + (UIKeyboardType)toKeyboardType:(NSString *)stringValue;
++ (NSTextAlignment)toTextAlignment:(NSString *)stringValue;
 
 @end

@@ -165,7 +165,10 @@
 }
 
 - (NSValue *)fromValueWithProps:(NSString *)props view:(UIView *)view {
-    if ([props isEqualToString:kPOPViewFrame]) {
+    if ([props isEqualToString:kPOPViewScaleXY]) {
+        return [NSValue valueWithCGSize:CGSizeMake(view.transform.a, view.transform.d)];
+    }
+    else if ([props isEqualToString:kPOPViewFrame]) {
         return [NSValue valueWithCGRect:view.frame];
     }
     return nil;

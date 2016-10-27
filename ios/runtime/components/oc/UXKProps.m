@@ -10,6 +10,56 @@
 
 @implementation UXKProps
 
++ (CGAffineTransform)toTransform:(NSString *)stringValue {
+    static NSRegularExpression *expression;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        expression = [NSRegularExpression regularExpressionWithPattern:@"([a-z]+)\\((.*?)\\)" options:kNilOptions error:nil];
+    });
+    __block CGAffineTransform transform = CGAffineTransformIdentity;
+    [[stringValue componentsSeparatedByString:@";"] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSTextCheckingResult *result = [expression firstMatchInString:obj
+                                                              options:NSMatchingReportCompletion
+                                                                range:NSMakeRange(0, obj.length)];
+        if ([result numberOfRanges] == 3) {
+            NSString *transformType = [obj substringWithRange:[result rangeAtIndex:1]];
+            NSString *transformValues = [obj substringWithRange:[result rangeAtIndex:2]];
+            if ([transformType isEqualToString:@"scale"]) {
+                NSArray *values = [transformValues componentsSeparatedByString:@","];
+                if (values.count == 2) {
+                    transform = CGAffineTransformConcat(transform, CGAffineTransformMakeScale([self toCGFloat:values[0]],
+                                                                                              [self toCGFloat:values[1]]));
+                }
+            }
+            else if ([transformType isEqualToString:@"rotate"]) {
+                NSArray *values = [transformValues componentsSeparatedByString:@","];
+                if (values.count == 1) {
+                    transform = CGAffineTransformConcat(transform, CGAffineTransformMakeRotation([self toCGFloat:values[0]]));
+                }
+            }
+            else if ([transformType isEqualToString:@"translate"]) {
+                NSArray *values = [transformValues componentsSeparatedByString:@","];
+                if (values.count == 2) {
+                    transform = CGAffineTransformConcat(transform, CGAffineTransformMakeTranslation([self toCGFloat:values[0]],
+                                                                                                    [self toCGFloat:values[1]]));
+                }
+            }
+            else if ([transformType isEqualToString:@"matrix"]) {
+                NSArray *values = [transformValues componentsSeparatedByString:@","];
+                if (values.count == 6) {
+                    transform = CGAffineTransformConcat(transform, CGAffineTransformMake([self toCGFloat:values[0]],
+                                                                                         [self toCGFloat:values[1]],
+                                                                                         [self toCGFloat:values[2]],
+                                                                                         [self toCGFloat:values[3]],
+                                                                                         [self toCGFloat:values[4]],
+                                                                                         [self toCGFloat:values[5]]));
+                }
+            }
+        }
+    }];
+    return transform;
+}
+
 + (BOOL)toBool:(NSString *)stringValue {
     if ([stringValue isEqualToString:@"true"]) {
         return YES;
@@ -72,10 +122,13 @@
     if ([components count] == 2) {
         NSString *hString = components[0];
         NSString *vString = components[1];
-        NSRange widthRange = [hString rangeOfString:@"[0-9]+" options:NSRegularExpressionSearch];
-        NSRange heightRange = [vString rangeOfString:@"[0-9]+" options:NSRegularExpressionSearch];
-        return CGSizeMake(widthRange.location != NSNotFound ? [[hString substringWithRange:widthRange] floatValue] : CGFLOAT_MAX,
-                          heightRange.location != NSNotFound ? [[vString substringWithRange:heightRange] floatValue] : CGFLOAT_MAX);
+        NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:@"\\[([0-9\\.]+)\\]"
+                                                                                    options:kNilOptions
+                                                                                      error:nil];
+        NSTextCheckingResult *widthResult = [expression firstMatchInString:hString options:NSMatchingReportCompletion range:NSMakeRange(0, hString.length)];
+        NSTextCheckingResult *heightResult = [expression firstMatchInString:vString options:NSMatchingReportCompletion range:NSMakeRange(0, vString.length)];
+        return CGSizeMake(1 < widthResult.numberOfRanges ? [[hString substringWithRange:[widthResult rangeAtIndex:1]] floatValue] : CGFLOAT_MAX,
+                          1 < heightResult.numberOfRanges ? [[vString substringWithRange:[heightResult rangeAtIndex:1]] floatValue] : CGFLOAT_MAX);
     }
     else if ([components count] == 4) {
         return CGSizeMake([components[2] isEqualToString:@"*"] ? CGFLOAT_MAX : [components[2] floatValue],
@@ -216,6 +269,18 @@
         return UIKeyboardTypeURL;
     }
     return UIKeyboardTypeDefault;
+}
+
++ (NSTextAlignment)toTextAlignment:(NSString *)stringValue {
+    if ([stringValue isEqualToString:@"center"]) {
+        return NSTextAlignmentCenter;
+    }
+    else if ([stringValue isEqualToString:@"right"]) {
+        return NSTextAlignmentRight;
+    }
+    else {
+        return NSTextAlignmentLeft;
+    }
 }
 
 @end

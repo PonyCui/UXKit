@@ -133,6 +133,7 @@
 }
 
 - (void)setProps:(NSDictionary *)props updatePropsOnly:(BOOL)updatePropsOnly {
+    self.props = props;
     NSArray *excepts = nil;
     if (updatePropsOnly) {
         if (self.superview != nil) {
@@ -163,7 +164,13 @@
         else {
             if ([props[@"frame"] rangeOfString:@"*"].location != NSNotFound) {
                 CGRect newRect = [UXKProps toRectWithRect:props[@"frame"]];
-                newRect.size = [self intrinsicContentSizeWithProps:props];
+                CGSize intrinsicSize = [self intrinsicContentSizeWithProps:props];
+                if (newRect.size.width == 0.0) {
+                    newRect.size.width = intrinsicSize.width;
+                }
+                if (newRect.size.height == 0.0) {
+                    newRect.size.height = intrinsicSize.height;
+                }
                 [self layoutUXKViews:self.animationHandler
                              newRect:[NSValue valueWithCGRect:newRect]
                              excepts:excepts];
@@ -173,6 +180,21 @@
                 [self layoutUXKViews:self.animationHandler
                              newRect:[NSValue valueWithCGRect:[UXKProps toRectWithRect:props[@"frame"]]]
                               excepts:excepts];
+            }
+        }
+    }
+    if (props[@"transform"] && [props[@"transform"] isKindOfClass:[NSString class]]) {
+        CGAffineTransform transform = [UXKProps toTransform:props[@"transform"]];
+        if (!CGAffineTransformEqualToTransform(transform, self.transform)) {
+            if (transform.b == 0.0 && transform.c == 0.0 && transform.tx == 0.0 && transform.ty == 0.0) {
+                if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
+                                                                                           props:kPOPViewScaleXY
+                                                                                        newValue:[NSValue valueWithCGSize:CGSizeMake(transform.a, transform.d)]]) {
+                    self.transform = transform;
+                }
+            }
+            else {
+                self.transform = transform;
             }
         }
     }

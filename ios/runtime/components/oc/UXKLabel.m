@@ -13,6 +13,7 @@
 @interface UXKLabel ()
 
 @property (nonatomic, strong) UILabel *label;
+@property (nonatomic, assign) CGFloat lineHeight;
 
 @end
 
@@ -45,20 +46,47 @@
     if ([props[@"font"] isKindOfClass:[NSString class]]) {
         self.label.font = [UXKProps toFont:props[@"font"]];
     }
-    if ([props[@"text"] isKindOfClass:[NSString class]]) {
-        self.label.text = props[@"text"];
-    }
     if ([props[@"lines"] isKindOfClass:[NSString class]]) {
         self.label.numberOfLines = [props[@"lines"] integerValue];
+    }
+    if ([props[@"align"] isKindOfClass:[NSString class]]) {
+        self.label.textAlignment = [UXKProps toTextAlignment:props[@"align"]];
+    }
+    if ([props[@"lineheight"] isKindOfClass:[NSString class]]) {
+        self.lineHeight = [UXKProps toCGFloat:props[@"lineheight"]];
+    }
+    if ([props[@"text"] isKindOfClass:[NSString class]]) {
+        if (self.lineHeight > 0) {
+            NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+            paragraphStyle.minimumLineHeight = self.lineHeight;
+            paragraphStyle.maximumLineHeight = self.lineHeight;
+            paragraphStyle.alignment = self.label.textAlignment;
+            NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:props[@"text"]
+                                                                                 attributes:@{
+                                                                                              NSFontAttributeName: self.label.font,
+                                                                                              NSParagraphStyleAttributeName: paragraphStyle,
+                                                                                              }];
+            self.label.attributedText = attributedText;
+        }
+        else {
+            self.label.text = props[@"text"];
+        }
     }
 }
 
 - (CGSize)intrinsicContentSizeWithProps:(NSDictionary *)props {
     UIFont *font = [props[@"font"] isKindOfClass:[NSString class]] ? [UXKProps toFont:props[@"font"]] : self.label.font;
     NSString *text = [props[@"text"] isKindOfClass:[NSString class]] ? props[@"text"] : @"";
+    CGFloat lineHeight = [props[@"lineheight"] isKindOfClass:[NSString class]] ? [UXKProps toCGFloat:props[@"lineheight"]] : 0;
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    if (lineHeight > 0) {
+        paragraphStyle.minimumLineHeight = lineHeight;
+        paragraphStyle.maximumLineHeight = lineHeight;
+    }
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:text
                                                                          attributes:@{
                                                                                       NSFontAttributeName: font,
+                                                                                      NSParagraphStyleAttributeName: paragraphStyle,
                                                                                       }];
     CGSize contentSize = [attributedText boundingRectWithSize:([props[@"frame"] isKindOfClass:[NSString class]] ? [UXKProps toMaxSize:props[@"frame"]] : CGSizeZero)
                                                       options:NSStringDrawingUsesLineFragmentOrigin

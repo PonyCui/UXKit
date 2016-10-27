@@ -18,6 +18,7 @@ typedef void(^UXKViewTouchBlock)(NSString *eventType);
 @property (nonatomic, weak) UXKBridgeController *bridgeController;
 @property (nonatomic, weak) UXKBridgeAnimationHandler *animationHandler;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSDictionary *props;
 @property (nonatomic, strong) NSString *layoutCallbackID;
 @property (nonatomic, strong) NSString *vKey;
 @property (nonatomic, copy) NSString *formatFrame;

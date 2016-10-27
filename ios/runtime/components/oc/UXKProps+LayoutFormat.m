@@ -90,6 +90,7 @@
                                prevPoint:[self relatePrev:format] ? [self prevHorizonRect:view] : CGPointZero
                                nextPoint:[self relateNext:format] ? [self nextHorizonRect:view] : CGPointZero
                                     view:view
+                               isHorizon:YES
                      ];
     return CGRectMake(point.x, 0, point.y, 0);
 }
@@ -107,27 +108,29 @@
                                prevPoint:[self relatePrev:format] ? [self prevVerticalRect:view] : CGPointZero
                                nextPoint:[self relateNext:format] ? [self nextVerticalRect:view] : CGPointZero
                                     view:view
+                               isHorizon:NO
                      ];
     return CGRectMake(0, point.x, 0, point.y);
 }
 
 + (CGPoint)rectWithFormat:(NSString *)format
-              superPoint:(CGPoint)superPoint
-               prevPoint:(CGPoint)prevPoint
-               nextPoint:(CGPoint)nextPoint
-                    view:(UXKView *)view {
+               superPoint:(CGPoint)superPoint
+                prevPoint:(CGPoint)prevPoint
+                nextPoint:(CGPoint)nextPoint
+                     view:(UXKView *)view
+                isHorizon:(BOOL)isHorizon {
     static NSRegularExpression *leftExp;
     static NSRegularExpression *widthExp;
     static NSRegularExpression *rightExp;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        leftExp = [NSRegularExpression regularExpressionWithPattern:@"([<\\|\\!]+)-([@\\-0-9]+)-"
+        leftExp = [NSRegularExpression regularExpressionWithPattern:@"([<\\|\\!]+)-([@\\-0-9\\.]+)-"
                                                             options:kNilOptions
                                                               error:nil];
-        widthExp = [NSRegularExpression regularExpressionWithPattern:@"\\[([<>0-9]+)\\]"
+        widthExp = [NSRegularExpression regularExpressionWithPattern:@"\\[([\\*<>0-9\\.\\|\\/]+)\\]"
                                                              options:kNilOptions
                                                                error:nil];
-        rightExp = [NSRegularExpression regularExpressionWithPattern:@"-([@\\-0-9]+)-([\\!\\|>])"
+        rightExp = [NSRegularExpression regularExpressionWithPattern:@"-([@\\-0-9\\.]+)-([\\!\\|>])"
                                                              options:kNilOptions
                                                                error:nil];
     });
@@ -155,7 +158,20 @@
                                                                        range:NSMakeRange(0, [format length])];
         if ([results firstObject] != nil && 1 < [[results firstObject] numberOfRanges]) {
             NSString *cString = [format substringWithRange:[[results firstObject] rangeAtIndex:1]];
-            if ([cString isEqualToString:@"<"]) {
+            if ([cString isEqualToString:@"*"]) {
+                CGSize intrinsicContentSize = [view intrinsicContentSizeWithProps:view.props];
+                if (isHorizon) {
+                    cVal = distance = intrinsicContentSize.width;
+                }
+                else {
+                    cVal = distance = intrinsicContentSize.height;
+                }
+            }
+            else if ([cString rangeOfString:@"|*"].location != NSNotFound) {
+                float multipeer = [[cString stringByReplacingOccurrencesOfString:@"|*" withString:@""] floatValue];
+                cVal = distance = superPoint.y * multipeer;
+            }
+            else if ([cString isEqualToString:@"<"]) {
                 lEqual = YES;
                 cVal = distance = prevPoint.y;
             }
@@ -222,7 +238,7 @@
             distance = nextPoint.x - rVal - origin;
         }
     }
-    else if ([self relateNextLeft:format] && ![self relatePrevRight:format]) {
+    else if ([self relateNext:format] && ![self relatePrev:format]) {
         if ([self pressLeft:format]) {
             origin = lVal;
             distance = nextPoint.x - rVal - origin;
@@ -238,11 +254,11 @@
                 distance = distance - cVal;
             }
             else {
-                distance = distance + nextPoint.y;
+                origin = nextPoint.x + nextPoint.y - distance;
             }
         }
     }
-    else if (![self relateNextLeft:format] && [self relatePrevRight:format]) {
+    else if (![self relateNext:format] && [self relatePrev:format]) {
         if ([self pressRight:format]) {
             if ([self relatePrevLeft:format]) {
                 origin = prevPoint.x + lVal;
@@ -253,8 +269,12 @@
                 distance = superPoint.y - rVal - origin;
             }
         }
-        else {
+        else if ([self relatePrevLeft:format]) {
             origin = prevPoint.x + lVal;
+            distance = cVal;
+        }
+        else {
+            origin = prevPoint.x + prevPoint.y + lVal;
             distance = cVal;
         }
     }
