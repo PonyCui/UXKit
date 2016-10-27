@@ -69,7 +69,7 @@ window._UXK_Components.ALERTVIEW = {
             var width = dom.frame.width;
             var height = dom.frame.height;
             var contentHeight = (dom._messageFrame.y + dom._messageFrame.height + 18.0 + dom._buttonHeight);
-            $(dom).find("[vKey='messageView']").attr('frame', width * 0.1 + ',' + ((height - contentHeight) / 2.0)+',' + (width * 0.8) + ',' + contentHeight);
+            $(dom).find("[vKey='messageView']").attr('frame', width * 0.1 + ',' + ((height - contentHeight) / 2.0) + ',' + (width * 0.8) + ',' + contentHeight);
             $(dom).find("[vKey='messageView']").update();
         });
     },
@@ -91,10 +91,9 @@ $._attach('show', 'ALERTVIEW', function () {
                 else {
                     $(dom).find('modal').find("[vKey='messageLabel']").attr("frame", '|-25-[' + parseInt((width * 0.8 - 50)) + '],|-50-[*]');
                 }
-                $(dom).find('modal').find("[vKey='messageView']").update();
-                setTimeout(function () {
+                $(dom).find('modal').find("[vKey='messageView']").update(function(){
                     $(dom).find('modal').fadeIn();
-                }, 3000);
+                });
             });
         }, 0)
     });

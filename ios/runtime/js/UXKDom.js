@@ -1,4 +1,5 @@
 (function ($) {
+    window.UXK_UpdateCallbacks = {};
     var domHelper = {
         kVisualDOMNames: ["BODY", "NAV", "VIEW", "IMAGEVIEW", "LABEL", "TEXTFIELD", "MODAL"],
         guid: function () {
@@ -54,9 +55,15 @@
             }
             return tree;
         },
-        commitTree: function (node, updatePropsOnly) {
+        commitTree: function (node, updatePropsOnly, callback) {
             try {
-                webkit.messageHandlers.UXK_ViewUpdater.postMessage(JSON.stringify(this.createTree(node, updatePropsOnly)));
+                var args = this.createTree(node, updatePropsOnly);
+                if (typeof callback === "function") {
+                    var callbackID = domHelper.guid();
+                    window.UXK_UpdateCallbacks[callbackID] = callback;
+                    args.callbackID = callbackID;
+                }
+                webkit.messageHandlers.UXK_ViewUpdater.postMessage(JSON.stringify(args));
             } catch (err) {
                 console.log("UXK_ViewUpdater not ready.");
             }
@@ -120,14 +127,18 @@
     };
 
     // Update
-    $._attach('update', '*', function(updatePropsOnly){
-        if (updatePropsOnly === true) {
-            domHelper.commitTree(this.get(0), true);
+    $._attach('update', '*', function(updatePropsOnly_Callback, callback){
+        if (typeof updatePropsOnly_Callback === "function") {
+            callback = updatePropsOnly_Callback;
+            updatePropsOnly_Callback = false;
+        }
+        if (updatePropsOnly_Callback === true) {
+            domHelper.commitTree(this.get(0), true, callback);
         }
         else {
             domHelper.updateComponents(this.get(0));
             domHelper.assignKeys(this.get(0));
-            domHelper.commitTree(this.get(0));
+            domHelper.commitTree(this.get(0), false, callback);
         }
     });
 

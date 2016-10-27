@@ -15,21 +15,92 @@ typedef void(^UXKViewTouchBlock)(NSString *eventType);
 
 @interface UXKView : UIView
 
-@property (nonatomic, weak) UXKBridgeController *bridgeController;
-@property (nonatomic, weak) UXKBridgeAnimationHandler *animationHandler;
-@property (nonatomic, strong) NSString *name;
+#pragma mark - Public 
+
+/**
+ Current Props
+ */
 @property (nonatomic, strong) NSDictionary *props;
-@property (nonatomic, strong) NSString *layoutCallbackID;
-@property (nonatomic, strong) NSString *vKey;
-@property (nonatomic, copy) NSString *formatFrame;
-@property (nonatomic, strong) NSValue *shouldChangeToFrame;
-@property (nonatomic, strong) NSValue *willChangeToFrame;
+
+/**
+ Callback on Touch.
+ */
 @property (nonatomic, copy) UXKViewTouchBlock touchCallback;
 
+/**
+ Callback on Layout
+ */
+@property (nonatomic, strong) NSString *layoutCallbackID;
+
+
+/**
+ Return YES to AVOID cleanning subviews.
+ */
 - (BOOL)staticLayouts;
+
+/**
+ Props will deliver to here.
+
+ @param props           NSDictionary
+ @param updatePropsOnly Bool
+ */
 - (void)setProps:(NSDictionary *)props updatePropsOnly:(BOOL)updatePropsOnly;
+
+/**
+ Request a value, and callback immediately.
+
+ @param aKey       Value Key
+ @param valueBlock Value Callback Block
+ */
 - (void)requestValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock;
+
+/**
+ Listen a value change.
+
+ @param aKey       Value Key
+ @param valueBlock Value Callback Block
+ */
 - (void)listenValueWithKey:(NSString *)aKey valueBlock:(UXKViewValueBlock)valueBlock;
+
+/**
+ Return intrinsicContentSize to satisfy dynamic frame.
+
+ @param props Current View Props.
+
+ @return CGSize.
+ */
 - (CGSize)intrinsicContentSizeWithProps:(NSDictionary *)props;
+
+#pragma mark - Private
+
+/**
+ Private
+ */
+@property (nonatomic, weak) UXKBridgeController *bridgeController;
+
+/**
+ Private
+ */
+@property (nonatomic, weak) UXKBridgeAnimationHandler *animationHandler;
+
+/**
+ Private
+ */
+@property (nonatomic, strong) NSString *visualDOMKey;
+
+/**
+ Private
+ */
+@property (nonatomic, copy) NSString *formatFrame;
+
+/**
+ Private
+ */
+@property (nonatomic, strong) NSValue *shouldChangeToFrame;
+
+/**
+ Private
+ */
+@property (nonatomic, strong) NSValue *willChangeToFrame;
 
 @end

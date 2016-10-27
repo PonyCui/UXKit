@@ -25,112 +25,7 @@
     [UXKBridge addClass:[self class] nodeName:@"View"];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    if (self.touchCallback) {
-        self.touchCallback(@"Began");
-//        NSLog(@"Began");
-    }
-}
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesEnded:touches withEvent:event];
-    if (self.touchCallback) {
-        self.touchCallback(@"Ended");
-//        NSLog(@"Ended");
-    }
-}
-
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesCancelled:touches withEvent:event];
-    if (self.touchCallback) {
-        self.touchCallback(@"Cancelled");
-//        NSLog(@"Cancelled");
-    }
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"Name = %@, %@", self.name, [super description]];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    CGRect shouldChangeRect = [self.shouldChangeToFrame CGRectValue];
-    if (shouldChangeRect.size.width == -1.0 || shouldChangeRect.size.height == -1.0) {
-        [self layoutUXKViews:nil newRect:self.shouldChangeToFrame excepts:nil];
-    }
-    else {
-        [self layoutUXKViews:nil newRect:nil excepts:nil];
-    }
-}
-
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    if (self.layoutCallbackID != nil && self.bridgeController != nil) {
-        NSString *script = [NSString stringWithFormat:@"window.UXK_LayoutCallbacks['%@']({x: %f, y: %f, width: %f, height: %f})",
-                            self.layoutCallbackID,
-                            self.frame.origin.x,
-                            self.frame.origin.y,
-                            self.frame.size.width,
-                            self.frame.size.height];
-        [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
-    }
-}
-    
-- (void)layoutUXKViews:(UXKBridgeAnimationHandler *)animationHandler newRect:(NSValue *)newRectValue excepts:(NSArray<UXKView *> *)excepts {
-    CGRect newRect = CGRectZero;
-    BOOL hasNewRect = NO;
-    if (self.formatFrame != nil) {
-        newRect = [UXKProps rectWithView:self format:self.formatFrame];
-        hasNewRect = YES;
-    }
-    else if (newRectValue != nil) {
-        newRect = [newRectValue CGRectValue];
-        hasNewRect = YES;
-    }
-    else if (self.shouldChangeToFrame != nil) {
-        CGRect shouldChangeRect = [self.shouldChangeToFrame CGRectValue];
-        if (shouldChangeRect.size.width == -1.0 || shouldChangeRect.size.height == -1.0) {
-            newRect = shouldChangeRect;
-            hasNewRect = YES;
-        }
-        self.shouldChangeToFrame = nil;
-    }
-    if (hasNewRect) {
-        if (newRect.size.width == -1) {
-            newRect.size.width = self.superview.bounds.size.width;
-        }
-        if (newRect.size.height == -1) {
-            newRect.size.height = self.superview.bounds.size.height;
-        }
-        if (!CGRectEqualToRect(self.frame, newRect)) {
-            if (animationHandler == nil || ![animationHandler addAnimationWithView:self
-                                                                             props:kPOPViewFrame
-                                                                          newValue:[NSValue valueWithCGRect:newRect]]) {
-                self.willChangeToFrame = [NSValue valueWithCGRect:newRect];
-                self.frame = newRect;
-            }
-        }
-    }
-    if (self.superview != nil && ![excepts containsObject:(id)self.superview]) {
-        for (UXKView *subview in self.superview.subviews) {
-            if ([excepts containsObject:subview] || subview == self || ![subview isKindOfClass:[UXKView class]]) {
-                continue;
-            }
-            [subview layoutUXKViews:animationHandler newRect:nil excepts:self.superview.subviews];
-        }
-    }
-    for (UXKView *subview in self.subviews) {
-        if (![subview isKindOfClass:[UXKView class]]) {
-            continue;
-        }
-        [subview layoutUXKViews:animationHandler newRect:nil excepts:@[self]];
-    }
-}
-
-- (BOOL)staticLayouts {
-    return NO;
-}
+#pragma mark - Props
 
 - (void)setProps:(NSDictionary *)props updatePropsOnly:(BOOL)updatePropsOnly {
     self.props = props;
@@ -143,14 +38,11 @@
             excepts = self.subviews;
         }
     }
-    if (props[@"name"] && [props[@"name"] isKindOfClass:[NSString class]]) {
-        self.name = props[@"name"];
-    }
     if ([props[@"_uxk_layoutcallbackid"] isKindOfClass:[NSString class]]) {
         self.layoutCallbackID = props[@"_uxk_layoutcallbackid"];
     }
     if (props[@"_uxk_vkey"] && [props[@"_uxk_vkey"] isKindOfClass:[NSString class]]) {
-        self.vKey = props[@"_uxk_vkey"];
+        self.visualDOMKey = props[@"_uxk_vkey"];
     }
     if (props[@"frame"] && [props[@"frame"] isKindOfClass:[NSString class]]) {
         if ([(NSString *)props[@"frame"] containsString:@"["]) {
@@ -287,8 +179,118 @@
     
 }
 
+#pragma mark - Layout
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    CGRect shouldChangeRect = [self.shouldChangeToFrame CGRectValue];
+    if (shouldChangeRect.size.width == -1.0 || shouldChangeRect.size.height == -1.0) {
+        [self layoutUXKViews:nil newRect:self.shouldChangeToFrame excepts:nil];
+    }
+    else {
+        [self layoutUXKViews:nil newRect:nil excepts:nil];
+    }
+}
+
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    if (self.layoutCallbackID != nil && self.bridgeController != nil) {
+        NSString *script = [NSString stringWithFormat:@"window.UXK_LayoutCallbacks['%@']({x: %f, y: %f, width: %f, height: %f})",
+                            self.layoutCallbackID,
+                            self.frame.origin.x,
+                            self.frame.origin.y,
+                            self.frame.size.width,
+                            self.frame.size.height];
+        [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+    }
+}
+
+- (void)layoutUXKViews:(UXKBridgeAnimationHandler *)animationHandler newRect:(NSValue *)newRectValue excepts:(NSArray<UXKView *> *)excepts {
+    CGRect newRect = CGRectZero;
+    BOOL hasNewRect = NO;
+    if (self.formatFrame != nil) {
+        newRect = [UXKProps rectWithView:self format:self.formatFrame];
+        hasNewRect = YES;
+    }
+    else if (newRectValue != nil) {
+        newRect = [newRectValue CGRectValue];
+        hasNewRect = YES;
+    }
+    else if (self.shouldChangeToFrame != nil) {
+        CGRect shouldChangeRect = [self.shouldChangeToFrame CGRectValue];
+        if (shouldChangeRect.size.width == -1.0 || shouldChangeRect.size.height == -1.0) {
+            newRect = shouldChangeRect;
+            hasNewRect = YES;
+        }
+        self.shouldChangeToFrame = nil;
+    }
+    if (hasNewRect) {
+        if (newRect.size.width == -1) {
+            newRect.size.width = self.superview.bounds.size.width;
+        }
+        if (newRect.size.height == -1) {
+            newRect.size.height = self.superview.bounds.size.height;
+        }
+        if (!CGRectEqualToRect(self.frame, newRect)) {
+            if (animationHandler == nil || ![animationHandler addAnimationWithView:self
+                                                                             props:kPOPViewFrame
+                                                                          newValue:[NSValue valueWithCGRect:newRect]]) {
+                self.willChangeToFrame = [NSValue valueWithCGRect:newRect];
+                self.frame = newRect;
+            }
+        }
+    }
+    if (self.superview != nil && ![excepts containsObject:(id)self.superview]) {
+        for (UXKView *subview in self.superview.subviews) {
+            if ([excepts containsObject:subview] || subview == self || ![subview isKindOfClass:[UXKView class]]) {
+                continue;
+            }
+            [subview layoutUXKViews:animationHandler newRect:nil excepts:self.superview.subviews];
+        }
+    }
+    for (UXKView *subview in self.subviews) {
+        if (![subview isKindOfClass:[UXKView class]]) {
+            continue;
+        }
+        [subview layoutUXKViews:animationHandler newRect:nil excepts:@[self]];
+    }
+}
+
 - (CGSize)intrinsicContentSizeWithProps:(NSDictionary *)props {
     return CGSizeZero;
+}
+
+#pragma mark - Touches
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    if (self.touchCallback) {
+        self.touchCallback(@"Began");
+    }
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
+    if (self.touchCallback) {
+        self.touchCallback(@"Ended");
+    }
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesCancelled:touches withEvent:event];
+    if (self.touchCallback) {
+        self.touchCallback(@"Cancelled");
+    }
+}
+
+#pragma mark - Others
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Name = %@, %@", self.props[@"name"], [super description]];
+}
+
+- (BOOL)staticLayouts {
+    return NO;
 }
 
 @end

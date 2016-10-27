@@ -45,7 +45,7 @@
 
 - (void)updateView:(UXKView *)view aKey:(NSString *)aKey aValue:(NSString *)aValue {
     NSString *script = [NSString stringWithFormat:@"jQuery(\"[vKey='%@']\").attr('%@', '%@')",
-                        view.vKey, aKey, aValue];
+                        view.visualDOMKey, aKey, aValue];
     [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
 }
 
@@ -66,7 +66,11 @@
                                                                 options:kNilOptions
                                                                   error:nil];
         if ([specObj isKindOfClass:[NSDictionary class]]) {
-            [self viewWithNode:specObj];
+            [self updateViewWithNode:specObj];
+            if ([specObj[@"callbackID"] isKindOfClass:[NSString class]]) {
+                NSString *script = [NSString stringWithFormat:@"window.UXK_UpdateCallbacks['%@'].call()", specObj[@"callbackID"]];
+                [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+            }
         }
     }
 }
@@ -82,7 +86,7 @@
     return nil;
 }
 
-- (UIView *)viewWithNode:(NSDictionary *)node {
+- (UIView *)updateViewWithNode:(NSDictionary *)node {
     NSString *nodeName = node[@"name"];
     BOOL updatePropsOnly = [node[@"updatePropsOnly"] isKindOfClass:[NSNumber class]] ? [node[@"updatePropsOnly"] boolValue] : NO;
     NSString *visualKey = node[@"vKey"];
@@ -159,7 +163,7 @@
         }
         for (NSDictionary *subview in subviews) {
             if ([subview isKindOfClass:[NSDictionary class]]) {
-                UIView *nextView = [self viewWithNode:subview];
+                UIView *nextView = [self updateViewWithNode:subview];
                 if (nextView != nil && [nextView superview] != currentView) {
                     [currentView addSubview:nextView];
                 }
