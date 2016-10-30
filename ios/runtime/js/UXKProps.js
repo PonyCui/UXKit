@@ -157,44 +157,25 @@ $.createIMP('show', '*', function (speed, callback) {
 });
 
 $.createIMP('fadeIn', '*', function (speed, callback) {
-    if (typeof speed === "string") {
-        if (speed === "slow") {
-            speed = 600;
-        }
-        else if (speed === "normal") {
-            speed = 300;
-        }
-        else if (speed === "fast") {
-            speed = 150;
-        }
-        else {
-            speed = undefined;
-        }
-    }
-    return this.alpha(1).animate(speed);
+    return this.fadeTo(speed, 1, callback);
 });
 
 $.createIMP('fadeOut', '*', function (speed, callback) {
-    if (typeof speed === "string") {
-        if (speed === "slow") {
-            speed = 600;
-        }
-        else if (speed === "normal") {
-            speed = 300;
-        }
-        else if (speed === "fast") {
-            speed = 150;
-        }
-        else {
-            speed = undefined;
-        }
-    }
-    return this.alpha(0).animate(speed);
+    return this.fadeTo(speed, 0, callback);
 });
 
 $.createIMP('fadeTo', '*', function (speed, opacity, callback) {
-    if (typeof speed === "number" && opacity === undefined && callback === undefined) {
+    if (typeof speed === "function" && callback === undefined) {
+        callback = speed;
+        speed = undefined;
+    }
+    else if (typeof speed === "number" && opacity === undefined && callback === undefined) {
         opacity = speed;
+    }
+    else if (typeof speed === "number" && typeof opacity === "function" && callback === undefined) {
+        callback = opacity;
+        opacity = speed;
+        speed = undefined;
     }
     if (typeof speed === "string") {
         if (speed === "slow") {
@@ -210,5 +191,5 @@ $.createIMP('fadeTo', '*', function (speed, opacity, callback) {
             speed = undefined;
         }
     }
-    return this.alpha(opacity).animate(speed);
+    return this.alpha(opacity).animate(speed, callback);
 });

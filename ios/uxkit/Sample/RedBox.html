@@ -23,19 +23,9 @@
 // }, 2000)
 
 setTimeout(function(){
-	$('SegmentedControl').alpha(0).animate(10000, {
-		onChange: function(vKey, props, value) {
-			if (props === "alpha") {
-				if (value < 0.5) {
-					$('SegmentedControl').stop();
-				}
-				$('label').text(value);
-				$('label').update();
-			}
-		}
-	}, function(vKey, props, didReached){
-		$('SegmentedControl').fadeOut();
-	});
+	$('SegmentedControl').fadeOut(function(){
+		$('SegmentedControl').fadeIn();
+	})
 }, 2000);
 
 </script>
