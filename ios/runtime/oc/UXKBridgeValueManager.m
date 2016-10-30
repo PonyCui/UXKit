@@ -9,6 +9,7 @@
 #import "UXKBridgeValueManager.h"
 #import "UXKBridgeController.h"
 #import "UXKBridgeViewUpdater.h"
+#import "UXKBridgeCallbackHandler.h"
 #import "UXKView.h"
 
 @implementation UXKBridgeValueManager
@@ -45,18 +46,7 @@
                             if (value == nil) {
                                 value = [NSNull null];
                             }
-                            NSDictionary *response = @{
-                                                       @"value": value,
-                                                       };
-                            NSString *returnString = [[NSString alloc] initWithData:[NSJSONSerialization
-                                                                                     dataWithJSONObject:response
-                                                                                     options:kNilOptions
-                                                                                     error:NULL]
-                                                                           encoding:NSUTF8StringEncoding];
-                            NSString *script = [NSString stringWithFormat:@"window.UXK_ValueCallback('%@', '%@')",
-                                                callbackID,
-                                                returnString];
-                            [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+                            [self.bridgeController.callbackHandler callback:callbackID args:@[value]];
                         }];
                     }
                     else {
@@ -64,18 +54,7 @@
                             if (value == nil) {
                                 value = [NSNull null];
                             }
-                            NSDictionary *response = @{
-                                                       @"value": value,
-                                                       };
-                            NSString *returnString = [[NSString alloc] initWithData:[NSJSONSerialization
-                                                                                     dataWithJSONObject:response
-                                                                                     options:kNilOptions
-                                                                                     error:NULL]
-                                                                           encoding:NSUTF8StringEncoding];
-                            NSString *script = [NSString stringWithFormat:@"window.UXK_ValueCallback('%@', '%@')",
-                                                callbackID,
-                                                returnString];
-                            [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+                            [self.bridgeController.callbackHandler callback:callbackID args:@[value]];
                         }];
                     }
                 }

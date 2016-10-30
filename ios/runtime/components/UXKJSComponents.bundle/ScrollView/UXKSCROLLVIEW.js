@@ -327,7 +327,10 @@ window._UXK_Components.SCROLLVIEW = {
                 bounce: scrollProps.bounce,
                 bounceRect: '0,0,' + rightBounds + ',' + bottomBounds,
                 velocity: sender.velocityX + ',' + sender.velocityY + ',0,0',
-                onChange: function (frame) {
+                onChange: function (vKey, props, frame) {
+                    if (vKey !== $(dom).find("[vKey='contentView']").attr('_UXK_vKey') || props !== "frame") {
+                        return;
+                    }
                     $(dom).attr('contentoffset', frame.x + ',' + frame.y);
                     dom.querySelector("[vKey='contentView']").setAttribute(
                         'frame',
@@ -444,7 +447,10 @@ window._UXK_Components.SCROLLVIEW = {
                     bounce: true,
                     bounceRect: '0,0,' + rightBounds + ',' + bottomBounds,
                     velocity: '0,0,0,0',
-                    onChange: function (frame) {
+                    onChange: function (vKey, props, frame) {
+                        if (vKey !== $(dom).find("[vKey='contentView']").attr('_UXK_vKey') || props !== "frame") {
+                            return;
+                        }
                         $(dom).attr('contentoffset', frame.x + ',' + frame.y);
                     }
                 });

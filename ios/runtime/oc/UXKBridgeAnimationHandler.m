@@ -9,6 +9,7 @@
 #import "UXKBridgeAnimationHandler.h"
 #import "UXKBridgeController.h"
 #import "UXKBridgeViewUpdater.h"
+#import "UXKBridgeCallbackHandler.h"
 #import "UXKAnimation.h"
 #import "UXKView.h"
 #import "UXKProps.h"
@@ -135,26 +136,34 @@
 }
 
 - (void)configureCallbacks:(UIView *)view props:(NSString *)props animation:(POPAnimation *)animation {
+    if (![view isKindOfClass:[UXKView class]] || props == nil || [(UXKView *)view visualDOMKey] == nil) {
+        return;
+    }
     if ([self.animationParams[@"onChange"] isKindOfClass:[NSString class]]) {
-        [animation setAnimationDidApplyBlock:^(POPAnimation *animation) {
-            NSString *script = @"";
+        NSString *callbackID = self.animationParams[@"onChange"];
+        [animation setAnimationDidApplyBlock:^(POPAnimation *_) {
+            id currentValue = [NSNull null];
             if ([props isEqualToString:kPOPViewFrame]) {
-                script = [NSString stringWithFormat:@"window._UXK_Animation.callbacks['%@'].call(this, %@)",
-                          self.animationParams[@"onChange"],
-                          [UXKProps stringWithRect:view.frame]];
+                currentValue = [UXKProps stringWithRect:view.frame];
             }
-            [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+            [self.bridgeController.callbackHandler callback:callbackID
+                                                       args:@[
+                                                              [(UXKView *)view visualDOMKey],
+                                                              props,
+                                                              currentValue,
+                                                              ]
+             ];
         }];
     }
     if ([self.animationParams[@"onComplete"] isKindOfClass:[NSString class]]) {
-        [animation setCompletionBlock:^(POPAnimation *animation, BOOL finished) {
-            NSString *script = @"";
-            if ([props isEqualToString:kPOPViewFrame]) {
-                script = [NSString stringWithFormat:@"window._UXK_Animation.callbacks['%@'].call(this, %@)",
-                          self.animationParams[@"onComplete"],
-                          [UXKProps stringWithRect:view.frame]];
-            }
-            [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+        NSString *callbackID = self.animationParams[@"onComplete"];
+        [animation setCompletionBlock:^(POPAnimation *_, BOOL __) {
+            [self.bridgeController.callbackHandler callback:callbackID
+                                                       args:@[
+                                                              [(UXKView *)view visualDOMKey],
+                                                              props,
+                                                              ]
+             ];
         }];
     }
 }

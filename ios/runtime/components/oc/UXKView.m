@@ -122,43 +122,57 @@
     }
     if (props[@"cornerradius"] && [props[@"cornerradius"] isKindOfClass:[NSString class]]) {
         CGFloat newValue  = [UXKProps toCGFloat:props[@"cornerradius"]];
-        if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
-                                                                                   props:kPOPLayerCornerRadius
-                                                                                newValue:@(newValue)]) {
-            self.layer.cornerRadius = newValue;
+        if (newValue != self.layer.cornerRadius) {
+            if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
+                                                                                       props:kPOPLayerCornerRadius
+                                                                                    newValue:@(newValue)]) {
+                self.layer.cornerRadius = newValue;
+            }
         }
     }
     if (props[@"borderwidth"] && [props[@"borderwidth"] isKindOfClass:[NSString class]]) {
         CGFloat newValue  = [UXKProps toCGFloat:props[@"borderwidth"]];
-        if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
-                                                                                   props:kPOPLayerBorderWidth
-                                                                                newValue:@(newValue)]) {
-            self.layer.borderWidth = newValue;
+        if (newValue != self.layer.borderWidth) {
+            if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
+                                                                                       props:kPOPLayerBorderWidth
+                                                                                    newValue:@(newValue)]) {
+                self.layer.borderWidth = newValue;
+            }
         }
     }
     if (props[@"bordercolor"] && [props[@"bordercolor"] isKindOfClass:[NSString class]]) {
         UIColor *newValue = [UXKProps toColor:props[@"bordercolor"]];
-        if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
-                                                                                   props:kPOPLayerBorderColor
-                                                                                newValue:newValue]) {
-            self.layer.borderColor = newValue.CGColor;
+        if (![newValue isEqual:[UIColor colorWithCGColor:self.layer.borderColor]]) {
+            if (self.animationHandler == nil || ![self.animationHandler addAnimationWithView:self
+                                                                                       props:kPOPLayerBorderColor
+                                                                                    newValue:newValue]) {
+                self.layer.borderColor = newValue.CGColor;
+            }
         }
     }
     if (props[@"shadowcolor"] && [props[@"shadowcolor"] isKindOfClass:[NSString class]]) {
         UIColor *newValue = [UXKProps toColor:props[@"shadowcolor"]];
-        self.layer.shadowColor = newValue.CGColor;
+        if (![newValue isEqual:[UIColor colorWithCGColor:self.layer.borderColor]]) {
+            self.layer.shadowColor = newValue.CGColor;
+        }
     }
     if (props[@"shadowoffset"] && [props[@"shadowoffset"] isKindOfClass:[NSString class]]) {
         CGSize newValue = [UXKProps toCGSize:props[@"shadowoffset"]];
-        self.layer.shadowOffset = newValue;
+        if (!CGSizeEqualToSize(newValue, self.layer.shadowOffset)) {
+            self.layer.shadowOffset = newValue;
+        }
     }
     if (props[@"shadowradius"] && [props[@"shadowradius"] isKindOfClass:[NSString class]]) {
         CGFloat newValue = [UXKProps toCGFloat:props[@"shadowradius"]];
-        self.layer.shadowRadius = newValue;
+        if (newValue != self.layer.shadowRadius) {
+            self.layer.shadowRadius = newValue;
+        }
     }
     if (props[@"shadowopacity"] && [props[@"shadowopacity"] isKindOfClass:[NSString class]]) {
         CGFloat newValue = [UXKProps toCGFloat:props[@"shadowopacity"]];
-        self.layer.shadowOpacity = newValue;
+        if (newValue != self.layer.shadowOpacity) {
+            self.layer.shadowOpacity = newValue;
+        }
     }
 }
 

@@ -62,7 +62,15 @@ window._UXK_Animation = {
         this.update();
         webkit.messageHandlers.UXK_AnimationHandler_Disable.postMessage("");
     };
-    $.fn.spring = function (options) {
+    $.fn.spring = function (options, onComplete) {
+        if (typeof options === "function" || (typeof onComplete === "function" && options === undefined)) {
+            options = {
+                onComplete: options,
+            };
+        }
+        else if (typeof onComplete === "function") {
+            options['onComplete'] = onComplete;
+        }
         var animation = window._UXK_Animation.spring(options);
         callbackHelper.register(animation);
         webkit.messageHandlers.UXK_AnimationHandler_Commit.postMessage(JSON.stringify(animation));

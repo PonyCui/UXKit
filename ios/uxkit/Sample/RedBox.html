@@ -24,6 +24,8 @@
 setTimeout(function(){
 	$('SegmentedControl').y(500).spring({
 		speed: 40.0
+	}, function(){
+		$('SegmentedControl').fadeOut();
 	});
 }, 2000);
 
