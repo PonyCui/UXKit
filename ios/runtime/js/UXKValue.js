@@ -1,4 +1,3 @@
-window.UXK_ValueCallback = function () { };
 (function ($) {
     var valueHelper = {
         commit: function (node, args, callback) {

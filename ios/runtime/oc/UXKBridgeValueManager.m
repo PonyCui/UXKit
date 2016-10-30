@@ -37,12 +37,14 @@
             BOOL listen = [args[@"listen"] isKindOfClass:[NSNumber class]] ? [args[@"listen"] boolValue] : NO;
             NSString *callbackID = args[@"callbackID"];
             if ([vKey isKindOfClass:[NSString class]] &&
-                [rKey isKindOfClass:[NSString class]] &&
-                [callbackID isKindOfClass:[NSString class]]) {
+                [rKey isKindOfClass:[NSString class]]) {
                 UXKView *view = self.bridgeController.viewUpdater.mirrorViews[vKey];
                 if (view != nil && [view isKindOfClass:[UXKView class]]) {
                     if (listen) {
                         [view listenValueWithKey:rKey valueBlock:^(id value) {
+                            if (![callbackID isKindOfClass:[NSString class]]) {
+                                return ;
+                            }
                             if (value == nil) {
                                 value = [NSNull null];
                             }
@@ -51,6 +53,9 @@
                     }
                     else {
                         [view requestValueWithKey:rKey valueBlock:^(id value) {
+                            if (![callbackID isKindOfClass:[NSString class]]) {
+                                return ;
+                            }
                             if (value == nil) {
                                 value = [NSNull null];
                             }
