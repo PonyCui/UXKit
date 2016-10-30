@@ -54,7 +54,20 @@ window._UXK_Animation = {
             }
         },
     };
-    $.fn.animate = function (duration, options) {
+    $.fn.animate = function (duration, options, onComplete) {
+        if (typeof duration === "function" && options === undefined && onComplete === undefined) {
+            options = {
+                onComplete: duration,
+            };
+        }
+        else if (typeof options === "function" || (typeof onComplete === "function" && options === undefined)) {
+            options = {
+                onComplete: options,
+            };
+        }
+        else if (typeof onComplete === "function") {
+            options['onComplete'] = onComplete;
+        }
         var animation = window._UXK_Animation.timing(Object.assign({ duration: duration }, (options ? options : {})));
         callbackHelper.register(animation);
         webkit.messageHandlers.UXK_AnimationHandler_Commit.postMessage(JSON.stringify(animation));
@@ -78,13 +91,29 @@ window._UXK_Animation = {
         this.update();
         webkit.messageHandlers.UXK_AnimationHandler_Disable.postMessage("");
     };
-    $.fn.decay = function (options) {
+    $.fn.decay = function (options, onComplete) {
+        if (typeof options === "function" || (typeof onComplete === "function" && options === undefined)) {
+            options = {
+                onComplete: options,
+            };
+        }
+        else if (typeof onComplete === "function") {
+            options['onComplete'] = onComplete;
+        }
         var animation = window._UXK_Animation.decay(options);
         callbackHelper.register(animation);
         animation.vKey = this.get(0).getAttribute("_UXK_vKey");
         webkit.messageHandlers.UXK_AnimationHandler_Decay.postMessage(JSON.stringify(animation));
     };
-    $.fn.decayBounce = function (options) {
+    $.fn.decayBounce = function (options, onComplete) {
+        if (typeof options === "function" || (typeof onComplete === "function" && options === undefined)) {
+            options = {
+                onComplete: options,
+            };
+        }
+        else if (typeof onComplete === "function") {
+            options['onComplete'] = onComplete;
+        }
         var animation = window._UXK_Animation.decayBounce(options);
         callbackHelper.register(animation);
         animation.vKey = this.get(0).getAttribute("_UXK_vKey");
