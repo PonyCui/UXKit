@@ -11,6 +11,7 @@
 #import "UXKProps.h"
 #import "UXKBridgeController.h"
 #import "UXKBridgeAnimationHandler.h"
+#import "UXKBridgeCallbackHandler.h"
 #import "UXKAnimation.h"
 #import <pop/POP.h>
 #import "UXKProps+LayoutFormat.h"
@@ -193,15 +194,21 @@
 }
 
 - (void)setFrame:(CGRect)frame {
+    BOOL originChanged = !CGPointEqualToPoint(frame.origin, self.frame.origin);
+    BOOL sizeChanged = !CGSizeEqualToSize(frame.size, self.frame.size);
     [super setFrame:frame];
-    if (self.layoutCallbackID != nil && self.bridgeController != nil) {
-        NSString *script = [NSString stringWithFormat:@"window.UXK_LayoutCallbacks['%@']({x: %f, y: %f, width: %f, height: %f})",
-                            self.layoutCallbackID,
-                            self.frame.origin.x,
-                            self.frame.origin.y,
-                            self.frame.size.width,
-                            self.frame.size.height];
-        [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+    if (self.layoutCallbackID != nil) {
+        [self.bridgeController.callbackHandler callback:self.layoutCallbackID
+                                                   args:@[
+                                                          @{
+                                                              @"x": @(self.frame.origin.x),
+                                                              @"y": @(self.frame.origin.y),
+                                                              @"width": @(self.frame.size.width),
+                                                              @"height": @(self.frame.size.height),
+                                                              @"originChanged": @(originChanged),
+                                                              @"sizeChanged": @(sizeChanged),
+                                                              }
+                                                          ]];
     }
 }
 

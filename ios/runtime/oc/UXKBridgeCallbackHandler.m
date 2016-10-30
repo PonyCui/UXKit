@@ -33,10 +33,14 @@
             [argParams addObject:[NSString stringWithFormat:@"JSON.parse(decodeURIComponent(atob('%@')))", base64Encoded]];
         }
     }];
-    NSString *script = [NSString stringWithFormat:@"window.ux.callbacks['%@'].call(this, %@)", callbackID, [argParams componentsJoinedByString:@","]];
-    [self.bridgeController.webView evaluateJavaScript:script completionHandler:^(id _Nullable _, NSError * _Nullable error) {
-        
-    }];
+    NSString *script;
+    if (argParams.count == 0) {
+        script = [NSString stringWithFormat:@"window.ux.callbacks['%@'].call(this)", callbackID];
+    }
+    else {
+        script = [NSString stringWithFormat:@"window.ux.callbacks['%@'].call(this, %@)", callbackID, [argParams componentsJoinedByString:@","]];
+    }
+    [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
 }
 
 @end

@@ -40,7 +40,7 @@ window._UXK_Components.SEGMENTEDCONTROL = {
             "backgroundColorSelected='" + segmentedControlProps.tintColor + "' " +
             "backgroundColorNormal='#00ffffff" + "' " +
             "textColorHighlighted='" + segmentedControlProps.tintColor + "' " +
-            "textColorSelected='" + segmentedControlProps.backColor + "' " + 
+            "textColorSelected='" + segmentedControlProps.backColor + "' " +
             "textColorNormal='" + segmentedControlProps.tintColor + "'";
         for (var index = 0; index < segmentedControlProps.title.length; index++) {
             if (index > 0) {
@@ -64,8 +64,10 @@ window._UXK_Components.SEGMENTEDCONTROL = {
     },
     onLoad: function (dom) {
         $(dom).onLayout(function (frame) {
-            dom.frame = frame;
-            $(dom).update();
+            if (frame.sizeChanged === true) {
+                dom.frame = frame;
+                $(dom).update();
+            }
         })
         $(dom).value('frame', function (frame) {
             dom.frame = frame;

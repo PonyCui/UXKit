@@ -1,5 +1,4 @@
 (function ($) {
-    window.UXK_UpdateCallbacks = {};
     var domHelper = {
         kVisualDOMNames: ["BODY", "NAV", "VIEW", "IMAGEVIEW", "LABEL", "TEXTFIELD", "MODAL"],
         guid: function () {
@@ -59,9 +58,7 @@
             try {
                 var args = this.createTree(node, updatePropsOnly);
                 if (typeof callback === "function") {
-                    var callbackID = domHelper.guid();
-                    window.UXK_UpdateCallbacks[callbackID] = callback;
-                    args.callbackID = callbackID;
+                    args.callbackID = window.ux.createCallback(callback);
                 }
                 webkit.messageHandlers.UXK_ViewUpdater.postMessage(JSON.stringify(args));
             } catch (err) {
@@ -126,9 +123,7 @@
     // Layout
     window.UXK_LayoutCallbacks = {};
     $.createIMP('onLayout', '*', function(callback){
-        var callbackID = domHelper.guid();
-        window.UXK_LayoutCallbacks[callbackID] = callback;
-        $(this).attr('_UXK_LayoutCallbackID', callbackID);
+        $(this).attr('_UXK_LayoutCallbackID', window.ux.createCallback(callback));
         $(this).update(true);
     });
 

@@ -9,6 +9,7 @@
 #import "UXKBridgeViewUpdater.h"
 #import "UXKView.h"
 #import "UXKBridgeController.h"
+#import "UXKBridgeCallbackHandler.h"
 #import "UXKBridge.h"
 #import "UIViewController+UXKBridge.h"
 
@@ -68,8 +69,7 @@
         if ([specObj isKindOfClass:[NSDictionary class]]) {
             [self updateViewWithNode:specObj];
             if ([specObj[@"callbackID"] isKindOfClass:[NSString class]]) {
-                NSString *script = [NSString stringWithFormat:@"window.UXK_UpdateCallbacks['%@'].call()", specObj[@"callbackID"]];
-                [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+                [self.bridgeController.callbackHandler callback:specObj[@"callbackID"] args:nil];
             }
         }
     }
