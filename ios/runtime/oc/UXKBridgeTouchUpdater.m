@@ -9,6 +9,7 @@
 #import "UXKBridgeTouchUpdater.h"
 #import "UXKBridgeController.h"
 #import "UXKBridgeViewUpdater.h"
+#import "UXKBridgeCallbackHandler.h"
 #import "UXKView.h"
 #import <objc/runtime.h>
 
@@ -118,32 +119,32 @@
 }
 
 - (void)onTouch:(UIGestureRecognizer *)sender {
-    NSString *script;
+    NSDictionary *arg;
     if ([sender isKindOfClass:[UIPanGestureRecognizer class]]) {
-        script = [NSString stringWithFormat:@"window.UXK_TouchCallback('%@', {state: '%@', windowX: %f, windowY: %f, locationX: %f, locationY: %f, translateX: %f, translateY: %f, velocityX: %f, velocityY: %f, superX: %f, superY: %f})",
-                  sender.uxk_callbackID,
-                  [self state:sender],
-                  [sender locationInView:nil].x,
-                  [sender locationInView:nil].y,
-                  [sender locationInView:sender.view].x,
-                  [sender locationInView:sender.view].y,
-                  [(UIPanGestureRecognizer *)sender translationInView:nil].x,
-                  [(UIPanGestureRecognizer *)sender translationInView:nil].y,
-                  [(UIPanGestureRecognizer *)sender velocityInView:nil].x,
-                  [(UIPanGestureRecognizer *)sender velocityInView:nil].y,
-                  [sender locationInView:sender.view.superview].x,
-                  [sender locationInView:sender.view.superview].y];
+        arg = @{
+                @"state": [self state:sender],
+                @"windowX": @([sender locationInView:nil].x),
+                @"windowY": @([sender locationInView:nil].y),
+                @"locationX": @([sender locationInView:sender.view].x),
+                @"locationY": @([sender locationInView:sender.view].y),
+                @"translateX": @([(UIPanGestureRecognizer *)sender translationInView:nil].x),
+                @"translateY": @([(UIPanGestureRecognizer *)sender translationInView:nil].y),
+                @"velocityX": @([(UIPanGestureRecognizer *)sender velocityInView:nil].x),
+                @"velocityY": @([(UIPanGestureRecognizer *)sender velocityInView:nil].y),
+                @"superX": @([sender locationInView:sender.view.superview].x),
+                @"superY": @([sender locationInView:sender.view.superview].y)
+                };
     }
     else {
-        script = [NSString stringWithFormat:@"window.UXK_TouchCallback('%@', {state: '%@', windowX: %f, windowY: %f, locationX: %f, locationY: %f})",
-                  sender.uxk_callbackID,
-                  [self state:sender],
-                  [sender locationInView:nil].x,
-                  [sender locationInView:nil].y,
-                  [sender locationInView:sender.view].x,
-                  [sender locationInView:sender.view].y];
+        arg = @{
+                @"state": [self state:sender],
+                @"windowX": @([sender locationInView:nil].x),
+                @"windowY": @([sender locationInView:nil].y),
+                @"locationX": @([sender locationInView:sender.view].x),
+                @"locationY": @([sender locationInView:sender.view].y),
+                };
     }
-    [self.bridgeController.webView evaluateJavaScript:script completionHandler:nil];
+    [self.bridgeController.callbackHandler callback:sender.uxk_callbackID args:@[arg]];
 }
 
 - (NSString *)state:(UIGestureRecognizer *)sender {

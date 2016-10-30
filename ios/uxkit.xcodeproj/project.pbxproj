@@ -42,6 +42,7 @@
 		9063A3761D9E2C18002E9AB8 /* UXKNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 9063A3751D9E2C18002E9AB8 /* UXKNav.m */; };
 		90BD6D521DC091D600259570 /* UXKModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD6D511DC091D600259570 /* UXKModal.m */; };
 		90BD6D9F1DC1F70C00259570 /* UXKProps.js in Resources */ = {isa = PBXBuildFile; fileRef = 90BD6D9E1DC1F70C00259570 /* UXKProps.js */; };
+		F0A851BE1DC5CA9E00E9A00F /* UXKBridgeCallbackHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A851BD1DC5CA9E00E9A00F /* UXKBridgeCallbackHandler.m */; };
 		F0B5DA051DC0F96A005EBE91 /* UXKJSComponents.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F0B5DA041DC0F96A005EBE91 /* UXKJSComponents.bundle */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +106,8 @@
 		90BD6D501DC091D600259570 /* UXKModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKModal.h; sourceTree = "<group>"; };
 		90BD6D511DC091D600259570 /* UXKModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKModal.m; sourceTree = "<group>"; };
 		90BD6D9E1DC1F70C00259570 /* UXKProps.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UXKProps.js; sourceTree = "<group>"; };
+		F0A851BC1DC5CA9E00E9A00F /* UXKBridgeCallbackHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UXKBridgeCallbackHandler.h; sourceTree = "<group>"; };
+		F0A851BD1DC5CA9E00E9A00F /* UXKBridgeCallbackHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UXKBridgeCallbackHandler.m; sourceTree = "<group>"; };
 		F0B5DA041DC0F96A005EBE91 /* UXKJSComponents.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UXKJSComponents.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -207,6 +210,8 @@
 				63ADA2AC1D5F6F3A00C13191 /* UXKBridgeController.m */,
 				6339AD261D9D5F230022B605 /* UXKRouter.h */,
 				6339AD271D9D5F230022B605 /* UXKRouter.m */,
+				F0A851BC1DC5CA9E00E9A00F /* UXKBridgeCallbackHandler.h */,
+				F0A851BD1DC5CA9E00E9A00F /* UXKBridgeCallbackHandler.m */,
 				63ADA2AE1D5F71AC00C13191 /* UXKBridgeViewUpdater.h */,
 				63ADA2AF1D5F71AC00C13191 /* UXKBridgeViewUpdater.m */,
 				63AE072E1D97BF3B000E0A20 /* UXKBridgeValueManager.h */,
@@ -421,6 +426,7 @@
 				634A88721D5F5FF70022AC22 /* AppDelegate.m in Sources */,
 				634A886F1D5F5FF70022AC22 /* main.m in Sources */,
 				9063A3761D9E2C18002E9AB8 /* UXKNav.m in Sources */,
+				F0A851BE1DC5CA9E00E9A00F /* UXKBridgeCallbackHandler.m in Sources */,
 				63DEA7571D996F61007265EA /* UIViewController+UXKBridge.m in Sources */,
 				634A88891D5F60A80022AC22 /* UXKBridge.m in Sources */,
 				63ADA2AD1D5F6F3A00C13191 /* UXKBridgeController.m in Sources */,

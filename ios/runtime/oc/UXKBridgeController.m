@@ -11,6 +11,7 @@
 #import "UXKBridgeValueManager.h"
 #import "UXKBridgeTouchUpdater.h"
 #import "UXKBridgeAnimationHandler.h"
+#import "UXKBridgeCallbackHandler.h"
 #import "UXKRouter.h"
 
 @interface UXKBridgeController()
@@ -20,6 +21,7 @@
 @property (nonatomic, strong) UXKBridgeValueManager *valueManager;
 @property (nonatomic, strong) UXKBridgeTouchUpdater *touchUpdater;
 @property (nonatomic, strong) UXKBridgeAnimationHandler *animationHandler;
+@property (nonatomic, strong) UXKBridgeCallbackHandler *callbackHandler;
 @property (nonatomic, strong) UIView *view;
 
 @end
@@ -43,6 +45,7 @@
     [self configureValueManager];
     [self configureTouchUpdater];
     [self configureAnimationHandler];
+    [self configureCallbackHandler];
     [self configureTasks];
     [self configureComponents];
 }
@@ -106,6 +109,11 @@
     [self addScriptMessageHandler:self.animationHandler name:@"UXK_AnimationHandler_Disable"];
     [self addScriptMessageHandler:self.animationHandler name:@"UXK_AnimationHandler_Decay"];
     [self addScriptMessageHandler:self.animationHandler name:@"UXK_AnimationHandler_Stop"];
+}
+
+- (void)configureCallbackHandler {
+    self.callbackHandler = [UXKBridgeCallbackHandler new];
+    self.callbackHandler.bridgeController = self;
 }
 
 - (void)configureTasks {

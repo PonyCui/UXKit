@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class UXKBridgeController;
+
 @interface UXKBridgeCallbackHandler : NSObject
+
+@property (nonatomic, weak) UXKBridgeController *bridgeController;
+
+- (void)callback:(NSString *)callbackID args:(NSArray *)args;
 
 @end

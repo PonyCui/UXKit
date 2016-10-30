@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-@class UXKBridgeViewUpdater, UXKBridgeTouchUpdater, UXKBridgeAnimationHandler;
+@class UXKBridgeViewUpdater, UXKBridgeTouchUpdater, UXKBridgeAnimationHandler, UXKBridgeCallbackHandler;
 
 @interface UXKBridgeController : WKUserContentController
 
@@ -17,6 +17,7 @@
 @property (nonatomic, readonly) UXKBridgeViewUpdater *viewUpdater;
 @property (nonatomic, readonly) UXKBridgeTouchUpdater *touchUpdater;
 @property (nonatomic, readonly) UXKBridgeAnimationHandler *animationHandler;
+@property (nonatomic, readonly) UXKBridgeCallbackHandler *callbackHandler;
 
 - (instancetype)initWithView:(UIView *)view;
 
