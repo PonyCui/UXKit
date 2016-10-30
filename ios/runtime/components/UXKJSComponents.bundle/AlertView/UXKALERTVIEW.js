@@ -58,6 +58,9 @@ window._UXK_Components.ALERTVIEW = {
             $(dom).hide();
         });
         $(dom).find("[vKey='messageLabel']").onLayout(function (frame) {
+            if (frame.sizeChanged !== true) {
+                return;
+            }
             dom._messageFrame = frame;
             if (frame.height <= 26.0) {
                 $(dom).find("[vKey='messageLabel']").attr('align', 'center');
@@ -101,8 +104,7 @@ $.createIMP('show', 'ALERTVIEW', function () {
 
 $.createIMP('hide', 'ALERTVIEW', function () {
     var dom = $(this).get(0);
-    $(dom).find('modal').fadeOut();
-    setTimeout(function () {
+    $(dom).find('modal').fadeOut(function(){
         $(dom).find('modal').hide();
-    }, 300)
+    });
 });

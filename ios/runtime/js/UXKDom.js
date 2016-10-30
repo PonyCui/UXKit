@@ -121,7 +121,6 @@
     });
 
     // Layout
-    window.UXK_LayoutCallbacks = {};
     $.createIMP('onLayout', '*', function(callback){
         $(this).attr('_UXK_LayoutCallbackID', window.ux.createCallback(callback));
         $(this).update(true);
