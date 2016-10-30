@@ -143,13 +143,19 @@
         NSString *callbackID = self.animationParams[@"onChange"];
         [animation setAnimationDidApplyBlock:^(POPAnimation *_) {
             id currentValue = [NSNull null];
+            NSString *outProps = props;
             if ([props isEqualToString:kPOPViewFrame]) {
+                outProps = @"frame";
                 currentValue = [UXKProps stringWithRect:view.frame];
+            }
+            else if ([props isEqualToString:kPOPViewAlpha]) {
+                outProps = @"alpha";
+                currentValue = @(view.alpha);
             }
             [self.bridgeController.callbackHandler callback:callbackID
                                                        args:@[
                                                               [(UXKView *)view visualDOMKey],
-                                                              props,
+                                                              outProps,
                                                               currentValue,
                                                               ]
              ];
@@ -157,11 +163,12 @@
     }
     if ([self.animationParams[@"onComplete"] isKindOfClass:[NSString class]]) {
         NSString *callbackID = self.animationParams[@"onComplete"];
-        [animation setCompletionBlock:^(POPAnimation *_, BOOL __) {
+        [animation setCompletionBlock:^(POPAnimation *_, BOOL didReached) {
             [self.bridgeController.callbackHandler callback:callbackID
                                                        args:@[
                                                               [(UXKView *)view visualDOMKey],
                                                               props,
+                                                              @(didReached),
                                                               ]
              ];
         }];

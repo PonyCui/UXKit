@@ -5,6 +5,7 @@
 </head>
 
 <body margin="auto">
+	<label frame="0,88,100,100">1</label>
 	<SegmentedControl frame="0,100,200,28" title="直播,录播,回看"></SegmentedControl>
 	<!--<AlertView title="启用地理位置" message="是否允许开启定位，酱紫我们才可以更好的给你推荐地点噢~" buttons="确定,取消,删除"></AlertView>-->
 </body>
@@ -22,7 +23,17 @@
 // }, 2000)
 
 setTimeout(function(){
-	$('SegmentedControl').y(500).animate(function(){
+	$('SegmentedControl').alpha(0).animate(10000, {
+		onChange: function(vKey, props, value) {
+			if (props === "alpha") {
+				if (value < 0.5) {
+					$('SegmentedControl').stop();
+				}
+				$('label').text(value);
+				$('label').update();
+			}
+		}
+	}, function(vKey, props, didReached){
 		$('SegmentedControl').fadeOut();
 	});
 }, 2000);
