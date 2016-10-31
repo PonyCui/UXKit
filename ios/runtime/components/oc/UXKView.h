@@ -103,4 +103,11 @@ typedef void(^UXKViewTouchBlock)(NSString *eventType);
  */
 @property (nonatomic, strong) NSValue *willChangeToFrame;
 
+/**
+ Private
+ */
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSValue *> *formatFrameCache;
+
+- (NSString *)requestFormatFrameCacheKey;
+
 @end

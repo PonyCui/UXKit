@@ -314,4 +314,45 @@
     return NO;
 }
 
+- (NSMutableDictionary<NSString *,NSValue *> *)formatFrameCache {
+    if (_formatFrameCache == nil) {
+        _formatFrameCache = [NSMutableDictionary dictionary];
+    }
+    return _formatFrameCache;
+}
+
+- (NSString *)requestFormatFrameCacheKey {
+    NSString *superviewFrameKey = @"super";
+    NSString *prevViewFrameKey = @"prev";
+    NSString *nextViewFrameKey = @"next";
+    if (self.superview != nil) {
+        superviewFrameKey = [NSString stringWithFormat:@"super:%f,%f,%f,%f",
+                             self.superview.frame.origin.x,
+                             self.superview.frame.origin.y,
+                             self.superview.frame.size.width,
+                             self.superview.frame.size.height
+                             ];
+    }
+    NSInteger idx = (NSInteger)[[[self superview] subviews] indexOfObject:self];
+    if (idx - 1 >= 0) {
+        UXKView *previousView = [[self superview] subviews][idx - 1];
+        prevViewFrameKey = [NSString stringWithFormat:@"super:%f,%f,%f,%f",
+                             previousView.frame.origin.x,
+                             previousView.frame.origin.y,
+                             previousView.frame.size.width,
+                             previousView.frame.size.height
+                             ];
+    }
+    if (idx + 1 < [self superview].subviews.count) {
+        UXKView *nextView = [[self superview] subviews][idx + 1];
+        nextViewFrameKey = [NSString stringWithFormat:@"super:%f,%f,%f,%f",
+                            nextView.frame.origin.x,
+                            nextView.frame.origin.y,
+                            nextView.frame.size.width,
+                            nextView.frame.size.height
+                            ];
+    }
+    return [NSString stringWithFormat:@"%@-%@-%@-%@", self.formatFrame, superviewFrameKey, prevViewFrameKey, nextViewFrameKey];
+}
+
 @end

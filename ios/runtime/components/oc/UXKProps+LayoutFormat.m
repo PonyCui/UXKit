@@ -12,6 +12,9 @@
 @implementation UXKProps (LayoutFormat)
 
 + (CGRect)rectWithView:(UXKView *)view format:(NSString *)format {
+    if (view.formatFrameCache[[view requestFormatFrameCacheKey]] != nil) {
+        return [view.formatFrameCache[[view requestFormatFrameCacheKey]] CGRectValue];
+    }
     if (![format containsString:@","]) {
         return CGRectZero;
     }
@@ -23,7 +26,9 @@
     NSString *verticalFormat = [format componentsSeparatedByString:@","].lastObject;
     CGRect horizonRect = [self horizonRectWithView:view format:horizonFormat];
     CGRect verticalRect = [self verticalRectWithView:view format:verticalFormat];
-    return CGRectMake(horizonRect.origin.x, verticalRect.origin.y, horizonRect.size.width, verticalRect.size.height);
+    CGRect rect = CGRectMake(horizonRect.origin.x, verticalRect.origin.y, horizonRect.size.width, verticalRect.size.height);
+    [view.formatFrameCache setObject:[NSValue valueWithCGRect:rect] forKey:[view requestFormatFrameCacheKey]];
+    return rect;
 }
 
 + (BOOL)conflict:(UXKView *)view {
